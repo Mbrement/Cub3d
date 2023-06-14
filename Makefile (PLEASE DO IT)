@@ -1,0 +1,48 @@
+SRCS	=	main.c\
+			\
+
+DIR_SRCS = src/
+
+DIR_LIBFT	=	Libft/
+
+DIR_OBJS = .objs/
+
+DIR_HEAD = ./
+
+OBJS	=	${SRCS:%.c=${DIR_OBJS}%.o}
+
+CC	=	cc
+
+MKDIR	=	mkdir -p
+
+HEADERS	=	cub3d.h
+
+NAME	=	cub3D
+
+CFLAGS	= -Wall -Wextra -Werror 
+
+all :		${NAME}
+
+clean :
+			rm -rf ${DIR_OBJS}
+
+fclean :	clean
+			rm -rf ${NAME}
+
+re :		fclean
+			$(MAKE) all
+
+${DIR_OBJS}%.o:		${DIR_SRCS}%.c    ${addprefix ${DIR_HEAD}, ${HEADERS}} | ${DIR_OBJS}
+					${CC} ${CFLAGS} -I ${DIR_HEAD} -c $< -o $@
+
+${DIR_OBJS}			:
+					${MKDIR} ${DIR_OBJS}
+
+${NAME}	:	${OBJS}
+			${CC} ${CFLAGS} -o ${NAME} ${OBJS} -lm
+
+normy : 
+	norminette $(DIR_SRCS)$(SRCS)
+	norminette $(HEADERS)
+
+.PHONY:		all clean fclean re normy
