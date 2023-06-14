@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/06/14 13:58:56 by mbrement         ###   ########lyon.fr   */
+/*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
+/*   Updated: 2023/06/14 14:08:35 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	main(int argc, char **argv, char **envp)
+void	check_map(char *map)
 {
-	(void)envp;
-	if (argc != 2)
-		return ((void)printf("Wrong number of argument\n"), 1);
-	check_map(argv[1]);
+	if (open(map, R_OK) <= 0)
+	{
+		(void)printf("Unreadable map\n");
+		exit(1);
+	}
+	if (ft_strlen(map) < 5)
+	{
+		(void)printf("Incorrect format of map\n");
+		exit(1);
+	}
+	if (ft_strcmp(map+ft_strlen(map) - 5, ".cub") != 0)
+	{
+		(void)printf("Incorrect format of map\n");
+		exit(1);
+	}
 }

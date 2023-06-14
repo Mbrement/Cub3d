@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/06/14 13:34:36 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/06/14 13:54:13 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,16 @@
 # include <string.h>
 # include "libft/libft.h"
 
-
-
 # define WIN_W 1500
 # define WIN_H 750
 
+int		main(int argc, char **argv, char **envp);
 
-int	main(int argc, char **argv, char **envp);
+//////PARSING//////
+void	check_map(char *map);
+
+//////EXEC//////
+
+//////TOOLS//////
 
 #endif
