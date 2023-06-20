@@ -6,24 +6,26 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/06/14 16:26:47 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 10:35:54 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include <unistd.h>
 
 static void		check_format(char *map, int file_fd);
 static t_map	*check_inside(int file_fd);
 
-void	check_file(char *map)
+t_map	*check_file(char *map)
 {
 	int		file_fd;
 	t_map	*true_map;
 
 	file_fd = open(map, R_OK);
+	if (file_fd <= 0)
+		return ((void)printf("Coundn't open the map\n"), exit(1), NULL);
 	check_format(map, file_fd);
 	true_map = check_inside(file_fd);
+	return (true_map);
 }
 
 static void	check_format(char *map, int file_fd)
@@ -55,10 +57,9 @@ static int	what_is_it(char *str)
 
 	i = 0;
 	result = 0;
-	write(1, "hi\n", 3);
 	while (str && str[i])
 	{
-		if (str[i] == ' ')
+		if (str[i] == ' ' || str[i] == '\n')
 			;
 		else if (str[i] == 'N' && str[i + 1] && str[i + 1] == 'O')
 		{
@@ -104,19 +105,19 @@ int	ft_atoi_rgb(char *str, int i)
 	char	tmp[4];
 	int		rtn;
 
-	if (str[i + 1 == ','])
+	if ((int)ft_strlen(str) >= i + 1 && (str[i + 1] == ',' || str[i + 1]  == ' ' || str[i + 1] == '\n'))
 	{
 		tmp[0] = '0';
 		tmp[1] = '0';
 		tmp[2] = str[i];
 	}
-	if (str[i + 2 == ','])
+	else if ((int)ft_strlen(str) >= i + 2 && (str[i + 2] == ',' || str[i + 2]  == ' ' || str[i + 2] == '\n'))
 	{
 		tmp[0] = '0';
 		tmp[1] = str[i];
 		tmp[2] = str[i + 1];
 	}
-	if (str[i + 3 == ','])
+	else if ((int)ft_strlen(str) >= i + 3 && (str[i + 3]  == ',' || str[i + 3]  == ' ' || str[i + 3] == '\n'))
 	{
 		tmp[0] = str[i];
 		tmp[1] = str[i + 1];
@@ -137,29 +138,44 @@ void	rgb(char *str, t_map *map, int index)
 	int	tmp;
 
 	i = 0;
-	j = 1;
+	j = -1;
 	while (str[i] && j < 3)
 	{
-		while(str[i] == ' ' || str[i] == ',')
+		tmp = -1;
+		while (str[i] && (str[i] == ' ' || str[i] == ','))
 			i++;
 		if (ft_isdigit(str[i]))
+		{
 			tmp = ft_atoi_rgb(str, i);
+			j++;
+			while(ft_isdigit(str[i]))
+				i++;
+		}
+		else
+			break ;
 		if (index == 1)
 			map->celing[j] = tmp;
-		if (index == 1)
+		else if (index == 2)
 			map->floor[j] = tmp;
-		j++;
+		while (str[i] && (str[i] != ' ' && str[i] != ','))
+			i++;
 	}
-	while(str[i] && str[i] == ' ')
+	while (str[i] && str[i] == ' ')
 		i++;
-	if (str[i] && str[i] != ' ')
+	if (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\0')
+	{
+		//debug
+		printf("trigger by : %c at %i of %zu\n", str[i], i, ft_strlen(str) - 1);
+		//end of debug
 		map->floor[0] = -1;
+	}
 }
 
 static void	fill_map(int i_am, char *buffer, t_map *map)
 {
 	int		i;
 	char	*str;
+	char	*tmp;
 
 	i = -1;
 	while (buffer[++i] == ' ')
@@ -168,20 +184,28 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 	while (buffer[++i] == ' ')
 		;
 	str = ft_strdup(buffer + i);
-	if (i_am == 1)
+	if (str[ft_strlen(str) - 1] == '\n')
+		str[ft_strlen(str) - 1] = '\0';
+	tmp = ft_strjoin("./", str);
+	//debug
+	// (void)printf("|%s|\n", tmp);
+	if (i_am == 1 && map->north <= 0)
 		map->north = open(str, R_OK);
-	else if (i_am == 2)
+	else if (i_am == 2  && map->south <= 0)
 		map->south = open(str, R_OK);
-	else if (i_am == 3)
+	else if (i_am == 3 && map->west <= 0)
 		map->west = open(str, R_OK);
-	else if (i_am == 4)
+	else if (i_am == 4 && map->east <= 0)
 		map->east = open(str, R_OK);
 	else if (i_am == 5)
-		rgb(str, map, 1);
+		rgb(buffer + 1, map, 1);
 	else if (i_am == 6)
-		rgb(str, map, 2);
+		rgb(buffer + 1, map, 2);
+	else
+		map->error = 1;
 	free(str);
 	free(buffer);
+	free(tmp);
 }
 
 static t_map	*check_inside(int file_fd)
@@ -191,6 +215,17 @@ static t_map	*check_inside(int file_fd)
 	int		i_am;
 
 	map = malloc(sizeof(t_map));
+	map->north = 0;
+	map->east = 0;
+	map->south = 0;
+	map->west = 0;
+	map->error = 0;
+	map->floor[0] = -1;
+	map->floor[1] = -1;
+	map->floor[2] = -1;
+	map->celing[0] = -1;
+	map->celing[1] = -1;
+	map->celing[2] = -1;
 	while (1)
 	{
 		buffer = get_next_line(file_fd);
@@ -200,16 +235,17 @@ static t_map	*check_inside(int file_fd)
 		if (i_am < 0)
 		{
 			(void)printf("Incorrect line in the map\n");
-			while(buffer)
+			while (buffer)
 			{	
 				free(buffer);
 				buffer = get_next_line(file_fd);
 			}
-			close(file_fd);
-			exit(1);
+			(void)close(file_fd);
+			(void)exit(1);
 		}
 		else if (i_am > 0)
 			fill_map(i_am, buffer, map);
 	}
+	free(buffer);
 	return (map);
 }

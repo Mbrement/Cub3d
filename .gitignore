@@ -1,9 +1,11 @@
 # Prerequisites
 *.d
 *.tgz
+
 # Project
 cub3D
 test_*
+a.out
 
 # Object files
 *.o
