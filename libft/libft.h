@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:30:05 by mbrement          #+#    #+#             */
-/*   Updated: 2023/04/22 17:02:58 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/10 21:11:15 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strjoin_free(char *s1, char const *s2);
 char	*ft_straddback(char *s1, char const s2);
 void	ft_print_tab(char **str);
+void	nfree(void *target);
 
 #endif
