@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:07:43 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/10 15:00:24 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/10 20:59:36 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
 
 #define BUFFER_SIZE 1
 
