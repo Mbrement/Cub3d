@@ -1,64 +1,47 @@
-SRCS	=	main.c\
-			\
-			error.c\
-			check_map.c\
+NAME := cub3d
 
-DIR_SRCS = src/
+DIR_OBJS := .objs
+DIR_SRCS := src
+DIR_INCS := incs
+DIR_LIBFT := libft
+DIR_MLX := mlx
 
-DIR_LIBFT	=	Libft/
+CC := gcc
+CSAN := -fsanitize=address -g3
+CFLAGS := -Wall -Wextra -Werror
+RM := rm -rf
 
-DIR_OBJS = .objs/
+LST_SRCS := $(wildcard $(DIR_SRCS)/*/*.c)
+LST_OBJS := $(LST_SRCS:$(DIR_SRCS)/%.c=$(DIR_OBJS)/%.o)
+LST_INCS := include.h
 
-DIR_HEAD = ./
+SRCS := $(LST_SRCS)
+OBJS := $(LST_OBJS)
+INCS := $(addprefix $(DIR_INCS)/,$(LST_INCS))
 
-OBJS	=	${SRCS:%.c=${DIR_OBJS}%.o}
+all: deps $(NAME)
 
-CC	=	cc
+deps:
+	@$(MAKE) --no-print-directory -C $(DIR_LIBFT)
+	@$(MAKE) --no-print-directory -C $(DIR_MLX)
 
-MKDIR	=	mkdir -p
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@  $(DIR_LIBFT)/libft.a $(DIR_MLX)/libmlx.a $(MLXFLAGS)
 
-HEADERS	=	cub3d.h\
-			libft/libft.h\
+$(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c $(DIR_INCS)/$(LST_INCS) | $(DIR_OBJS)
+	$(CC) $(CFLAGS) -I $(DIR_INCS) -Imlx -c $< -o $@
 
-NAME	=	cub3D
+$(DIR_OBJS):
+	mkdir -p $(DIR_OBJS)
 
-LIBFT		=	libft.a
+clean:
+	$(RM) $(DIR_OBJS)
+	make clean -C ${DIR_LIBFT}
+	make clean -C ${DIR_MLX}
 
-DIR_LIBFT	=	libft/
+fclean: clean
+	$(RM) $(NAME)
+	make fclean -C ${DIR_LIBFT}
+	make clean -C ${DIR_MLX}
 
-CFLAGS	= -Wall -Wextra -Werror 
-
-all :		${NAME}
-
-clean :		fclean_lib
-			rm -rf ${DIR_OBJS}
-
-fclean :	clean
-			rm -rf ${NAME}
-
-re :		fclean
-			$(MAKE) all
-
-${addprefix ${DIR_LIBFT}, ${LIBFT}}	:
-		make ${LIBFT} -C ${DIR_LIBFT}
-
-${DIR_OBJS}%.o:		${DIR_SRCS}%.c    ${addprefix ${DIR_HEAD}, ${HEADERS}} | ${DIR_OBJS}  ${addprefix ${DIR_LIBFT}, ${LIBFT}}
-					${CC} ${CFLAGS} -I ${DIR_HEAD} -c $< -o $@
-
-${DIR_OBJS}			:
-					${MKDIR} ${DIR_OBJS}
-
-${NAME}	:	${OBJS}
-			${CC} ${CFLAGS} -o ${NAME} ${OBJS} -L${DIR_LIBFT} -lm
-
-
-fclean_lib		:
-					make fclean -C ${DIR_LIBFT}
-
-normy : 
-	norminette $(DIR_SRCS)$(SRCS)
-	norminette $(HEADERS)
-
-
-
-.PHONY:		all clean fclean re normy fclean_lib
+re: fclean all
