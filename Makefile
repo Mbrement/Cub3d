@@ -1,23 +1,23 @@
-NAME := cub3d
+NAME		:= cub3d
 
-DIR_OBJS := .objs
-DIR_SRCS := src
-DIR_INCS := incs
-DIR_LIBFT := libft
-DIR_MLX := mlx
+DIR_OBJS	:= .objs
+DIR_SRCS	:= src
+DIR_INCS	:= include
+DIR_LIBFT	:= libft
+DIR_MLX		:= mlx
 
-CC := gcc
-CSAN := -fsanitize=address -g3
-CFLAGS := -Wall -Wextra -Werror
-RM := rm -rf
+CC			:= gcc
+CSAN		:= -fsanitize=address -g3
+CFLAGS		:= -Wall -Wextra -Werror
+RM			:= rm -rf
 
-LST_SRCS := $(wildcard $(DIR_SRCS)/*/*.c)
-LST_OBJS := $(LST_SRCS:$(DIR_SRCS)/%.c=$(DIR_OBJS)/%.o)
-LST_INCS := include.h
+LST_SRCS	:= check_map.c tmp.c main.c
+LST_OBJS	:= $(LST_SRCS:.c=.o)
+LST_INCS	:= cub3d.h
 
-SRCS := $(LST_SRCS)
-OBJS := $(LST_OBJS)
-INCS := $(addprefix $(DIR_INCS)/,$(LST_INCS))
+SRCS		:= $(addprefix $(DIR_SRCS)/,$(LST_SRCS))
+OBJS		:= $(addprefix $(DIR_OBJS)/,$(LST_OBJS))
+INCS		:= $(addprefix $(DIR_INCS)/,$(LST_INCS))
 
 all: deps $(NAME)
 
@@ -28,7 +28,7 @@ deps:
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@  $(DIR_LIBFT)/libft.a $(DIR_MLX)/libmlx.a $(MLXFLAGS)
 
-$(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c $(DIR_INCS)/$(LST_INCS) | $(DIR_OBJS)
+$(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c $(INCS) Makefile $(DIR_INCS)/$(LST_INCS)| $(DIR_OBJS)
 	$(CC) $(CFLAGS) -I $(DIR_INCS) -Imlx -c $< -o $@
 
 $(DIR_OBJS):
