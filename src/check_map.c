@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/10 21:05:50 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/10 23:28:39 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,12 @@ int	ft_atoi_rgb(char *str, int i)
 		tmp[1] = str[i + 1];
 		tmp[2] = str[i + 2];
 	}
+	else
+	{
+		tmp[0] = '-';
+		tmp[1] = '1';
+		tmp[2] = '0';
+	}
 	tmp[3] = '\0';
 	rtn = ft_atoi(tmp);
 	if (rtn > 255)
@@ -181,13 +187,13 @@ void	rgb(char *str, t_map *map, int index)
 	while (str[i] && j < 3)
 	{
 		tmp = -1;
-		while (str[i] && (str[i] == ' ' || str[i] == ',' /*|| str[i] == '0'*/))
+		while (str[i] && (str[i] == ' ' || str[i] == ',' || str[i] == '0'))
 			i++;
 		if (ft_isdigit(str[i]))
 		{
 			tmp = ft_atoi_rgb(str, i);
 			j++;
-			while(ft_isdigit(str[i]))
+			while (ft_isdigit(str[i]))
 				i++;
 		}
 		else
