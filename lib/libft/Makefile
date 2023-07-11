@@ -52,6 +52,7 @@ SRCS	= 	ft_atoi.c \
 				nfree.c\
 				add_tab.c\
 				ft_tablen.c\
+				norme_tab.c\
 
 
 DIR_SRCS = src/
