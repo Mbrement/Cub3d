@@ -50,6 +50,9 @@ SRCS	= 	ft_atoi.c \
 				ft_lstfree.c\
 				ft_isdigit_str.c\
 				nfree.c\
+				add_tab.c\
+				ft_tablen.c\
+
 
 DIR_SRCS = src/
 

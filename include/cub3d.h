@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/10 21:09:17 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/11 13:52:28 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include "../libft/libft.h"
+# include "../lib/libft/libft.h"
+# include "../lib/mlx/mlx.h"
 
 # define WIN_W 1500
 # define WIN_H 750

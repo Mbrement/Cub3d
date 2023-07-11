@@ -3,8 +3,8 @@ NAME		:= cub3d
 DIR_OBJS	:= .objs
 DIR_SRCS	:= src
 DIR_INCS	:= include
-DIR_LIBFT	:= libft
-DIR_MLX		:= mlx
+DIR_LIBFT	:= lib/libft
+DIR_MLX		:= lib/mlx
 
 CC			:= gcc
 CSAN		:= -fsanitize=address -g3
