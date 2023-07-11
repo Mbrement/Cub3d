@@ -296,7 +296,29 @@ static t_map	check_inside(int file_fd)
 		else if (i_am > 0)
 			fill_map(i_am, buffer, &map);
 		nfree(buffer);
+		if (map.celing_color &&map.east &&map.west &&map.south &&map.north &&map.floor_color)
+			break;
 	}
+	while(1)
+	{
+		buffer = get_next_line(file_fd);
+		if (!buffer)
+		{
+			(void)printf("No map in map file\n");
+			end_of_prog(map);
+			exit(1);
+		}
+		else if (buffer[0] && buffer[0] != '\n')
+		{
+			(void)printf("Incorrect line in the map\n");
+			end_of_prog(map);
+			exit(1);
+		}
+		nfree(buffer);
+	}
+	//
+	// parsing de la map here
+	//
 	nfree(buffer);
 	return (map);
 }
