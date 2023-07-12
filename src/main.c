@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/10 21:08:51 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/12 10:59:19 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ int	main(int argc, char **argv, char **envp)
 	//debug
 	printf("floor : %i|%i|%i|%i\nceling : %i|%i|%i|%i|\n", map.floor[0], map.floor[1], map.floor[2], map.floor_color, map.celing[0], map.celing[1], map.celing[2], map.celing_color);
 	printf("north %i| south %i| east %i| west%i\n", map.north, map.south, map.east, map.west);
-	//end of debug
 	printf("sucess\n");
+	//end of debug
+	ft_mlx(map);
 	end_of_prog(map);
 	// free(map);
 }

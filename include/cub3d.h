@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/11 13:52:28 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/12 11:22:29 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h>
 # include "../lib/libft/libft.h"
 # include "../lib/mlx/mlx.h"
+# include "../lib/mlx/mlx_int.h"
 
 # define WIN_W 1500
 # define WIN_H 750
@@ -51,6 +52,10 @@ int		main(int argc, char **argv, char **envp);
 t_map	check_file(char *map);
 
 //////EXEC//////
+
+
+//////MLX//////
+void	ft_mlx(t_map map);
 
 //////TOOLS//////
 void	end_of_prog(t_map map);
