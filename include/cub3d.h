@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/12 11:22:29 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/12 16:38:44 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,25 @@
 
 typedef struct s_map
 {
-	int	north;
-	int	west;
-	int	east;
-	int	south;
-	int	north_found;
-	int	west_found;
-	int	east_found;
-	int	south_found;
-	int	celing_found;
-	int	floor_found;
-	int	celing[3];
-	int	floor[3];
-	int	celing_color;
-	int	floor_color;
-	int	error;
+	int		north;
+	int		west;
+	int		east;
+	int		south;
+	int		north_found;
+	int		west_found;
+	int		east_found;
+	int		south_found;
+	int		celing_found;
+	int		floor_found;
+	char	*north_file;
+	char	*west_file;
+	char	*east_file;
+	char	*south_file;
+	int		celing[3];
+	int		floor[3];
+	int		celing_color;
+	int		floor_color;
+	int		error;
 }		t_map;
 
 int		main(int argc, char **argv, char **envp);
