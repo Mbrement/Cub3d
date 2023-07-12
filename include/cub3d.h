@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/12 16:38:44 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/12 17:52:27 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_map
 	int		celing_color;
 	int		floor_color;
 	int		error;
+	char	**map;
 }		t_map;
 
 int		main(int argc, char **argv, char **envp);
