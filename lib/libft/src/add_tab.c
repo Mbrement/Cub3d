@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "../libft.h"
+#include <stdio.h>
 
-void	add_tab(char **tab, char *str)
+char	**add_tab(char **tab, char *str)
 {
 	int		i;
 	char	**new_tab;
@@ -26,5 +27,7 @@ void	add_tab(char **tab, char *str)
 	}
 	new_tab[i] = ft_strdup(str);
 	new_tab[i + 1] = NULL;
+	free(str);
 	free_tab(tab);
+	return (new_tab);
 }

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/12 14:29:37 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/12 15:18:18 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdio.h>
 
 static void		check_format(char *map, int file_fd);
 static t_map	check_inside(int file_fd);
@@ -256,6 +257,7 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 
 static t_map	check_inside(int file_fd)
 {
+	char 	**maps;
 	char	*buffer;
 	t_map	map;
 	int		i_am;
@@ -320,9 +322,26 @@ static t_map	check_inside(int file_fd)
 		else if (buffer[0] && buffer[0] != '\n')
 			break;
 	}
-	
-	// parsing of the map here, buffer is the line supposed to be the first of the map
-	
+	maps = malloc(sizeof(char *) * 2);
+	if (!maps)
+	{
+		(void)printf("Malloc error\n");
+		end_of_prog(map);
+		exit(1);
+	}
+	maps[0] = ft_strdup(buffer);
+	maps[1] = NULL;
+	nfree((void **)&buffer);
+	while (1)
+	{
+		buffer = get_next_line(file_fd);
+		if (!buffer)
+			break ;
+		maps = add_tab(maps, buffer);
+	}
+	maps = norme_tab(maps);
+	map.map = maps;
+	(void)close(file_fd);
 	nfree((void **)&buffer);
 	nfree((void **)&buffer);
 	return (map);

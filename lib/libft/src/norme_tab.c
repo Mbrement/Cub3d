@@ -31,6 +31,37 @@ char	*ft_strnew(int size)
 	return (str);
 }
 
+char	*join_free(char *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (free(s1), NULL);
+	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (free(s1), NULL);
+	while (s1[i] || s1[i] == '\n')
+	{
+		str[i] = s1[i];
+		i ++;
+	}
+	i--;
+	while (s2[j])
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
+	str[i] = '\n';
+	str[i + 1] = '\0';
+	free(s1);
+	return (str);
+}
+
 char	**norme_tab(char **tab)
 {
 	size_t	i;
@@ -49,7 +80,7 @@ char	**norme_tab(char **tab)
 	{
 		if (ft_strlen(tab[i]) < max)
 		{
-			tab[i] = ft_strjoin_free(tab[i],
+			tab[i] = join_free(tab[i],
 					ft_strnew(max - ft_strlen(tab[i])));
 			if (!tab[i])
 				return (NULL);
