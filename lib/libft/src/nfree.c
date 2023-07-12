@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   nfree.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 15:59:35 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/11 14:42:10 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/12 10:50:16 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	nfree(void *target)
+void	nfree(void **target)
 {
-	if (target != NULL)
-		free(target);
-	target = NULL;
+	free(*target);
+	*target = NULL;
 }

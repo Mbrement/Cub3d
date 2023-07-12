@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/10 23:28:39 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/12 10:52:55 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,8 +248,8 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 		rgb(buffer + 1, map, 2);
 	else
 		map->error = 1;
-	nfree(str);
-	nfree(tmp);
+	nfree((void **)&str);
+	nfree((void **)&tmp);
 }
 
 static t_map	check_inside(int file_fd)
@@ -257,6 +257,7 @@ static t_map	check_inside(int file_fd)
 	char	*buffer;
 	t_map	map;
 	int		i_am;
+	int		count;
 
 	map.north = -1;
 	map.east = -1;
@@ -275,6 +276,9 @@ static t_map	check_inside(int file_fd)
 	map.south_found = 0;
 	map.celing_found = 0;
 	map.floor_found = 0;
+	map.floor_color = 0;
+	map.celing_color = 0;
+	count = 0;
 	while (1)
 	{
 		buffer = get_next_line(file_fd);
@@ -286,7 +290,7 @@ static t_map	check_inside(int file_fd)
 			(void)printf("Incorrect line in the map\n");
 			while (buffer)
 			{	
-				nfree(buffer);
+				nfree((void **)&buffer);
 				buffer = get_next_line(file_fd);
 			}
 			(void)close(file_fd);
@@ -294,9 +298,12 @@ static t_map	check_inside(int file_fd)
 			exit(1);
 		}
 		else if (i_am > 0)
+		{
+			count++;
 			fill_map(i_am, buffer, &map);
-		nfree(buffer);
-		if (map.celing_color &&map.east &&map.west &&map.south &&map.north &&map.floor_color)
+		}
+		nfree((void **)&buffer);
+		if (count >=6)
 			break;
 	}
 	while(1)
@@ -309,16 +316,12 @@ static t_map	check_inside(int file_fd)
 			exit(1);
 		}
 		else if (buffer[0] && buffer[0] != '\n')
-		{
-			(void)printf("Incorrect line in the map\n");
-			end_of_prog(map);
-			exit(1);
-		}
-		nfree(buffer);
+			break;
 	}
-	//
-	// parsing de la map here
-	//
-	nfree(buffer);
+	
+	// parsing of the map here, buffer is the line supposed to be the first of the map
+	
+	nfree((void **)&buffer);
+	nfree((void **)&buffer);
 	return (map);
 }

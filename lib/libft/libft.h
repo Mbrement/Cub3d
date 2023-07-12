@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:30:05 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/11 15:09:00 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/12 10:50:38 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strjoin_free(char *s1, char const *s2);
 char	*ft_straddback(char *s1, char const s2);
 void	ft_print_tab(char **str);
-void	nfree(void *target);
+void	nfree(void **target);
 int		ft_tablen(char **tab);
 void	add_tab(char **tab, char *str);
 char	**norme_tab(char **tab);
