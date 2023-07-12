@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/12 10:59:19 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/12 14:27:05 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@ void	death_map(t_map *map)
 	if (map->floor[0] < 0 || map->floor[1] < 0 || map->floor[2] < 0)
 	{
 		(void)printf("Can't find RGB\n");
+		printf("trigger  %i %i %i\n", map->celing[0],map->celing[1],map->celing[2]);
 		end_of_prog(*map);
 		exit(1);
 	}
 	if (map->celing[0] < 0 || map->celing[1] < 0 || map->celing[2] < 0)
 	{
 		(void)printf("Can't find RGB\n");
+				printf("trigger 2 %i %i %i\n", map->celing[0],map->celing[1],map->celing[2]);
 		end_of_prog(*map);
 		exit(1);
 	}
