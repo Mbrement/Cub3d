@@ -6,11 +6,12 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/13 15:08:09 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/13 16:55:07 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <unistd.h>
 
 void	death_map(t_map *map);
 
@@ -29,8 +30,9 @@ void	end_of_prog(t_map map)
 int	main(int argc, char **argv, char **envp)
 {
 	(void)envp;
-	t_map map;
+	t_map	map;
 
+	map.map = NULL;
 	if (argc != 2)
 		return ((void)printf("Wrong number of argument\n"), 1);
 	map = check_file(argv[1]);
@@ -39,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	printf("floor : %i|%i|%i|%i\nceling : %i|%i|%i|%i|\n", map.floor[0], map.floor[1], map.floor[2], map.floor_color, map.celing[0], map.celing[1], map.celing[2], map.celing_color);
 	printf("north %i| south %i| east %i| west%i\n", map.north, map.south, map.east, map.west);
 	printf("map:\n");
-	int i;
+	int i = 0;
 	while (map.map[++i])
 		printf("%s", map.map[i]);
 	printf("sucess\n");
