@@ -98,7 +98,7 @@ int	death_around(char **temp_maps, int x, int y)
 		return (1);
 	if (temp_maps[x][y + 1] == ' ')
 		return (1);
-	if (temp_maps[x][y - 1] == ' ')
+	if (!temp_maps[x][y - 1] || temp_maps[x][y - 1] == ' ')
 		return (1);
 	return (0);
 }

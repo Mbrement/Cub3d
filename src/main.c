@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/13 15:22:11 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:48:05 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	printf("floor : %i|%i|%i|%i\nceling : %i|%i|%i|%i|\n", map.floor[0], map.floor[1], map.floor[2], map.floor_color, map.celing[0], map.celing[1], map.celing[2], map.celing_color);
 	printf("north %i| south %i| east %i| west%i\n", map.north, map.south, map.east, map.west);
 	printf("map:\n");
-	int i = 0;
-	while (map.map[++i])
-		printf("%s", map.map[i]);
+	ft_print_tab(map.map);
 	printf("sucess\n");
 	//end of debug
 	ft_mlx(map);
