@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/12 17:48:33 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/12 17:57:58 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_mlx(t_map map)
 	mlx_put_image_to_window(mlx_init_ptr, mlx_win_ptr, mlx_img_ptr, *a, 0);
 	mlx_put_image_to_window(mlx_init_ptr, mlx_win_ptr, mlx_img_ptr, *a, *b);
 	mlx_put_image_to_window(mlx_init_ptr, mlx_win_ptr, mlx_img_ptr, 0, *b);
-	sleep(2);
+	sleep(15);
 	mlx_destroy_image(mlx_init_ptr, mlx_img_ptr);
 	mlx_destroy_window(mlx_init_ptr, mlx_win_ptr);
 	mlx_destroy_display(mlx_init_ptr);
