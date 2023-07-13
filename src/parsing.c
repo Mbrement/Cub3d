@@ -153,5 +153,6 @@ int	check_walls(t_map map)
 		end_of_prog(map);
 		exit(1);
 	}
+	free_tab(tmp_map);
 	return (1);
 }
