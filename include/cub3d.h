@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/13 16:53:09 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/13 21:23:22 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ typedef struct s_mlx
 	t_wall	wall;	
 }		t_mlx;
 
+typedef struct s_player
+{
+	float	pos_x;
+	float	pos_y;
+	float	look;
+}	t_player;
+
 int		main(int argc, char **argv, char **envp);
 
 //////PARSING//////
@@ -89,6 +96,7 @@ int		locate_player_y(char **maps);
 
 //////MLX//////
 void	ft_mlx(t_map map);
+int		ft_hook(int key);
 
 //////TOOLS//////
 void	end_of_prog(t_map map);

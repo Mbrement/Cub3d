@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/13 17:55:52 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/13 21:40:21 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,26 @@ void	ft_mlx(t_map map)
 	mlx_destroy_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr);
 	mlx_destroy_display(mlx.mlx_init_ptr);
 }
+//debug
+int ft_exit(int i)
+{
+	exit(i);
+	return(0);
+}
+//endofdebug
 
 void	create_map(t_mlx mlx, t_map map)
 {
+	//debug
 	(void)map;
+	//endofdebug
 	mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.north, 0, 0); 
 	mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.south, 0, *mlx.wall.south_lenth * 7);
 	mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.east, *mlx.wall.east_height * 7, 0);
 	mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.west, *mlx.wall.west_height * 7, *mlx.wall.west_lenth * 7);
+	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
+	mlx_key_hook(mlx.mlx_win_ptr, ft_hook, NULL);
+	mlx_loop(mlx.mlx_init_ptr);
 }
 
 t_wall	put_img_in_wall(t_map map, t_mlx mlx)
