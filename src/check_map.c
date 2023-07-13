@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/12 15:18:18 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:06:49 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ static int	what_is_it(char *str, t_map *map)
 			;
 		else if (str[i] == 'N' && str[i + 1] && str[i + 1] == 'O')
 		{
-			result = 1;	
+			result = 1;
 			map->north_found += 1;
-			break ;
 			if (map->north_found != 1)
 			{
 				printf("2 of the same parameter in map\n");
 				result = -1;
 			}
+			break ;
 		}
 		else if (str[i] == 'S' && str[i + 1] && str[i + 1] == 'O')
 		{
@@ -102,12 +102,12 @@ static int	what_is_it(char *str, t_map *map)
 		{
 			result = 4;
 			map->east_found += 1;
-			break ;
 			if (map->east_found != 1)
 			{
 				printf("2 of the same parameter in map\n");
 				result = -1;
 			}
+			break ;
 		}
 		else if (str[i] == 'C')
 		{
@@ -124,12 +124,12 @@ static int	what_is_it(char *str, t_map *map)
 		{
 			result = 6;
 			map->floor_found += 1;
-			break ;
 			if (map->floor_found != 1)
 			{
 				printf("2 of the same parameter in map\n");
 				result = -1;
 			}
+			break ;
 		}
 		else
 		{
@@ -238,13 +238,25 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 	//debug
 	// (void)printf("|%s|\n", tmp);
 	if (i_am == 1 && map->north <= 0)
+	{
+		map->north_file = ft_strdup(str);
 		map->north = open(str, R_OK);
+	}
 	else if (i_am == 2  && map->south <= 0)
+	{
+		map->south_file = ft_strdup(str);
 		map->south = open(str, R_OK);
+	}
 	else if (i_am == 3 && map->west <= 0)
+	{
+		map->west_file = ft_strdup(str);
 		map->west = open(str, R_OK);
+	}
 	else if (i_am == 4 && map->east <= 0)
+	{
+		map->east_file = ft_strdup(str);
 		map->east = open(str, R_OK);
+	}
 	else if (i_am == 5)
 		rgb(buffer + 1, map, 1);
 	else if (i_am == 6)
