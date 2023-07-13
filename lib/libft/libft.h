@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:30:05 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/12 15:03:19 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:30:53 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ void	nfree(void **target);
 int		ft_tablen(char **tab);
 char	**add_tab(char **tab, char *str);
 char	**norme_tab(char **tab);
+char	*ft_strnew(int size);
 
 #endif

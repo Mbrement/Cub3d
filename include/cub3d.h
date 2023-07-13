@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/12 17:52:27 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/13 16:42:36 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,20 @@ typedef struct s_map
 	int		floor_color;
 	int		error;
 	char	**map;
+	int		player_x;
+	int		player_y;
 }		t_map;
 
 int		main(int argc, char **argv, char **envp);
 
 //////PARSING//////
 t_map	check_file(char *map);
+int		check_chr_map(char **maps);
+int		check_walls(t_map map);
+int		locate_player_x(char **maps);
+int		locate_player_y(char **maps);
 
 //////EXEC//////
-
 
 //////MLX//////
 void	ft_mlx(t_map map);
