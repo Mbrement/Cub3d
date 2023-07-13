@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/13 16:42:36 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:53:09 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,29 @@ typedef struct s_map
 	int		player_x;
 	int		player_y;
 }		t_map;
+
+typedef struct s_wall
+{
+	void	*north;
+	int		*north_height;
+	int		*north_lenth;
+	void	*east;
+	int		*east_height;
+	int		*east_lenth;
+	void	*west;
+	int		*west_height;
+	int		*west_lenth;
+	void	*south;
+	int		*south_height;
+	int		*south_lenth;
+}		t_wall;
+
+typedef struct s_mlx
+{
+	void	*mlx_init_ptr;
+	void	*mlx_win_ptr;
+	t_wall	wall;	
+}		t_mlx;
 
 int		main(int argc, char **argv, char **envp);
 
