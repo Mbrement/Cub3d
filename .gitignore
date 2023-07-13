@@ -3,6 +3,7 @@
 *.tgz
 
 # Project
+cub3D
 cub3d
 test_*
 a.out
