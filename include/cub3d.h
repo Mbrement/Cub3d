@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/13 21:23:22 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/14 05:45:17 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,21 @@ typedef struct s_wall
 	int		*south_lenth;
 }		t_wall;
 
-typedef struct s_mlx
-{
-	void	*mlx_init_ptr;
-	void	*mlx_win_ptr;
-	t_wall	wall;	
-}		t_mlx;
-
 typedef struct s_player
 {
 	float	pos_x;
 	float	pos_y;
 	float	look;
 }	t_player;
+
+typedef struct s_mlx
+{
+	void		*mlx_init_ptr;
+	void		*mlx_win_ptr;
+	t_wall		wall;	
+	t_player	*player;
+}		t_mlx;
+
 
 int		main(int argc, char **argv, char **envp);
 
@@ -96,7 +98,8 @@ int		locate_player_y(char **maps);
 
 //////MLX//////
 void	ft_mlx(t_map map);
-int		ft_hook(int key);
+int		ft_hook(int key, t_player *player);
+void	put_player(t_mlx mlx, t_player player, int color);
 
 //////TOOLS//////
 void	end_of_prog(t_map map);
