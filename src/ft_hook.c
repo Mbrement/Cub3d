@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/14 07:30:36 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/14 10:46:32 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	ft_hook(int key, t_player *player)
 // up_arrow 65362
 // down_arrow 65364
 // W 119
-// Q 97
+// A 97
 // S 115
 // D 100
 // escape 65307
-// q  113
-// e 101
+// Q  113
+// E 101

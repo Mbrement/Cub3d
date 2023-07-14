@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/14 05:45:17 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/14 11:07:04 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,10 @@ int		locate_player_y(char **maps);
 void	ft_mlx(t_map map);
 int		ft_hook(int key, t_player *player);
 void	put_player(t_mlx mlx, t_player player, int color);
+
+
+//////MATH//////
+void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color);
 
 //////TOOLS//////
 void	end_of_prog(t_map map);

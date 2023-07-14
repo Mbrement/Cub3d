@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/14 06:16:12 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/14 11:18:49 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_dmg_control(int key, t_mlx *mlx)
 	put_player(*mlx, *mlx->player, 0);
 	ft_hook(key, mlx->player);
 	put_player(*mlx, *mlx->player, UINT32_MAX);
-	ray (*mlx, *mlx->player, UINT32_MAX);
+	ray (*mlx, *mlx->player, 0);
 	return (1);
 }
 

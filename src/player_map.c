@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 22:21:20 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/14 08:30:57 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/14 11:20:14 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void	put_player(t_mlx mlx, t_player player, int color)
 
 void ray (t_mlx mlx, t_player player, int rgb)
 {
+	(void)player;
+	(void)rgb;
+	bresenham_cub(mlx, (float) *mlx.wall.east_lenth * 4, (float) *mlx.wall.east_lenth * 44, 0xfc0303);
+	/*
 	float x;
 	float y;
 	// float W;
@@ -65,5 +69,5 @@ void ray (t_mlx mlx, t_player player, int rgb)
 		{
 			while (y++ < player.pos_y)
 				mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, player.pos_x , y + player.pos_y, rgb);
-		}
+		}*/
 }
