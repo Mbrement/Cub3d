@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/14 10:46:32 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 15:54:09 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	ft_hook(int key, t_player *player)
 		printf("%f %f\n", player->pos_x, player->pos_y);
 		player->look += 5;
 	}
-	if (player->look <= 0)
+	while (player->look < 0)
 		player->look += 360;
-	if (player->look >= 360)
+	while (player->look >= 360)
 		player->look -= 360;
 	return (0);
 }

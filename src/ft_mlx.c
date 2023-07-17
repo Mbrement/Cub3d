@@ -6,15 +6,14 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/14 11:18:49 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 16:41:47 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <stdint.h>
 
-
-void ray (t_mlx mlx, t_player player, int rgb);
+void	ray(t_mlx mlx, t_player player, int rgb);
 t_wall	put_img_in_wall(t_map map, t_mlx mlx);
 void	create_map(t_mlx mlx, t_map map);
 
@@ -48,12 +47,11 @@ void	ft_mlx(t_map map)
 
 int	ft_dmg_control(int key, t_mlx *mlx)
 {
-	
 	ray (*mlx, *mlx->player, 0);
 	put_player(*mlx, *mlx->player, 0);
 	ft_hook(key, mlx->player);
 	put_player(*mlx, *mlx->player, UINT32_MAX);
-	ray (*mlx, *mlx->player, 0);
+	ray (*mlx, *mlx->player, UINT32_MAX);
 	return (1);
 }
 

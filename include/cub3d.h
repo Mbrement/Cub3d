@@ -6,14 +6,14 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/14 11:07:04 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 15:50:18 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "math.h"
+# include <math.h>
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <unistd.h>
@@ -26,6 +26,7 @@
 
 # define WIN_W 1500
 # define WIN_H 750
+# define PI
 
 typedef struct s_map
 {

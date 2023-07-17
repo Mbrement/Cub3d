@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 22:21:20 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/16 11:24:05 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 16:41:59 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,47 +27,18 @@ void	put_player(t_mlx mlx, t_player player, int color)
 
 void ray (t_mlx mlx, t_player player, int rgb)
 {
+	float 	x_angle;
+	float	y_angle;
+	float	cor;
+	float	radiant;
+
 	(void)player;
-	(void)rgb;
-	bresenham_cub(mlx, (float) *mlx.wall.east_lenth * 4, (float) *mlx.wall.east_lenth * 4, 0xfc0303);
-	/*
-	float x;
-	float y;
-	// float W;
-	// float H;
-
-	// W = (float) *mlx.wall.east_height * 8;
-	// H = (float) *mlx.wall.east_lenth * 8;
-	y = 0;
-
-	if (player.look < 90)
-		{
-			while (y++ < player.pos_y)
-			{	x = 0;
-				while (x++ < player.pos_x)
-				{
-					mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x , player.pos_y, rgb);
-					if ((int)1/(x / player.pos_x) == (int)1/(y / player.pos_y))
-					{
-						mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x , y, rgb);
-						mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x - 1/(x / player.pos_x) , y - 1/(y / player.pos_y), rgb);
-					}
-				}
-			}
-		}
-	else if (player.look < 180)
-		{
-			while (y++ < player.pos_y)
-				mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, player.pos_x , y, rgb);
-		}
-	else if (player.look < 270)
-		{
-			while (x++ < player.pos_x)
-				mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x + player.pos_x  , player.pos_y, rgb);
-		}
-	else if (player.look <= 360)
-		{
-			while (y++ < player.pos_y)
-				mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, player.pos_x , y + player.pos_y, rgb);
-		}*/
+	cor = -30.0;
+	radiant = M_PI / 180;
+	while (cor ++ < 30)
+	{
+		x_angle = sinf((mlx.player->look + cor) * radiant) * 300 + mlx.player->pos_x;
+		y_angle = cosf((mlx.player->look + cor) * radiant) * 300 + mlx.player->pos_y;
+		bresenham_cub(mlx, x_angle, y_angle, rgb);
+	}
 }
