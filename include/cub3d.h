@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/18 11:40:45 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/18 14:25:50 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_mlx
 	t_wall		wall;	
 	t_player	*player;
 	t_data		*data;
+	t_data		*org;
 }		t_mlx;
 
 
@@ -112,6 +113,7 @@ void	ft_mlx(t_map map);
 int		ft_hook(int key, t_player *player);
 void	put_player(t_mlx mlx, t_player player, int color);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
+void	map_img(t_mlx *mlx, t_map map);
 
 
 //////MATH//////
