@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/17 15:50:18 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/18 11:40:45 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@
 # define WIN_W 1500
 # define WIN_H 750
 # define PI
+
+typedef struct s_data{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 typedef struct s_map
 {
@@ -81,8 +89,10 @@ typedef struct s_mlx
 {
 	void		*mlx_init_ptr;
 	void		*mlx_win_ptr;
+	void		*mlx_img_ptr;
 	t_wall		wall;	
 	t_player	*player;
+	t_data		*data;
 }		t_mlx;
 
 
@@ -101,6 +111,7 @@ int		locate_player_y(char **maps);
 void	ft_mlx(t_map map);
 int		ft_hook(int key, t_player *player);
 void	put_player(t_mlx mlx, t_player player, int color);
+void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
 
 
 //////MATH//////

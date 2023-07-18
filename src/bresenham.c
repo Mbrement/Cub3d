@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 10:27:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/17 16:43:19 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/18 13:27:30 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 {
 	int	dx;
-	int dy;
+	int	dy;
 	int	r[3];
 	int	x;
 	int	y;
@@ -27,7 +27,7 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 	dy = (int) dest_y - (int)y;
 	if (dx > 0)
 	{
-		if (dy > 0 )
+		if (dy > 0)
 		{
 			if (dx >= dy)/*IT WORK*/
 			{
@@ -36,8 +36,8 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				dy *= 2;
 				while (1)
 				{
-					mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
-					if ((int)x++ >= (int)dest_x)
+					my_mlx_pixel_put(&mlx, x, y, color);
+					if ((int)x++ >= (int)dest_x /*|| x >= dest_x || y >= dest_y*/)
 						break ;
 					r[0]=r[0] - dy;
 					if (r[0] < 0)
@@ -54,8 +54,8 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				dy *= 2;
 				while (1)
 				{
-					mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
-					if ((int)y++ >= (int)dest_y)
+					my_mlx_pixel_put(&mlx, x, y, color);
+					if (y++ >= (int)dest_y /*|| x >= dest_x || y >= dest_y*/)
 						break ;
 					r[0] -= dx;
 					if (r[0] < 0)
@@ -75,8 +75,8 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				dy *= 2;
 				while(1)
 				{
-					mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
-					if (y-- <= dest_y)
+					my_mlx_pixel_put(&mlx, x, y, color);
+					if (y-- <= dest_y /*|| x >= dest_x || y >= dest_y*/)
 						break ;
 					r[0]=r[0] - dx;
 					if (r[0] < 0)
@@ -93,8 +93,8 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				dy *= 2;
 				while(1)
 				{
-					mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
-					if (x++ >= dest_x)
+					my_mlx_pixel_put(&mlx, x, y, color);
+					if (x++ >= dest_x /*|| x >= dest_x || y >= dest_y*/)
 						break ;
 					r[0]=r[0] + dy;
 					if (r[0] < 0)
@@ -108,7 +108,7 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 		else /*IT WORK*/
 		{
 			while (x++ <= dest_x)
-				mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
+				my_mlx_pixel_put(&mlx, x, y, color);
 		}
 	}
 	else if (dx < 0)
@@ -122,8 +122,8 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				dy *= 2;
 				while(1)
 				{
-					mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
-					if ((int)x-- <= (int)dest_x)
+					my_mlx_pixel_put(&mlx, x, y, color);
+					if (x-- <= (int)dest_x /*|| x >= dest_x || y >= dest_y*/)
 						break ;
 					r[0] = r[0] + dy;
 					if (r[0] >= 0)
@@ -140,8 +140,8 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				dy *= 2;
 				while(1)
 				{
-					mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
-					if ((int)y++ >= (int)dest_y)
+					my_mlx_pixel_put(&mlx, x, y, color);
+					if (y++ >= (int)dest_y /*|| x >= dest_x || y >= dest_y*/)
 						break ;
 					r[0] = r[0] + dx;
 					if (r[0] <= 0)
@@ -161,8 +161,8 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				dy *= 2;
 				while (1)
 				{
-					mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
-					if (y-- <= dest_y)
+					my_mlx_pixel_put(&mlx, x, y, color);
+					if (y-- <= dest_y /*|| x >= dest_x || y >= dest_y*/)
 						break ;
 					r[0] = r[0] + dx;
 					if (r[0] < 0)
@@ -179,8 +179,8 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				dy *= 2;
 				while (1)
 				{
-					mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
-					if (x-- <= dest_x)
+					my_mlx_pixel_put(&mlx, x, y, color);
+					if (x-- <= dest_x /*|| x >= dest_x || y >= dest_y*/)
 						break ;
 					r[0] = r[0] - dy;
 					if (r[0] >= 0)
@@ -194,19 +194,19 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 		else
 		{
 			while(x-- >= dest_x)
-				mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
+				my_mlx_pixel_put(&mlx, x, y, color);
 		}	}
 	else
 	{
 		if (dy > 0)
 		{
 			while(y++ <= dest_y)
-				mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
+				my_mlx_pixel_put(&mlx, x, y, color);
 		}
 		else if (dy < 0)
 		{
 			while(y-- >= dest_y)
-				mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
+				my_mlx_pixel_put(&mlx, x, y, color);
 		}
 	}
 }
@@ -233,7 +233,7 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 // 	x = (int)mlx.player->pos_x;
 // 	while (x++ < (int)dest_x)
 // 	{
-// 		mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, UINT32_MAX);
+// 		my_mlx_pixel_put(&mlx, x, y, UINT32_MAX);
 // 		// rationel[0] = rationel[0] + rationel[1];
 // 		if (rationel[0] + rationel[1] >= 0)
 // 		{
@@ -271,7 +271,7 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 // 	while (x != dest_x || y != dest_y)
 // 	{
 // 		if (x && x < (*mlx.wall.east_height * 8) && y && y < (*mlx.wall.east_lenth * 8))
-// 			mlx_pixel_put(mlx.mlx_init_ptr, mlx.mlx_win_ptr, x, y, color);
+// 			my_mlx_pixel_put(&mlx, x, y, color);
 // 		e2 = 2 * err;
 // 		if (e2 >= dy)
 // 		{

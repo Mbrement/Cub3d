@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/17 16:41:47 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/18 13:29:50 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ void	create_map(t_mlx mlx, t_map map);
 void	ft_mlx(t_map map)
 {
 	t_mlx	*mlx;
+	t_data	*data;
 
+	data = malloc(sizeof(t_data));
 	mlx = malloc(sizeof(t_mlx));
 	(void)map;
+	mlx->data = data;
 	mlx->mlx_init_ptr = mlx_init();
 	if (!mlx->mlx_init_ptr)
 	{
@@ -30,7 +33,7 @@ void	ft_mlx(t_map map)
 		exit(1);
 	}
 	mlx->wall = put_img_in_wall(map, *mlx);
-	mlx->mlx_win_ptr = mlx_new_window(mlx->mlx_init_ptr, *mlx->wall.north_height * 8, *mlx->wall.north_height * 8, "cub3d");
+	mlx->mlx_win_ptr = mlx_new_window(mlx->mlx_init_ptr, WIN_W, WIN_H, "cub3d");
 	if (!mlx->mlx_win_ptr)
 	{
 		printf("Mlx create the window\n");
@@ -45,13 +48,26 @@ void	ft_mlx(t_map map)
 	mlx_destroy_display(mlx->mlx_init_ptr);
 }
 
+void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color)
+{
+	char	*dst;
+
+	if (y > WIN_H || x > WIN_W || y < 0 || x < 0)
+		return ;
+	dst = mlx->data->addr + (y * mlx->data->line_length + x * (mlx->data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
 int	ft_dmg_control(int key, t_mlx *mlx)
 {
-	ray (*mlx, *mlx->player, 0);
+	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
+	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
+	printf ("addr %p, bpp %i, line lenth %i, endiant : %i\n", mlx->data->addr, mlx->data->bits_per_pixel, mlx->data->line_length, mlx->data->endian);
 	put_player(*mlx, *mlx->player, 0);
 	ft_hook(key, mlx->player);
-	put_player(*mlx, *mlx->player, UINT32_MAX);
+	// put_player(*mlx, *mlx->player, UINT32_MAX);
 	ray (*mlx, *mlx->player, UINT32_MAX);
+	mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
+	mlx_destroy_image(mlx->mlx_init_ptr, mlx->data->img);
 	return (1);
 }
 
@@ -68,17 +84,17 @@ void	create_map(t_mlx mlx, t_map map)
 	t_player *player;
 
 	player = malloc(sizeof(t_player));
-	player->pos_x = *mlx.wall.east_height * 4;
-	player->pos_y = *mlx.wall.east_lenth * 4;
+	player->pos_x = WIN_W * 0.5;
+	player->pos_y = WIN_H * 0.5;
 	player->look = 0;
 	mlx.player = player;
 	//debug
 	(void)map;
 	//endofdebug
-	mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.north, 0, 0); 
-	mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.south, 0, *mlx.wall.south_lenth * 7);
-	mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.east, *mlx.wall.east_height * 7, 0);
-	mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.west, *mlx.wall.west_height * 7, *mlx.wall.west_lenth * 7);
+	// mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.north, 0, 0); 
+	// mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.south, 0, *mlx.wall.south_lenth * 7);
+	// mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.east, *mlx.wall.east_height * 7, 0);
+	// mlx_put_image_to_window(mlx.mlx_init_ptr, mlx.mlx_win_ptr, mlx.wall.west, *mlx.wall.west_height * 7, *mlx.wall.west_lenth * 7);
 	put_player(mlx, *player, UINT32_MAX);
 	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
 	mlx_key_hook(mlx.mlx_win_ptr, ft_dmg_control, &mlx);

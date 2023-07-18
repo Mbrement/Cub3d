@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 22:21:20 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/17 16:41:59 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/18 11:17:33 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ void ray (t_mlx mlx, t_player player, int rgb)
 	(void)player;
 	cor = -30.0;
 	radiant = M_PI / 180;
-	while (cor ++ < 30)
+	while (cor < 30.0)
 	{
-		x_angle = sinf((mlx.player->look + cor) * radiant) * 300 + mlx.player->pos_x;
-		y_angle = cosf((mlx.player->look + cor) * radiant) * 300 + mlx.player->pos_y;
+		x_angle = sinf((mlx.player->look + cor) * radiant) * 1000 + mlx.player->pos_x;
+		y_angle = cosf((mlx.player->look + cor) * radiant) * 1000 + mlx.player->pos_y;
 		bresenham_cub(mlx, x_angle, y_angle, rgb);
+		cor += 0.25;
 	}
 }
