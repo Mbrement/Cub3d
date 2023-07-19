@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 11:30:47 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 11:31:15 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_hook(int key, t_mlx *mlx)
 	{
 		//W key;
 		mlx->player->pos_y += ((float)mlx->org->pixel_to_mapy / 10) * (int)(mlx->player->look);
-		mlx->player->pos_x += ((float)mlx->org->pixel_to_mapx / 10) * ((mlx->player->look))
+		mlx->player->pos_x += ((float)mlx->org->pixel_to_mapx / 10) * ((mlx->player->look));
 	} 
 	else if (key == 119 || key == 65362)
 	{
