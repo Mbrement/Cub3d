@@ -6,12 +6,26 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 11:45:21 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:19:11 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <stdio.h>
+
+int is_valid_move_x(t_mlx *mlx, float new_x)
+{
+	(void)mlx;
+	(void)new_x;
+	return (1);
+}
+
+int is_valid_move_y(t_mlx *mlx, float new_y)
+{
+	(void)mlx;
+	(void)new_y;
+	return (1);
+}
 
 int	ft_hook(int key, t_mlx *mlx)
 {
@@ -58,8 +72,12 @@ int	ft_hook(int key, t_mlx *mlx)
 		printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
 		mlx->player->look -= 5;
 	}
-	mlx->player->pos_y = new_y;
-	mlx->player->pos_x = new_x;
+	printf("move from %f %f\n", mlx->player->pos_x, mlx->player->pos_y);
+	printf("move to %f %f\n", new_x, new_y);
+	if (is_valid_move_y(mlx, new_y))
+		mlx->player->pos_y = new_y;
+	if (is_valid_move_x(mlx, new_x))
+		mlx->player->pos_x = new_x;
 	while (mlx->player->look < 0)
 		mlx->player->look += 360;
 	while (mlx->player->look >= 360)
