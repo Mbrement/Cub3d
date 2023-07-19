@@ -3,26 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 13:14:25 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 14:35:59 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdio.h>
 
 int is_valid_move_x(t_mlx *mlx, float new_x)
 {
-	(void)mlx;
-	(void)new_x;
+	int		x;
+	int		y;
+	//char	c;
+
+	x = (int)trunc(new_x / 45);
+	y = (int)trunc(mlx->player->pos_y / 45) + 1;
+	//c = mlx->map->map[x][y];
+	//if (c == '1')
+	//	return (0);
+	printf("cord %d %d\n", x, y);
 	return (1);
 }
 
 int is_valid_move_y(t_mlx *mlx, float new_y)
 {
-	(void)mlx;
-	(void)new_y;
+	int		x;
+	int		y;
+	//char	c;
+
+	x = (int)trunc(mlx->player->pos_x / 45) + 1;
+	y = (int)trunc(new_y / 45);
+	//c = mlx->map->map[y][x];
+	//if (c == '1')
+	//	return (0);
+	printf("cord %d %d\n", x, y);
 	return (1);
 }
 
