@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 11:40:16 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 13:12:48 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ typedef struct s_mlx
 	t_player	*player;
 	t_data		*data;
 	t_data		*org;
+	t_map		*map;
 }		t_mlx;
-
 
 int		main(int argc, char **argv, char **envp);
 

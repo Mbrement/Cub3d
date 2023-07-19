@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 11:11:04 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 12:35:09 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <stddef.h>
+#include <stdio.h>
 
 void	ray(t_mlx mlx, t_player player, int rgb);
 t_wall	put_img_in_wall(t_map map, t_mlx mlx);
@@ -107,11 +108,10 @@ void	create_map(t_mlx mlx, t_map map)
 
 	player = malloc(sizeof(t_player));
 	mlx.player = player;
-	player_get_look(&mlx, map);
 	map_img(&mlx, map);
 	put_player(mlx, *player, UINT32_MAX);
-	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 0, ft_exit, NULL);
-	mlx_key_hook(mlx.mlx_win_ptr, ft_dmg_control, &mlx);
+	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
+	mlx_hook(mlx.mlx_win_ptr, 2, 1L << 0, ft_dmg_control, &mlx);
 	mlx_loop(mlx.mlx_init_ptr);
 }
 
