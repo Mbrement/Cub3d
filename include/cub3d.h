@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 11:29:22 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:45:46 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <math.h>
 # include <fcntl.h>
+#include <stddef.h>
 # include <sys/stat.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -34,6 +35,8 @@ typedef struct s_data{
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	size_t	pixel_to_mapx;
+	size_t	pixel_to_mapy;
 }				t_data;
 
 typedef struct s_map

@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:02:02 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/18 15:41:52 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 10:59:12 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,29 @@ void	map_img(t_mlx *mlx, t_map map)
 	mlx->org = malloc(sizeof(t_data));
 	mlx->org->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
 	mlx->org->addr = mlx_get_data_addr(mlx->org->img, &mlx->org->bits_per_pixel, &mlx->org->line_length, &mlx->org->endian);
-	px_by_elem_x = WIN_W / ft_strlen(map.map[0]);
-	px_by_elem_y = -1;
-	while (map.map[++px_by_elem_y])
+	if (map.map && map.map[1])
+		px_by_elem_y = WIN_W / (ft_strlen(map.map[1]) - 1);
+	printf("RANGE = %zu | %zu\n", px_by_elem_y,  (ft_strlen(map.map[1])));
+	px_by_elem_x = -1;
+	while (map.map[++px_by_elem_x])
 		;
-	px_by_elem_y = WIN_H / px_by_elem_y;
+	px_by_elem_x = WIN_H / (px_by_elem_x - 2);
+	mlx->org->pixel_to_mapx = px_by_elem_y;
+	mlx->org->pixel_to_mapy = px_by_elem_x;
 	while (map.map[x])
 	{
 		y = 0;
 		while (map.map[x][y])
-		{   
+		{
 			if (map.map[x][y] == '1')
-				block_in_img(px_by_elem_y, px_by_elem_x, x, y, *mlx);
+				block_in_img(px_by_elem_y, px_by_elem_x, x-1, y, *mlx);
 			y++;
 		}
 		x++;
 	}
-	mlx->player->pos_x = (locate_player_x(map.map) + 2) * px_by_elem_x;
-	mlx->player->pos_y = locate_player_y(map.map) * px_by_elem_y;
+	printf("coordonner x =%i, y = %i\n", locate_player_x(map.map), locate_player_y(map.map));
+	mlx->player->pos_y = locate_player_x(map.map) * (px_by_elem_x) + 0.5 * px_by_elem_x ;
+	mlx->player->pos_x = (locate_player_y(map.map) - 1) * (px_by_elem_y) + 0.5 * px_by_elem_y ;
 }
 
 static void	my_mlx_pixel_put2(t_mlx *mlx, int y, int x, unsigned int color)

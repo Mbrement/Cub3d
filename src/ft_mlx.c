@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 11:29:36 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:46:12 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,37 @@ int	ft_exit(int i)
 	return(0);
 }
 //endofdebug
+void	player_get_look(t_mlx *mlx, t_map map)
+{
+	char	c;
+
+	c = map.map[locate_player_y(map.map)][locate_player_x(map.map)];
+	mlx->player->look = 0;
+	if (c == 'W')
+		mlx->player->look = 270;
+	else if (c == 'E')
+		mlx->player->look = 90;
+	else if (c == 'S')
+		mlx->player->look = 0;
+	else if (c == 'N')
+		mlx->player->look = 180;
+	else
+	{
+	 	printf("didn't find orientation, set it to 0\n");
+		mlx->player->look = 0;
+	}
+}
 
 void	create_map(t_mlx mlx, t_map map)
 {
 	t_player *player;
 
 	player = malloc(sizeof(t_player));
-	player->look = 0;
 	mlx.player = player;
-	mlx.map = &map;
 	map_img(&mlx, map);
 	put_player(mlx, *player, UINT32_MAX);
 	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
-	mlx_hook(mlx.mlx_win_ptr, 2, 1L << 0, ft_dmg_control, &mlx);
+	mlx_key_hook(mlx.mlx_win_ptr, ft_dmg_control, &mlx);
 	mlx_loop(mlx.mlx_init_ptr);
 }
 
