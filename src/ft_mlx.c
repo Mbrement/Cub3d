@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 11:46:12 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:35:09 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	create_map(t_mlx mlx, t_map map)
 	map_img(&mlx, map);
 	put_player(mlx, *player, UINT32_MAX);
 	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
-	mlx_key_hook(mlx.mlx_win_ptr, ft_dmg_control, &mlx);
+	mlx_hook(mlx.mlx_win_ptr, 2, 1L << 0, ft_dmg_control, &mlx);
 	mlx_loop(mlx.mlx_init_ptr);
 }
 
