@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/18 15:36:11 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 11:11:04 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_dmg_control(int key, t_mlx *mlx)
 	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
 	printf ("addr %p, bpp %i, line lenth %i, endiant : %i\n", mlx->data->addr, mlx->data->bits_per_pixel, mlx->data->line_length, mlx->data->endian);
 	put_player(*mlx, *mlx->player, 0);
-	ft_hook(key, mlx->player);
+	ft_hook(key, mlx);
 	ray (*mlx, *mlx->player, 0xFF0000);
 	ft_fuse_pic(*mlx);
 	// mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->org->img, 0, 0);
@@ -80,17 +80,37 @@ int	ft_exit(int i)
 	return(0);
 }
 //endofdebug
+void	player_get_look(t_mlx *mlx, t_map map)
+{
+	char	c;
+
+	c = map.map[locate_player_y(map.map)][locate_player_x(map.map)];
+	mlx->player->look = 0;
+	if (c == 'W')
+		mlx->player->look = 270;
+	else if (c == 'E')
+		mlx->player->look = 90;
+	else if (c == 'S')
+		mlx->player->look = 0;
+	else if (c == 'N')
+		mlx->player->look = 180;
+	else
+	{
+	 	printf("didn't find orientation, set it to 0\n");
+		mlx->player->look = 0;
+	}
+}
 
 void	create_map(t_mlx mlx, t_map map)
 {
 	t_player *player;
 
 	player = malloc(sizeof(t_player));
-	player->look = 0;
 	mlx.player = player;
+	player_get_look(&mlx, map);
 	map_img(&mlx, map);
 	put_player(mlx, *player, UINT32_MAX);
-	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
+	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 0, ft_exit, NULL);
 	mlx_key_hook(mlx.mlx_win_ptr, ft_dmg_control, &mlx);
 	mlx_loop(mlx.mlx_init_ptr);
 }

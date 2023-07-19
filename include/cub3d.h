@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/18 14:25:50 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 10:38:30 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <math.h>
 # include <fcntl.h>
+#include <stddef.h>
 # include <sys/stat.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -34,6 +35,8 @@ typedef struct s_data{
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	size_t	pixel_to_mapx;
+	size_t	pixel_to_mapy;
 }				t_data;
 
 typedef struct s_map
@@ -110,7 +113,7 @@ int		locate_player_y(char **maps);
 
 //////MLX//////
 void	ft_mlx(t_map map);
-int		ft_hook(int key, t_player *player);
+int		ft_hook(int key, t_mlx *mlx);
 void	put_player(t_mlx mlx, t_player player, int color);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
 void	map_img(t_mlx *mlx, t_map map);

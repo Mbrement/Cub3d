@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 10:27:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/18 13:27:30 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 11:30:15 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 		}
 	}
 }
+
 
 // void	bresenham_cu2b(t_mlx mlx, float dest_x, float dest_y, int color)
 // {
