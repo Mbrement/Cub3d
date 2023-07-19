@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/18 15:36:11 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 11:29:36 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 #include <stddef.h>
+#include <stdio.h>
 
 void	ray(t_mlx mlx, t_player player, int rgb);
 t_wall	put_img_in_wall(t_map map, t_mlx mlx);
@@ -64,7 +65,7 @@ int	ft_dmg_control(int key, t_mlx *mlx)
 	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
 	printf ("addr %p, bpp %i, line lenth %i, endiant : %i\n", mlx->data->addr, mlx->data->bits_per_pixel, mlx->data->line_length, mlx->data->endian);
 	put_player(*mlx, *mlx->player, 0);
-	ft_hook(key, mlx->player);
+	ft_hook(key, mlx);
 	ray (*mlx, *mlx->player, 0xFF0000);
 	ft_fuse_pic(*mlx);
 	// mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->org->img, 0, 0);
@@ -88,10 +89,11 @@ void	create_map(t_mlx mlx, t_map map)
 	player = malloc(sizeof(t_player));
 	player->look = 0;
 	mlx.player = player;
+	mlx.map = &map;
 	map_img(&mlx, map);
 	put_player(mlx, *player, UINT32_MAX);
 	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
-	mlx_key_hook(mlx.mlx_win_ptr, ft_dmg_control, &mlx);
+	mlx_hook(mlx.mlx_win_ptr, 2, 1L << 0, ft_dmg_control, &mlx);
 	mlx_loop(mlx.mlx_init_ptr);
 }
 
