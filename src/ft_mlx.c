@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 12:35:09 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:58:15 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_mlx(t_map map)
 
 	data = malloc(sizeof(t_data));
 	mlx = malloc(sizeof(t_mlx));
-	(void)map;
+	mlx->map = &map;
 	mlx->data = data;
 	mlx->mlx_init_ptr = mlx_init();
 	if (!mlx->mlx_init_ptr)
