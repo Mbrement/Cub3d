@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:02:02 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 13:54:38 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/24 17:48:23 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	map_img(t_mlx *mlx, t_map map)
 	size_t	x;
 	size_t	y;
 
-	x = 1;
+	y = 1;
 	mlx->org = malloc(sizeof(t_data));
 	mlx->org->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
 	mlx->org->addr = mlx_get_data_addr(mlx->org->img, &mlx->org->bits_per_pixel, &mlx->org->line_length, &mlx->org->endian);
@@ -34,20 +34,20 @@ void	map_img(t_mlx *mlx, t_map map)
 	px_by_elem_x = WIN_H / (px_by_elem_x - 2);
 	mlx->org->pixel_to_mapx = px_by_elem_y;
 	mlx->org->pixel_to_mapy = px_by_elem_x;
-	while (map.map[x])
+	while (map.map[y])
 	{
-		y = 0;
-		while (map.map[x][y])
+		x = 0;
+		while (map.map[y][x])
 		{
-			if (map.map[x][y] == '1')
-				block_in_img(px_by_elem_y, px_by_elem_x, x-1, y, *mlx);
-			y++;
+			if (map.map[y][x] == '1')
+				block_in_img(px_by_elem_y, px_by_elem_x, y-1, x, *mlx);
+			x++;
 		}
-		x++;
+		y++;
 	}
 	printf("coordonner x =%i, y = %i\n", locate_player_x(map.map), locate_player_y(map.map));
-	mlx->player->pos_x = locate_player_x(map.map) * (px_by_elem_x) + 0.5 * px_by_elem_x ;
-	mlx->player->pos_y = (locate_player_y(map.map) - 1) * (px_by_elem_y) + 0.5 * px_by_elem_y ;
+	mlx->player->pos_y = locate_player_x(map.map) * (px_by_elem_x) + 0.5 * px_by_elem_x ;
+	mlx->player->pos_x = (locate_player_y(map.map) - 1) * (px_by_elem_y) + 0.5 * px_by_elem_y ;
 }
 
 static void	my_mlx_pixel_put2(t_mlx *mlx, int y, int x, unsigned int color)

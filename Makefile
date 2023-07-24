@@ -8,7 +8,7 @@ DIR_MLX		:= lib/mlx
 
 CC			:= gcc
 CSAN		:= -fsanitize=address -g3
-CFLAGS		:= -Wall -Wextra -Werror -g3 -o3 #-fsanitize=address
+CFLAGS		:= -Wall -Wextra -Werror -g3 -o3 -fsanitize=address
 RM			:= rm -rf
 
 LST_SRCS	:= check_map.c tmp.c main.c ft_mlx.c parsing.c player.c ft_hook.c player_map.c bresenham.c map.c

@@ -6,40 +6,37 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/20 14:16:03 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/24 18:43:51 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-#include <stdio.h>
 
-int is_valid_move_x(t_mlx *mlx, float new_x)
+int	is_valid_move_x(t_mlx *mlx, float new_x)
 {
 	int		x;
 	int		y;
 	char	c;
 
-	x = (int)trunc(new_x / mlx->org->pixel_to_mapx);
-	y = (int)trunc(mlx->player->pos_y / mlx->org->pixel_to_mapy) + 1;
+	x = (int)floor(new_x / mlx->org->pixel_to_mapx);
+	y = (int)floor(mlx->player->pos_y / mlx->org->pixel_to_mapy) + 1;
 	c = mlx->map->map[y][x];
 	if (c == '1')
 		return (0);
-	// printf("cord %d %d\n", x, y);
 	return (1);
 }
 
-int is_valid_move_y(t_mlx *mlx, float new_y)
+int	is_valid_move_y(t_mlx *mlx, float new_y)
 {
-	int		x;
+	int		x; 
 	int		y;
 	char	c;
 
-	x = (int)trunc(mlx->player->pos_x / mlx->org->pixel_to_mapx) + 1;
-	y = (int)trunc(new_y / mlx->org->pixel_to_mapy);
+	x = (int)floor(mlx->player->pos_x / mlx->org->pixel_to_mapx);
+	y = (int)floor(new_y / mlx->org->pixel_to_mapy) + 1;
 	c = mlx->map->map[y][x];
 	if (c == '1')
 		return (0);
-	// printf(" RRRRRRREEEEEEEEEEEee cord %d %d\n", x, y);
 	return (1);
 }
 
@@ -88,10 +85,6 @@ int	ft_hook(int key, t_mlx *mlx)
 		printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
 		mlx->player->look -= 5;
 	}
-	// printf("move from %f %f\n", mlx->player->pos_x, mlx->player->pos_y);
-	// printf("map = %c\n", mlx->map->map[0][0]); 
-	// printf("move to %f %f\n", new_x, new_y);
-	
 	if (is_valid_move_y(mlx, new_y))
 		mlx->player->pos_y = new_y;
 	if (is_valid_move_x(mlx, new_x))
