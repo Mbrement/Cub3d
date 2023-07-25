@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 22:21:20 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/18 16:19:12 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/25 16:27:02 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,35 @@ void	put_player(t_mlx mlx, t_player player, int color)
 
 void ray (t_mlx mlx, t_player player, int rgb)
 {
-	float 	x_angle;
+	float	x_angle;
 	float	y_angle;
 	float	cor;
 	float	radiant;
+	int i;
+	// float	tmp_cos;
+	// float	tmp_sin;
 
 	(void)player;
-	cor = -40.0;
+	i = 0;
+	cor = (int)((FOV * -1) / 2);
 	radiant = M_PI / 180;
-	while (cor < 40.0)
+	while (cor < (int)(FOV / 2))
 	{
-		x_angle = sinf((mlx.player->look + cor) * radiant) * 200 + mlx.player->pos_x;
-		y_angle = cosf((mlx.player->look + cor) * radiant) * 200 + mlx.player->pos_y;
-		bresenham_cub(mlx, x_angle, y_angle, rgb);
-		cor += 0.125;
+		x_angle = mlx.player->pos_x;
+		y_angle = mlx.player->pos_y;
+		// tmp_cos = cosf((mlx.player->look + cor) * radiant) * mlx.org->pixel_to_mapx;
+		// tmp_sin = sinf((mlx.player->look + cor) * radiant) * mlx.org->pixel_to_mapy;
+		
+		while (1)
+		{
+			if (!is_valid_move(&mlx, y_angle, x_angle))
+				break ;
+			x_angle = sinf(((mlx.player->look + cor) * radiant)) * mlx.org->pixel_to_mapx + x_angle;
+			y_angle = cosf(((mlx.player->look + cor) * radiant)) * mlx.org->pixel_to_mapy + y_angle;
+		}
+			bresenham_cub(mlx, x_angle, y_angle, rgb);
+		cor += (float)((float)FOV / WIN_W);
+		i++;
 	}
 }
+	

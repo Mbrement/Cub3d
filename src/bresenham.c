@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 10:27:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 11:30:15 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/25 16:27:13 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				{
 					my_mlx_pixel_put(&mlx, x, y, color);
 					if ((int)x++ >= (int)dest_x /*|| x >= dest_x || y >= dest_y*/)
-						break ;
+						{
+							// printf("point it stop : %i | %i\n", x, y);
+							break ;
+						}
 					r[0]=r[0] - dy;
 					if (r[0] < 0)
 					 {
@@ -56,7 +59,10 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				{
 					my_mlx_pixel_put(&mlx, x, y, color);
 					if (y++ >= (int)dest_y /*|| x >= dest_x || y >= dest_y*/)
-						break ;
+						{
+							// printf("point it stop : %i | %i\n", x, y);
+							break ;
+						}
 					r[0] -= dx;
 					if (r[0] < 0)
 					 {
@@ -77,7 +83,10 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				{
 					my_mlx_pixel_put(&mlx, x, y, color);
 					if (y-- <= dest_y /*|| x >= dest_x || y >= dest_y*/)
-						break ;
+						{
+							// printf("point it stop : %i | %i\n", x, y);
+							break ;
+						}
 					r[0]=r[0] - dx;
 					if (r[0] < 0)
 					{
@@ -95,7 +104,10 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				{
 					my_mlx_pixel_put(&mlx, x, y, color);
 					if (x++ >= dest_x /*|| x >= dest_x || y >= dest_y*/)
-						break ;
+						{
+							// printf("point it stop : %i | %i\n", x, y);
+							break ;
+						}
 					r[0]=r[0] + dy;
 					if (r[0] < 0)
 					{
@@ -124,7 +136,10 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				{
 					my_mlx_pixel_put(&mlx, x, y, color);
 					if (x-- <= (int)dest_x /*|| x >= dest_x || y >= dest_y*/)
-						break ;
+						{
+							// printf("point it stop : %i | %i\n", x, y);
+							break ;
+						}
 					r[0] = r[0] + dy;
 					if (r[0] >= 0)
 					{
@@ -142,7 +157,10 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				{
 					my_mlx_pixel_put(&mlx, x, y, color);
 					if (y++ >= (int)dest_y /*|| x >= dest_x || y >= dest_y*/)
-						break ;
+						{
+							// printf("point it stop : %i | %i\n", x, y);
+							break ;
+						}
 					r[0] = r[0] + dx;
 					if (r[0] <= 0)
 					{
@@ -163,7 +181,10 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				{
 					my_mlx_pixel_put(&mlx, x, y, color);
 					if (y-- <= dest_y /*|| x >= dest_x || y >= dest_y*/)
-						break ;
+						{
+							// printf("point it stop : %i | %i\n", x, y);
+							break ;
+						}
 					r[0] = r[0] + dx;
 					if (r[0] < 0)
 					{
@@ -181,7 +202,10 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 				{
 					my_mlx_pixel_put(&mlx, x, y, color);
 					if (x-- <= dest_x /*|| x >= dest_x || y >= dest_y*/)
-						break ;
+						{
+							// printf("point it stop : %i | %i\n", x, y);
+							break ;
+						}
 					r[0] = r[0] - dy;
 					if (r[0] >= 0)
 					{

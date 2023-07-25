@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/19 14:35:40 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:18:28 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 
 # define WIN_W 1500
 # define WIN_H 750
-# define PI
+# define FOV 80
+# define SPEED 2.0
 
 typedef struct s_data{
 	void	*img;
@@ -121,6 +122,9 @@ void	map_img(t_mlx *mlx, t_map map);
 
 //////MATH//////
 void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color);
+int		is_valid_move_y(t_mlx *mlx, float new_y);
+int		is_valid_move_x(t_mlx *mlx, float new_x);
+int		is_valid_move(t_mlx *mlx, float new_y, float new_x);
 
 //////TOOLS//////
 void	end_of_prog(t_map map);
