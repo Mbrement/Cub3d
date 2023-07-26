@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/25 14:51:10 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/26 14:27:25 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color)
 
 	if (y > WIN_H || x > WIN_W || y < 0 || x < 0)
 		return ;
-	dst = mlx->data->addr + (y * mlx->data->line_length + x * (mlx->data->bits_per_pixel / 8));
+	dst = mlx->data->addr + (y * mlx->data->line_length + x * 4);
 	*(unsigned int *)dst = color;
 }
 int	ft_dmg_control(int key, t_mlx *mlx)
@@ -153,11 +153,11 @@ void ft_fuse_pic(t_mlx mlx)
 		x = 0;
 		while (x < WIN_W)
 		{
-			dst = mlx.data->addr + (y * mlx.data->line_length + x * (mlx.data->bits_per_pixel / 8));
-			if (*(unsigned int *)(mlx.data->addr + (y * mlx.data->line_length + x * (mlx.data->bits_per_pixel / 8))))
-				color = *(unsigned int *)(mlx.data->addr + (y * mlx.data->line_length + x * (mlx.data->bits_per_pixel / 8)));
+			dst = mlx.data->addr + (y * mlx.data->line_length + x * 4);
+			if (*(unsigned int *)(mlx.data->addr + (y * mlx.data->line_length + x * 4)))
+				color = *(unsigned int *)(mlx.data->addr + (y * mlx.data->line_length + x * 4));
 			else
-			 	color = *(unsigned int *)(mlx.org->addr + (y * mlx.org->line_length + x * (mlx.org->bits_per_pixel / 8)));
+			 	color = *(unsigned int *)(mlx.org->addr + (y * mlx.org->line_length + x * 4));
 			*(unsigned int *)dst = color;
 			x++;
 		}

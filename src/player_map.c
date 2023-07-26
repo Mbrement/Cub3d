@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 22:21:20 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/25 16:27:02 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/26 14:32:53 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void ray (t_mlx mlx, t_player player, int rgb)
 {
 	float	x_angle;
 	float	y_angle;
+	float	x_angle_tmp;
+	float	y_angle_tmp;
 	float	cor;
 	float	radiant;
 	int i;
@@ -38,7 +40,7 @@ void ray (t_mlx mlx, t_player player, int rgb)
 	(void)player;
 	i = 0;
 	cor = (int)((FOV * -1) / 2);
-	radiant = M_PI / 180;
+	radiant = (M_PI / 180);
 	while (cor < (int)(FOV / 2))
 	{
 		x_angle = mlx.player->pos_x;
@@ -48,13 +50,26 @@ void ray (t_mlx mlx, t_player player, int rgb)
 		
 		while (1)
 		{
-			if (!is_valid_move(&mlx, y_angle, x_angle))
-				break ;
-			x_angle = sinf(((mlx.player->look + cor) * radiant)) * mlx.org->pixel_to_mapx + x_angle;
-			y_angle = cosf(((mlx.player->look + cor) * radiant)) * mlx.org->pixel_to_mapy + y_angle;
+			x_angle_tmp = sinf(((mlx.player->look + cor) * radiant)) * mlx.org->pixel_to_mapx + x_angle;
+			y_angle_tmp = cosf(((mlx.player->look + cor) * radiant)) * mlx.org->pixel_to_mapy + y_angle;
+			if (!is_valid_move(&mlx, y_angle_tmp, x_angle_tmp))
+			{
+				// x_angle = x_angle_tmp;
+				// y_angle = y_angle_tmp;
+				while (is_valid_move(&mlx, y_angle, x_angle))
+				{
+					x_angle += sin(mlx.player->look * (M_PI / 180));
+					y_angle += cos(mlx.player->look * (M_PI / 180));
+				}
+				break;
+			}
+			x_angle = x_angle_tmp;
+			y_angle = y_angle_tmp;
 		}
-			bresenham_cub(mlx, x_angle, y_angle, rgb);
-		cor += (float)((float)FOV / WIN_W);
+		// my_mlx_pixel_put(&mlx, x_angle, y_angle, rgb);
+		// printf("%f\n",y_angle);
+		bresenham_cub(mlx, x_angle, y_angle, rgb);
+		cor += ((float)FOV / WIN_W);
 		i++;
 	}
 }

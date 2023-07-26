@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:02:02 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/24 17:48:23 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/26 13:29:38 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@ void	map_img(t_mlx *mlx, t_map map)
 	mlx->org->addr = mlx_get_data_addr(mlx->org->img, &mlx->org->bits_per_pixel, &mlx->org->line_length, &mlx->org->endian);
 	if (map.map && map.map[1])
 		px_by_elem_y = WIN_W / (ft_strlen(map.map[1]) - 1);
-	printf("RANGE = %zu | %zu\n", px_by_elem_y,  (ft_strlen(map.map[1])));
+	else
+	 	return ;
 	px_by_elem_x = -1;
 	while (map.map[++px_by_elem_x])
 		;
+	mlx->map->y_lenth = ft_strlen(map.map[1]) - 1;
+	mlx->map->x_lenth = px_by_elem_x - 2;
+	printf("RANGE = y = %zu | x = %zu\n", mlx->map->y_lenth, mlx->map->x_lenth);
+	printf("%s\n", map.map[1]);
 	px_by_elem_x = WIN_H / (px_by_elem_x - 2);
 	mlx->org->pixel_to_mapx = px_by_elem_y;
 	mlx->org->pixel_to_mapy = px_by_elem_x;
@@ -56,7 +61,7 @@ static void	my_mlx_pixel_put2(t_mlx *mlx, int y, int x, unsigned int color)
 
 	if (y > WIN_H || x > WIN_W || y < 0 || x < 0)
 		return ;
-	dst = mlx->org->addr + (y * mlx->org->line_length + x * (mlx->org->bits_per_pixel / 8));
+	dst = mlx->org->addr + (y * mlx->org->line_length + x * 4);
 	*(unsigned int *)dst = color;
 }
 
@@ -67,10 +72,10 @@ void	block_in_img(size_t px_by_elem_y, size_t px_by_elem_x, int x, int y, t_mlx 
 	int	j;
 
 	i = x;
-	while (i != x + (int)px_by_elem_x)
+	while (i != x + (int)px_by_elem_x + 1)
 	{
 		j = y;
-		while (j != y + (int)px_by_elem_y)
+		while (j != y + (int)px_by_elem_y + 1)
 		{
 			my_mlx_pixel_put2(&mlx, i + x * (int)px_by_elem_x, j + y * (int)px_by_elem_y, UINT32_MAX);
 			j++;

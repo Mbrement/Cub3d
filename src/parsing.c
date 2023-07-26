@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-#include <stdio.h>
 
 int	check_chr_map(char **maps)
 {

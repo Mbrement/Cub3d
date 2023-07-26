@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/25 16:18:28 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/26 14:39:19 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <math.h>
 # include <fcntl.h>
-#include <stddef.h>
+# include <stddef.h>
 # include <sys/stat.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -28,7 +28,7 @@
 # define WIN_W 1500
 # define WIN_H 750
 # define FOV 80
-# define SPEED 2.0
+# define SPEED 10.0
 
 typedef struct s_data{
 	void	*img;
@@ -62,6 +62,8 @@ typedef struct s_map
 	int		floor_color;
 	int		error;
 	char	**map;
+	size_t	y_lenth;
+	size_t	x_lenth;
 	int		player_x;
 	int		player_y;
 }		t_map;
