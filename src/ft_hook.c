@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/26 15:06:16 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/26 15:11:13 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	is_valid_move(t_mlx *mlx, float new_y, float new_x)
 	size_t		y;
 	char		c;
 
-	x = new_x / mlx->org->pixel_to_mapx;
-	y = new_y / mlx->org->pixel_to_mapy + 1;
+	x = floor(new_x / mlx->org->pixel_to_mapx);
+	y = floor(new_y / mlx->org->pixel_to_mapy + 1);
 	if (y > mlx->map->x_lenth || x > mlx->map->y_lenth)
 		return (0);
 	c = mlx->map->map[y][x];
@@ -71,8 +71,8 @@ int	ft_hook(int key, t_mlx *mlx)
 	rad = (M_PI / 180);
 	new_x = mlx->player->pos_x;
 	new_y = mlx->player->pos_y;
-	mvx = mlx->map->x_lenth * (SPEED * mlx->org->pixel_to_mapx);
-	mvy = mlx->map->x_lenth * (SPEED * mlx->org->pixel_to_mapy);
+	mvx = (SPEED * 0.0100) * mlx->org->pixel_to_mapx;
+	mvy = (SPEED * 0.0100) * mlx->org->pixel_to_mapy;
 	if (key == 65307)
 		exit(0);
 	else if (key == 119 || key == 65362)
