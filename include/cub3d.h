@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/26 14:39:19 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/27 11:08:36 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color);
 int		is_valid_move_y(t_mlx *mlx, float new_y);
 int		is_valid_move_x(t_mlx *mlx, float new_x);
 int		is_valid_move(t_mlx *mlx, float new_y, float new_x);
+void	road_to_wall(t_mlx *mlx, int y, int x, float angle);
 
 //////TOOLS//////
 void	end_of_prog(t_map map);

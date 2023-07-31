@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/26 15:18:14 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/31 17:49:06 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ void ft_fuse_pic(t_mlx mlx);
 void	ft_mlx(t_map map)
 {
 	t_mlx	*mlx;
-	t_data	*data;
 
-	data = malloc(sizeof(t_data));
 	mlx = malloc(sizeof(t_mlx));
 	mlx->map = &map;
-	mlx->data = data;
+	mlx->data = malloc(sizeof(t_data));
 	mlx->mlx_init_ptr = mlx_init();
 	if (!mlx->mlx_init_ptr)
 	{

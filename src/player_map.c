@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 22:21:20 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/26 14:32:53 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/07/27 14:08:17 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ void ray (t_mlx mlx, t_player player, int rgb)
 		cor += ((float)FOV / WIN_W);
 		i++;
 	}
+	road_to_wall(&mlx, y_angle, x_angle, cor);
 }
 	
