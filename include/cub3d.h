@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/03 23:45:41 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 23:58:00 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ typedef struct s_map
 	int		player_y;
 }		t_map;
 
-typedef struct s_data_wall{
+typedef struct s_t_wall_data{
+
 	char		*addr;
 	int			bits_py_px;
 	int			size_line;

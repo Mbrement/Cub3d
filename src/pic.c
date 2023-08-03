@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:05:52 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/01 15:57:58 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 13:18:03 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	road_to_wall(t_mlx *mlx, int y, int x, float angle)
 	size_t	tmp;
 	int 	ratio[3];
 
+	return ;
 	(void)x;
 	(void)y;
 	(void)angle;

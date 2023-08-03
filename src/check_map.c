@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/24 16:11:29 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 20:02:10 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ t_map	check_file(char *map)
 	t_map	true_map;
 
 	file_fd = open(map, R_OK);
-	if (file_fd <= 0)
-		return ((void)printf("Coundn't open the map\n"), exit(1), true_map);
 	check_format(map, file_fd);
 	true_map = check_inside(file_fd);
 	//debug
@@ -268,7 +266,7 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 
 static t_map	check_inside(int file_fd)
 {
-	char 	**maps;
+	char	**maps;
 	char	*buffer;
 	t_map	map;
 	int		i_am;
@@ -304,7 +302,7 @@ static t_map	check_inside(int file_fd)
 		{
 			(void)printf("Incorrect line in the map\n");
 			while (buffer)
-			{	
+			{
 				nfree((void **)&buffer);
 				buffer = get_next_line(file_fd);
 			}
@@ -332,6 +330,7 @@ static t_map	check_inside(int file_fd)
 		}
 		else if (buffer[0] && buffer[0] != '\n')
 			break ;
+		nfree((void **)&buffer);
 	}
 	maps = malloc(sizeof(char *) * 2);
 	if (!maps)
@@ -375,7 +374,7 @@ static t_map	check_inside(int file_fd)
 		end_of_prog(map);
 		exit(1);
 	}
-	maps = norme_tab(maps);
+	// maps = norme_tab(maps);
 	map.map = maps;
 	if (!check_walls(map))
 	{

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../libft.h"
-#include <stddef.h>
 
 char	*ft_strnew(int size)
 {
@@ -50,42 +49,39 @@ char	*join_free(char *s1, char const *s2)
 		i ++;
 	}
 	i--;
-	while (s2[j])
+	while (s2[j++])
 	{
 		str[i] = s2[j];
 		i++;
-		j++;
 	}
 	str[i] = '\n';
 	str[i + 1] = '\0';
-	free(s1);
-	return (str);
+	return (free(s1), str);
 }
 
 char	**norme_tab(char **tab)
 {
 	size_t	i;
 	size_t	max;
+	char	*str_new;
 
 	i = 0;
 	max = 0;
-	while (tab[i])
+	while (tab[i++])
 	{
 		if (ft_strlen(tab[i]) > max)
 			max = ft_strlen(tab[i]);
-		i++;
 	}
 	i = 0;
-	while (tab[i])
+	while (tab[i++])
 	{
-		if (ft_strlen(tab[i]) < max)
-		{
-			tab[i] = join_free(tab[i],
-					ft_strnew(max - ft_strlen(tab[i])));
-			if (!tab[i])
-				return (NULL);
-		}
-		i++;
+		str_new = ft_strnew(max - ft_strlen(tab[i]));
+		if (!str_new)
+			return (NULL);
+		tab[i] = join_free(tab[i], str_new);
+		if (!tab[i])
+			return (NULL);
+		nfree((void **)&str_new);
 	}
 	return (tab);
 }
