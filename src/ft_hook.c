@@ -3,62 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/26 15:11:13 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 23:17:57 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	is_valid_move_x(t_mlx *mlx, float new_x)
-{
-	size_t		x;
-	size_t		y;
-	char	c;
-
-	x = new_x / mlx->org->pixel_to_mapx;
-	y = mlx->player->pos_y / mlx->org->pixel_to_mapy + 1;
-	if (y > mlx->map->x_lenth || x > mlx->map->y_lenth)
-		return (0);
-	c = mlx->map->map[y][x];
-	if (c == '1')
-		return (0);
-	return (1);
-}
-
-int	is_valid_move_y(t_mlx *mlx, float new_y)
-{
-	size_t		x; 
-	size_t		y;
-	char	c;
-
-	x = (int)floor(mlx->player->pos_x / mlx->org->pixel_to_mapx);
-	y = (int)floor(new_y / mlx->org->pixel_to_mapy) + 1;
-	if (y > mlx->map->x_lenth || x > mlx->map->y_lenth)
-		return (0);
-	c = mlx->map->map[y][x];
-	if (c == '1')
-		return (0);
-	return (1);
-}
-
-int	is_valid_move(t_mlx *mlx, float new_y, float new_x)
-{
-	size_t		x; 
-	size_t		y;
-	char		c;
-
-	x = floor(new_x / mlx->org->pixel_to_mapx);
-	y = floor(new_y / mlx->org->pixel_to_mapy + 1);
-	if (y > mlx->map->x_lenth || x > mlx->map->y_lenth)
-		return (0);
-	c = mlx->map->map[y][x];
-	if (c == '1')
-		return (0);
-	return (1);
-}
 
 int	ft_hook(int key, t_mlx *mlx)
 {
