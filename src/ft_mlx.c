@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/31 17:49:06 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 23:48:10 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,11 @@ t_wall	put_img_in_wall(t_map map, t_mlx mlx)
 	wall.west = malloc(sizeof(void *));
 	wall.west_height = malloc(sizeof(int *));
 	wall.west_lenth = malloc(sizeof (int *));
+	if (wall.north || !wall.north_height || !wall.north_lenth || !wall.south || 
+		!wall.south_height || !wall.south_lenth || !wall.east || 
+		!wall.east_height || !wall.east_lenth || !wall.west || 
+		!wall.west_height || !wall.west_lenth || !wall.north)
+		end_of_prog(*mlx.map);
 	wall.north = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
 		map.north_file, wall.north_height, wall.north_lenth);
 	wall.east = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
@@ -135,6 +140,7 @@ t_wall	put_img_in_wall(t_map map, t_mlx mlx)
 		map.east_file, wall.east_height, wall.east_lenth);
 	wall.south = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
 		map.west_file, wall.west_height, wall.west_lenth);
+	data_wall(&wall);
 	return (wall);
 }
 

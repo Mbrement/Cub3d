@@ -6,26 +6,14 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/20 13:57:37 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 23:45:04 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-#include <unistd.h>
 
 void	death_map(t_map *map);
 
-void	end_of_prog(t_map map)
-{
-	if (map.north_found && map.north > 2)
-		close(map.north);
-	if (map.east_found && map.east > 2)
-		close(map.east);
-	if (map.south_found && map.south > 0)
-		close(map.south);
-	if (map.west_found && map.west > 2)
-		close(map.west);
-}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -44,11 +32,11 @@ int	main(int argc, char **argv, char **envp)
 	ft_print_tab(map.map);
 	printf("sucess\n");
 	//end of debug
-	ft_mlx(map);
-	nfree((void **)&map.north_file);
-	nfree((void **)&map.south_file);
-	nfree((void **)&map.east_file);
-	nfree((void **)&map.west_file);
+	// ft_mlx(map);
+	// nfree((void **)&map.north_file);
+	// nfree((void **)&map.south_file);
+	// nfree((void **)&map.east_file);
+	// nfree((void **)&map.west_file);
 	end_of_prog(map);
 	// free(map);
 }

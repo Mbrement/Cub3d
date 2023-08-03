@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/07/27 11:08:36 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 23:45:41 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,31 @@ typedef struct s_map
 	int		player_y;
 }		t_map;
 
+typedef struct s_data_wall{
+	char		*addr;
+	int			bits_py_px;
+	int			size_line;
+	int			endian;
+}	t_wall_data;
+
 typedef struct s_wall
 {
-	void	*north;
-	int		*north_height;
-	int		*north_lenth;
-	void	*east;
-	int		*east_height;
-	int		*east_lenth;
-	void	*west;
-	int		*west_height;
-	int		*west_lenth;
-	void	*south;
-	int		*south_height;
-	int		*south_lenth;
+	void		*north;
+	t_wall_data	north_data;
+	int			*north_height;
+	int			*north_lenth;
+	void		*east;
+	t_wall_data	east_data;
+	int			*east_height;
+	int			*east_lenth;
+	void		*west;
+	t_wall_data	west_data;
+	int			*west_height;
+	int			*west_lenth;
+	void		*south;
+	t_wall_data	south_data;
+	int			*south_height;
+	int			*south_lenth;
 }		t_wall;
 
 typedef struct s_player
@@ -131,6 +142,7 @@ void	road_to_wall(t_mlx *mlx, int y, int x, float angle);
 
 //////TOOLS//////
 void	end_of_prog(t_map map);
+void	data_wall(t_wall *wall);
 
 ///TMP A DELETE///
 char	*get_next_line(int fd);
