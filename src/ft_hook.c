@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 02:07:45 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 03:20:43 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	ft_hook(int key, t_mlx *mlx)
 	rad = (M_PI / 180);
 	new_x = mlx->player->pos_x;
 	new_y = mlx->player->pos_y;
-	mvx = (SPEED * 0.0100) * mlx->org->pixel_to_mapx;
-	mvy = (SPEED * 0.0100) * mlx->org->pixel_to_mapy;
+	mvx = (SPEED);
+	mvy = (SPEED);
 	if (key == 65307)
 		end_of_prog_mlx(mlx);
 	else if (key == 119 || key == 65362)
@@ -62,6 +62,7 @@ int	ft_hook(int key, t_mlx *mlx)
 		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
 		mlx->player->look -= 5;
 	}
+	printf("%f | %f \n", new_x, new_y);
 	if (is_valid_move_y(mlx, new_y))
 		mlx->player->pos_y = new_y;
 	if (is_valid_move_x(mlx, new_x))

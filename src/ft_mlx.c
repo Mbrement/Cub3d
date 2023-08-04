@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 03:01:17 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 03:16:51 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ray(t_mlx mlx, t_player player, int rgb);
 t_wall	*put_img_in_wall(t_map map, t_mlx mlx);
-void	init_game(t_mlx mlx, t_map map);
+void	init_game(t_mlx *mlx, t_map map);
 void	ft_fuse_pic(t_mlx mlx);
 
 
@@ -40,7 +40,7 @@ void	ft_mlx(t_map *map, t_mlx *mlx)
 		printf("Mlx create the window\n");
 		end_of_prog_mlx(mlx);
 	}
-	init_game(*mlx, *map);
+	init_game(mlx, *map);
 }
 
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color)
@@ -58,9 +58,10 @@ int	ft_dmg_control(int key, t_mlx *mlx)
 	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
 	// printf ("addr %p, bpp %i, line lenth %i, endiant : %i\n", mlx->data->addr, mlx->data->bits_per_pixel, mlx->data->line_length, mlx->data->endian);
 	put_player(*mlx, *mlx->player, 0);
+	printf("%f\n", mlx->player->pos_x);
 	ft_hook(key, mlx);
-	ray (*mlx, *mlx->player, 0xFF0000);
-	ft_fuse_pic(*mlx);
+	// ray (*mlx, *mlx->player, 0xFF0000);
+	// ft_fuse_pic(*mlx);
 	// mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->org->img, 0, 0);
 	mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
 	mlx_destroy_image(mlx->mlx_init_ptr, mlx->data->img);
@@ -89,18 +90,22 @@ void	player_get_look(t_mlx *mlx, t_map map)
 		mlx->player->look = 180;
 }
 
-void	init_game(t_mlx mlx, t_map map)
+void	init_game(t_mlx *mlx, t_map map)
 {
 	t_player	*player;
 
 	player = malloc(sizeof(t_player));
-	mlx.player = player;
-	player_get_look(&mlx, map);
+	mlx->player = player;
+	player_get_look(mlx, map);
+	mlx->map->x_lenth = 0;
+	while (map.map[++mlx->map->x_lenth])
+		;
+	mlx->map->y_lenth = ft_strlen(map.map[1]) - 1;
 	player->pos_x = locate_player_x(map.map) * 50 + 25;
 	player->pos_y = locate_player_y(map.map) * 50 + 25;
-	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
-	mlx_hook(mlx.mlx_win_ptr, 2, 1L << 0, ft_dmg_control, &mlx);
-	mlx_loop(mlx.mlx_init_ptr);
+	mlx_hook(mlx->mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
+	mlx_hook(mlx->mlx_win_ptr, 2, 1L << 0, ft_dmg_control, mlx);
+	mlx_loop(mlx->mlx_init_ptr);
 }
 
 t_wall	*put_img_in_wall(t_map map, t_mlx mlx)
