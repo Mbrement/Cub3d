@@ -12,34 +12,33 @@
 
 #include "../include/cub3d.h"
 
-	int	check_chr_map(char **maps)
+int	check_chr_map(char **maps)
+{
+	int	i;
+	int	j;
+	int	player;
+	i = 0;
+	player = 0;
+	while (maps[i])
 	{
-		int	i;
-		int	j;
-		int	player;
-
-		i = 0;
-		player = 0;
-		while (maps[i])
+		j = 0;
+		while (maps[i][j])
 		{
-			j = 0;
-			while (maps[i][j])
-			{
-				if (maps[i][j] != '1' && maps[i][j] != '0' && maps[i][j] != '\n'
-					&& maps[i][j] != 'N' && maps[i][j] != 'S' && maps[i][j] != 'E'
-					&& maps[i][j] != 'W' && maps[i][j] != ' ')
-					return (0);
-				if (maps[i][j] == 'N' || maps[i][j] == 'S' || maps[i][j] == 'E'
-					|| maps[i][j] == 'W')
-					player++;
-				j++;
-			}
-			i++;
+			if (maps[i][j] != '1' && maps[i][j] != '0' && maps[i][j] != '\n'
+				&& maps[i][j] != 'N' && maps[i][j] != 'S' && maps[i][j] != 'E'
+				&& maps[i][j] != 'W' && maps[i][j] != ' ')
+				return (0);
+			if (maps[i][j] == 'N' || maps[i][j] == 'S' || maps[i][j] == 'E'
+				|| maps[i][j] == 'W')
+				player++;
+			j++;
 		}
-		if (player != 1)
-			return (0);
-		return (1);
+		i++;
 	}
+	if (player != 1)
+		return (0);
+	return (1);
+}
 
 //potential leaks
 char	**dup_maps(char **maps)
@@ -132,26 +131,26 @@ int	complete_map(char **temp_maps)
 	return (1);
 }
 
-	int	check_walls(t_map map)
+int	check_walls(t_map map)
+{
+	char	**tmp_map;
+
+	tmp_map = dup_maps(map.map);
+	if (!tmp_map)
 	{
-		char	**tmp_map;
-	
-		tmp_map = dup_maps(map.map);
-		if (!tmp_map)
-		{
-			printf("Malloc error\n");
-			end_of_prog(map);
-			exit(1);
-		}
-		map.player_x = locate_player_x(tmp_map);
-		map.player_y = locate_player_y(tmp_map);
-		tmp_map[map.player_y][map.player_x] = '*';
-		if (!complete_map(tmp_map))
-		{
-			printf("Incorrect map\n");
-			end_of_prog(map);
-			exit(1);
-		}
-		free_tab(tmp_map);
-		return (1);
+		printf("Malloc error\n");
+		end_of_prog(map);
+		exit(1);
 	}
+	map.player_x = locate_player_x(tmp_map);
+	map.player_y = locate_player_y(tmp_map);
+	tmp_map[map.player_y][map.player_x] = '*';
+	if (!complete_map(tmp_map))
+	{
+		printf("Incorrect map\n");
+		end_of_prog(map);
+		exit(1);
+	}
+	free_tab(tmp_map);
+	return (1);
+}

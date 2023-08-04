@@ -62,31 +62,31 @@ char	*join_free(char *s1, char const *s2)
 	return (str);
 }
 
-	char	**norme_tab(char **tab)
+char	**norme_tab(char **tab)
+{
+	size_t	i;
+	size_t	max;
+
+	i = 0;
+	max = 0;
+	while (tab[i])
 	{
-		size_t	i;
-		size_t	max;
-	
-		i = 0;
-		max = 0;
-		while (tab[i])
-		{
-			if (ft_strlen(tab[i]) > max)
-				max = ft_strlen(tab[i]);
-			i++;
-		}
-		i = 0;
-		while (tab[i])
-		{
-			if (ft_strlen(tab[i]) < max)
-			{
-				tab[i] = join_free(tab[i],
-						ft_strnew(max - ft_strlen(tab[i])));
-				if (!tab[i])
-					return (NULL);
-			}
-			i++;
-		}
-		return (tab);
+		if (ft_strlen(tab[i]) > max)
+			max = ft_strlen(tab[i]);
+		i++;
 	}
+	i = 0;
+	while (tab[i])
+	{
+		if (ft_strlen(tab[i]) < max)
+		{
+			tab[i] = join_free(tab[i],
+					ft_strnew(max - ft_strlen(tab[i])));
+			if (!tab[i])
+				return (NULL);
+		}
+		i++;
+	}
+	return (tab);
+}
 
