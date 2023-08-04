@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 03:20:43 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 06:25:56 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	ft_hook(int key, t_mlx *mlx)
 		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
 		mlx->player->look -= 5;
 	}
-	printf("%f | %f \n", new_x, new_y);
 	if (is_valid_move_y(mlx, new_y))
 		mlx->player->pos_y = new_y;
 	if (is_valid_move_x(mlx, new_x))
