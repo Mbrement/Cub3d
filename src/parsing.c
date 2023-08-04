@@ -135,6 +135,8 @@ int	complete_map(char **temp_maps)
 int	check_walls(t_map *map)
 {
 	char	**tmp_map;
+	int		x;
+	int		y;
 
 	tmp_map = dup_maps(map->map);
 	if (!tmp_map)
@@ -143,9 +145,9 @@ int	check_walls(t_map *map)
 		end_of_prog(*map);
 		exit(1);
 	}
-	map->player_x = locate_player_x(tmp_map);
-	map->player_y = locate_player_y(tmp_map);
-	tmp_map[map->player_y][map->player_x] = '*';
+	x = locate_player_x(tmp_map);
+	y = locate_player_y(tmp_map);
+	tmp_map[y][x] = '*';
 	if (!complete_map(tmp_map))
 	{
 		printf("Incorrect map\n");

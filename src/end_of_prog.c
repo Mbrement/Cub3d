@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 19:38:25 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 02:14:19 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 02:53:53 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,19 @@ void	end_of_prog_no_exit(t_map map)
 
 void	end_of_prog_mlx(t_mlx *mlx)
 {
+	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->north);
+	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->east);
+	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->west);
+	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->south);
+	nfree((void **)&mlx->wall->north_height);
+	nfree((void **)&mlx->wall->south_height);
+	nfree((void **)&mlx->wall->east_height);
+	nfree((void **)&mlx->wall->west_height);
+	nfree((void **)&mlx->wall->north_lenth);
+	nfree((void **)&mlx->wall->south_lenth);
+	nfree((void **)&mlx->wall->east_lenth);
+	nfree((void **)&mlx->wall->west_lenth);
+	nfree((void **)&mlx->wall);
 	mlx_destroy_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr);
 	mlx_destroy_display(mlx->mlx_init_ptr);
 	nfree((void **)&mlx->mlx_init_ptr);

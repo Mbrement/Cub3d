@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 01:28:58 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 02:42:59 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ typedef struct s_map
 	char	**map;
 	size_t	y_lenth;
 	size_t	x_lenth;
-	int		player_x;
-	int		player_y;
 }		t_map;
 
 typedef struct s_t_wall_data{
@@ -108,7 +106,7 @@ typedef struct s_mlx
 	void		*mlx_init_ptr;
 	void		*mlx_win_ptr;
 	void		*mlx_img_ptr;
-	t_wall		wall;	
+	t_wall		*wall;	
 	t_player	*player;
 	t_data		*data;
 	t_data		*org;
