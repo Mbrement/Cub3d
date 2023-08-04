@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 02:02:51 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 03:45:06 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 void	death_map(t_map *map);
-
+t_map	define_map(t_map map);
 
 int	main(int argc, char **argv)
 {
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 	map.map = NULL;
 	if (argc != 2)
 		return ((void)printf("Wrong number of argument\n"), 1);
+	map = define_map(map);
 	map = check_file(argv[1]);
 	death_map(&map);
 	//debug
@@ -41,6 +42,15 @@ int	main(int argc, char **argv)
 	end_of_prog_mlx(mlx);
 }
 
+t_map	define_map(t_map map)
+{
+	map.map = NULL;
+	map.north_file = NULL;
+	map.south_file = NULL;
+	map.east_file = NULL;
+	map.west_file = NULL;
+	return (map);
+}
 
 void	death_map(t_map *map)
 {

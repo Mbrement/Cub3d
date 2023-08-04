@@ -17,7 +17,6 @@ int	check_chr_map(char **maps)
 	int	i;
 	int	j;
 	int	player;
-
 	i = 0;
 	player = 0;
 	while (maps[i])
