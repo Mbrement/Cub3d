@@ -6,14 +6,14 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 02:13:51 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 02:50:31 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 void	ray(t_mlx mlx, t_player player, int rgb);
-t_wall	put_img_in_wall(t_map map, t_mlx mlx);
+t_wall	*put_img_in_wall(t_map map, t_mlx mlx);
 void	create_map(t_mlx mlx, t_map map);
 void	ft_fuse_pic(t_mlx mlx);
 
@@ -33,7 +33,7 @@ void	ft_mlx(t_map *map, t_mlx *mlx)
 		printf("Mlx couldn't init\n");
 		end_of_prog_mlx(mlx);
 	}
-	// mlx->wall = put_img_in_wall(map, *mlx);
+	mlx->wall = put_img_in_wall(*map, *mlx);
 	mlx->mlx_win_ptr = mlx_new_window(mlx->mlx_init_ptr, WIN_W, WIN_H, "cub3d");
 	if (!mlx->mlx_win_ptr)
 	{
@@ -67,13 +67,13 @@ int	ft_dmg_control(int key, t_mlx *mlx)
 	return (1);
 }
 
-//debug
-int	ft_exit(int i)
+
+int	ft_exit(int i, t_mlx *mlx)
 {
-	exit(i);
-	return(0);
+	end_of_prog_mlx(mlx);
+	return (i);
 }
-//endofdebug
+
 void	player_get_look(t_mlx *mlx, t_map map)
 {
 	char	c;
@@ -103,45 +103,50 @@ void	create_map(t_mlx mlx, t_map map)
 	player_get_look(&mlx, map);
 	map_img(&mlx, map);
 	put_player(mlx, *player, UINT32_MAX);
-	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
+	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, &mlx);
 	mlx_hook(mlx.mlx_win_ptr, 2, 1L << 0, ft_dmg_control, &mlx);
 	mlx_loop(mlx.mlx_init_ptr);
 }
 
-t_wall	put_img_in_wall(t_map map, t_mlx mlx)
+t_wall	*put_img_in_wall(t_map map, t_mlx mlx)
 {
-	t_wall	wall;
+	t_wall	*wall;
 
-	wall.north = malloc(sizeof(void *));
-	wall.north_height = malloc(sizeof(int *));
-	wall.north_lenth = malloc(sizeof (int *));
-	wall.south = malloc(sizeof(void *));
-	wall.south_height = malloc(sizeof (int *));
-	wall.south_lenth = malloc(sizeof (int *));
-	wall.east = malloc(sizeof(void *));
-	wall.east_height = malloc(sizeof (int *));
-	wall.east_lenth = malloc(sizeof (int *));
-	wall.west = malloc(sizeof(void *));
-	wall.west_height = malloc(sizeof(int *));
-	wall.west_lenth = malloc(sizeof (int *));
-	wall.north = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
-		map.north_file, wall.north_height, wall.north_lenth);
-	wall.east = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
-		map.south_file, wall.south_height, wall.south_lenth);
-	wall.west = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
-		map.east_file, wall.east_height, wall.east_lenth);
-	wall.south = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
-		map.west_file, wall.west_height, wall.west_lenth);
-	data_wall(&wall);
+	// wall->north = malloc(sizeof(void *));
+	wall = malloc(sizeof (t_wall));
+	wall->north_height = malloc(sizeof(int *));
+	wall->north_lenth = malloc(sizeof (int *));
+	// wall->south = malloc(sizeof(void *));
+	wall->south_height = malloc(sizeof (int *));
+	wall->south_lenth = malloc(sizeof (int *));
+	// wall->east = malloc(sizeof(void *));
+	wall->east_height = malloc(sizeof (int *));
+	wall->east_lenth = malloc(sizeof (int *));
+	// wall->west = malloc(sizeof(void *));
+	wall->west_height = malloc(sizeof(int *));
+	wall->west_lenth = malloc(sizeof (int *));
+	if (!wall->north_height || !wall->north_lenth || !wall->south_height
+		|| !wall->south_lenth || !wall->east_height || !wall->east_lenth 
+		|| !wall->west_height || !wall->west_lenth)
+		end_of_prog_mlx(&mlx);
+	wall->north = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
+		map.north_file, wall->north_height, wall->north_lenth);
+	wall->east = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
+		map.south_file, wall->south_height, wall->south_lenth);
+	wall->west = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
+		map.east_file, wall->east_height, wall->east_lenth);
+	wall->south = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
+		map.west_file, wall->west_height, wall->west_lenth);
+	data_wall(wall);
 	return (wall);
 }
 
 void ft_fuse_pic(t_mlx mlx)
 {
-	char	*dst;
-	int		x;
-	int		y;
-	unsigned int color;
+	char			*dst;
+	int				x;
+	int				y;
+	unsigned int	color;
 
 	y = 0;
 	while (y < WIN_H)

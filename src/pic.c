@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:05:52 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/03 13:18:03 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 02:44:06 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ unsigned int	get_color(void *img_ptr, int x, int y, t_mlx *mlx, int *ratio)
 	int		endian;
 
 	(void)mlx;
-	x = ((float)((*mlx->wall.east_height *  x) / ratio[0]) * ratio[2]/100);
-	y = ((float)((*mlx->wall.east_lenth * y) / ratio[1]) * ratio[2]/100);
+	x = ((float)((*mlx->wall->east_height *  x) / ratio[0]) * ratio[2]/100);
+	y = ((float)((*mlx->wall->east_lenth * y) / ratio[1]) * ratio[2]/100);
 	addr = mlx_get_data_addr(img_ptr, &bits_py_px, &size_line, &endian);
 	dst = addr + (y * size_line + x * 4);
 	// if (x > *mlx->wall.east_lenth || y > *mlx->wall.east_height || y < 0 || x < 0)
@@ -73,7 +73,7 @@ void	road_to_wall(t_mlx *mlx, int y, int x, float angle)
 	{
 		tmp3 = 0;
 		while (tmp3++ < 750)
-			my_mlx_pixel_put2(addr_tmp, tmp2, tmp, tmp3, get_color(mlx->wall.east, tmp, tmp3,  mlx, ratio)); 
+			my_mlx_pixel_put2(addr_tmp, tmp2, tmp, tmp3, get_color(mlx->wall->east, tmp, tmp3,  mlx, ratio)); 
 	}
 	mlx_put_image_to_window(init_tmp, win_tmp, img_tmp, 0, 0);
 }

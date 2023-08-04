@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 14:02:02 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/03 23:18:36 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 02:24:37 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	map_img(t_mlx *mlx, t_map map)
 		y++;
 	}
 	printf("coordonner x =%i, y = %i\n", locate_player_x(map.map), locate_player_y(map.map));
-	mlx->player->pos_x = mlx->map->player_x * 50 * (px_by_elem_y) + 0.5 * px_by_elem_y ;
-	mlx->player->pos_y = (mlx->map->player_y * 50 - 1) * (px_by_elem_x) + 0.5 * px_by_elem_x ;
+	// mlx->player->pos_x = locate_player_x(&mlx.map) * 50 * (px_by_elem_y) + 0.5 * px_by_elem_y ;
+	// mlx->player->pos_y = (mlx->map->player_y * 50 - 1) * (px_by_elem_x) + 0.5 * px_by_elem_x ;
 }
 
 static void	my_mlx_pixel_put2(t_mlx *mlx, int y, int x, unsigned int color)
