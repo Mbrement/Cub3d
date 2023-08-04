@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 02:58:25 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/08/04 03:01:17 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 void	ray(t_mlx mlx, t_player player, int rgb);
-t_wall	put_img_in_wall(t_map map, t_mlx mlx);
+t_wall	*put_img_in_wall(t_map map, t_mlx mlx);
 void	init_game(t_mlx mlx, t_map map);
 void	ft_fuse_pic(t_mlx mlx);
 
