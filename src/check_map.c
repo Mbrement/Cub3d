@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/03 20:02:10 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 00:06:22 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,9 +374,8 @@ static t_map	check_inside(int file_fd)
 		end_of_prog(map);
 		exit(1);
 	}
-	// maps = norme_tab(maps);
 	map.map = maps;
-	if (!check_walls(map))
+	if (!check_walls(&map))
 	{
 		(void)printf("Incorrect map\n");
 		end_of_prog(map);

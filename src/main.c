@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/03 23:58:43 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 02:02:51 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	death_map(t_map *map);
 
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv)
 {
 	t_map	map;
+	t_mlx	*mlx;
 
-	(void)envp;
 	map.map = NULL;
 	if (argc != 2)
 		return ((void)printf("Wrong number of argument\n"), 1);
@@ -32,13 +32,13 @@ int	main(int argc, char **argv, char **envp)
 	ft_print_tab(map.map);
 	printf("sucess\n");
 	//end of debug
-	// ft_mlx(map);
 	// nfree((void **)&map.north_file);
 	// nfree((void **)&map.south_file);
 	// nfree((void **)&map.east_file);
 	// nfree((void **)&map.west_file);
-	end_of_prog(map);
-	// free(map);
+	mlx = malloc(sizeof(t_mlx));
+	ft_mlx(&map, mlx);
+	end_of_prog_mlx(mlx);
 }
 
 

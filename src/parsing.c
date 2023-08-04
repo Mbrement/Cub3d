@@ -132,24 +132,24 @@ int	complete_map(char **temp_maps)
 	return (1);
 }
 
-int	check_walls(t_map map)
+int	check_walls(t_map *map)
 {
 	char	**tmp_map;
 
-	tmp_map = dup_maps(map.map);
+	tmp_map = dup_maps(map->map);
 	if (!tmp_map)
 	{
 		printf("Malloc error\n");
-		end_of_prog(map);
+		end_of_prog(*map);
 		exit(1);
 	}
-	map.player_x = locate_player_x(tmp_map);
-	map.player_y = locate_player_y(tmp_map);
-	tmp_map[map.player_y][map.player_x] = '*';
+	map->player_x = locate_player_x(tmp_map);
+	map->player_y = locate_player_y(tmp_map);
+	tmp_map[map->player_y][map->player_x] = '*';
 	if (!complete_map(tmp_map))
 	{
 		printf("Incorrect map\n");
-		end_of_prog(map);
+		end_of_prog(*map);
 		exit(1);
 	}
 	free_tab(tmp_map);

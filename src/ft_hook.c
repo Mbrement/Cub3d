@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/03 23:17:57 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/08/04 02:07:45 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_hook(int key, t_mlx *mlx)
 	mvx = (SPEED * 0.0100) * mlx->org->pixel_to_mapx;
 	mvy = (SPEED * 0.0100) * mlx->org->pixel_to_mapy;
 	if (key == 65307)
-		exit(0);
+		end_of_prog_mlx(mlx);
 	else if (key == 119 || key == 65362)
 	{
 		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);

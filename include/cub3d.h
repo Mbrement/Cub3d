@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/03 23:58:00 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 01:28:58 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,19 +115,17 @@ typedef struct s_mlx
 	t_map		*map;
 }		t_mlx;
 
-int		main(int argc, char **argv, char **envp);
-
 //////PARSING//////
 t_map	check_file(char *map);
 int		check_chr_map(char **maps);
-int		check_walls(t_map map);
+int		check_walls(t_map *map);
 int		locate_player_x(char **maps);
 int		locate_player_y(char **maps);
 
 //////EXEC//////
 
 //////MLX//////
-void	ft_mlx(t_map map);
+void	ft_mlx(t_map *map, t_mlx *mlx);
 int		ft_hook(int key, t_mlx *mlx);
 void	put_player(t_mlx mlx, t_player player, int color);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
@@ -143,6 +141,7 @@ void	road_to_wall(t_mlx *mlx, int y, int x, float angle);
 
 //////TOOLS//////
 void	end_of_prog(t_map map);
+void	end_of_prog_mlx(t_mlx *mlx);
 void	data_wall(t_wall *wall);
 
 ///TMP A DELETE///

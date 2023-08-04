@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/03 23:56:24 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 02:13:51 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,32 @@
 void	ray(t_mlx mlx, t_player player, int rgb);
 t_wall	put_img_in_wall(t_map map, t_mlx mlx);
 void	create_map(t_mlx mlx, t_map map);
-void ft_fuse_pic(t_mlx mlx);
+void	ft_fuse_pic(t_mlx mlx);
 
-void	ft_mlx(t_map map)
+
+void	ft_mlx(t_map *map, t_mlx *mlx)
 {
-	t_mlx	*mlx;
 
-	mlx = malloc(sizeof(t_mlx));
-	mlx->map = &map;
+	if (!mlx)
+		end_of_prog(*map);
+	mlx->map = map;
 	mlx->data = malloc(sizeof(t_data));
+	if (!mlx->data)
+		end_of_prog_mlx(mlx);
 	mlx->mlx_init_ptr = mlx_init();
 	if (!mlx->mlx_init_ptr)
 	{
 		printf("Mlx couldn't init\n");
-		exit(1);
+		end_of_prog_mlx(mlx);
 	}
-	mlx->wall = put_img_in_wall(map, *mlx);
+	// mlx->wall = put_img_in_wall(map, *mlx);
 	mlx->mlx_win_ptr = mlx_new_window(mlx->mlx_init_ptr, WIN_W, WIN_H, "cub3d");
 	if (!mlx->mlx_win_ptr)
 	{
 		printf("Mlx create the window\n");
-		exit(1);
+		end_of_prog_mlx(mlx);
 	}
-	create_map(*mlx, map);
-	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall.north);
-	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall.east);
-	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall.south);
-	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall.west);
-	mlx_destroy_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr);
-	mlx_destroy_display(mlx->mlx_init_ptr);
+	// create_map(*mlx, *map);
 }
 
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color)
