@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 02:13:51 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 02:54:42 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ray(t_mlx mlx, t_player player, int rgb);
 t_wall	put_img_in_wall(t_map map, t_mlx mlx);
-void	create_map(t_mlx mlx, t_map map);
+void	game(t_mlx mlx, t_map map);
 void	ft_fuse_pic(t_mlx mlx);
 
 
@@ -40,7 +40,7 @@ void	ft_mlx(t_map *map, t_mlx *mlx)
 		printf("Mlx create the window\n");
 		end_of_prog_mlx(mlx);
 	}
-	// create_map(*mlx, *map);
+	// game(*mlx, *map);
 }
 
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color)
@@ -87,22 +87,17 @@ void	player_get_look(t_mlx *mlx, t_map map)
 		mlx->player->look = 0;
 	else if (c == 'N')
 		mlx->player->look = 180;
-	else
-	{
-	 	printf("didn't find orientation, set it to 0\n");
-		mlx->player->look = 0;
-	}
 }
 
-void	create_map(t_mlx mlx, t_map map)
+void	game(t_mlx mlx, t_map map)
 {
-	t_player *player;
+	t_player	*player;
 
 	player = malloc(sizeof(t_player));
 	mlx.player = player;
 	player_get_look(&mlx, map);
-	map_img(&mlx, map);
-	put_player(mlx, *player, UINT32_MAX);
+	player->pos_x = locate_player_x(map.map) * 50 + 25;
+	player->pos_y = locate_player_y(map.map) * 50 + 25;
 	mlx_hook(mlx.mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
 	mlx_hook(mlx.mlx_win_ptr, 2, 1L << 0, ft_dmg_control, &mlx);
 	mlx_loop(mlx.mlx_init_ptr);
