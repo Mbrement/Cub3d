@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 06:22:05 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/06 16:31:30 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ int	ft_dmg_control(int key, t_mlx *mlx)
 	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
 	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
 	// printf ("addr %p, bpp %i, line lenth %i, endiant : %i\n", mlx->data->addr, mlx->data->bits_per_pixel, mlx->data->line_length, mlx->data->endian);
-	put_player(*mlx, *mlx->player, 0);
-	printf("%f\n", mlx->player->pos_x);
+	// put_player(*mlx, *mlx->player, 0);
+	// printf("%f\n", mlx->player->pos_x);
 	ft_hook(key, mlx);
-	// ray (*mlx, *mlx->player, 0xFF0000);
+	// printf("x = %f y = %f\n", mlx->player->pos_x, mlx->player->pos_y);
+	ft_ray (mlx);
 	// ft_fuse_pic(*mlx);
 	// mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->org->img, 0, 0);
 	mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
