@@ -17,6 +17,7 @@ int	check_chr_map(char **maps)
 	int	i;
 	int	j;
 	int	player;
+
 	i = 0;
 	player = 0;
 	while (maps[i])
@@ -40,7 +41,6 @@ int	check_chr_map(char **maps)
 	return (1);
 }
 
-//potential leaks
 char	**dup_maps(char **maps)
 {
 	int		i;
@@ -57,7 +57,7 @@ char	**dup_maps(char **maps)
 	{
 		dup[i] = ft_strdup(maps[i]);
 		if (!dup[i])
-			return (NULL);
+			return (free_tab(dup), NULL);
 		i++;
 	}
 	dup[i] = NULL;
@@ -90,13 +90,17 @@ void	replace_chr(char **temp_maps, int x, int y, int *new)
 
 int	death_around(char **temp_maps, int x, int y)
 {
-	if (temp_maps[x + 1][y] == '\n' || temp_maps[x + 1][y] == ' ')
+	if (temp_maps[x + 1][y] != '1' && temp_maps[x + 1][y] != '0'
+		&& temp_maps[x + 1][y] != '*')
 		return (1);
-	if (!temp_maps[x - 1][y] || temp_maps[x - 1][y] == ' ')
+	if (temp_maps[x - 1][y] != '1' && temp_maps[x - 1][y] != '0'
+		&& temp_maps[x - 1][y] != '*')
 		return (1);
-	if (temp_maps[x][y + 1] == ' ')
+	if (temp_maps[x][y + 1] != '1' && temp_maps[x][y + 1] != '0'
+		&& temp_maps[x][y + 1] != '*')
 		return (1);
-	if (!temp_maps[x][y - 1] || temp_maps[x][y - 1] == ' ')
+	if (temp_maps[x][y - 1] != '1' && temp_maps[x][y - 1] != '0'
+		&& temp_maps[x][y - 1] != '*')
 		return (1);
 	return (0);
 }
@@ -149,6 +153,7 @@ int	check_walls(t_map *map)
 	tmp_map[y][x] = '*';
 	if (!complete_map(tmp_map))
 	{
+		free_tab(tmp_map);
 		printf("Incorrect map\n");
 		end_of_prog(*map);
 		exit(1);
