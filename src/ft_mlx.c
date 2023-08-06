@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/06 16:31:30 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/06 17:43:54 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	ft_dmg_control(int key, t_mlx *mlx)
 	// put_player(*mlx, *mlx->player, 0);
 	// printf("%f\n", mlx->player->pos_x);
 	ft_hook(key, mlx);
-	// printf("x = %f y = %f\n", mlx->player->pos_x, mlx->player->pos_y);
 	ft_ray (mlx);
+	// printf("x = %f y = %f\n", mlx->player->pos_x, mlx->player->pos_y);
 	// ft_fuse_pic(*mlx);
 	// mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->org->img, 0, 0);
 	mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
@@ -104,6 +104,7 @@ void	init_game(t_mlx *mlx, t_map map)
 	mlx->map->y_lenth = ft_strlen(map.map[1]) - 1;
 	player->pos_x = locate_player_x(map.map) * 50 + 25;
 	player->pos_y = locate_player_y(map.map) * 50 + 25;
+	ft_dmg_control(0, mlx);
 	mlx_hook(mlx->mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
 	mlx_hook(mlx->mlx_win_ptr, 2, 1L << 0, ft_dmg_control, mlx);
 	mlx_loop(mlx->mlx_init_ptr);
