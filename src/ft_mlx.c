@@ -6,11 +6,12 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/13 14:11:25 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/08/13 15:56:50 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdio.h>
 
 void	ray(t_mlx mlx, t_player player, int rgb);
 t_wall	*put_img_in_wall(t_map map, t_mlx mlx);
@@ -20,7 +21,6 @@ void	ft_fuse_pic(t_mlx mlx);
 
 void	ft_mlx(t_map *map, t_mlx *mlx)
 {
-
 	if (!mlx)
 		end_of_prog(*map);
 	mlx->map = map;
@@ -52,6 +52,7 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color)
 	dst = mlx->data->addr + (y * mlx->data->line_length + x * 4);
 	*(unsigned int *)dst = color;
 }
+
 int	ft_dmg_control(int key, t_mlx *mlx)
 {
 	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
@@ -107,6 +108,9 @@ void	init_game(t_mlx *mlx, t_map map)
 	ft_dmg_control(0, mlx);
 	mlx_hook(mlx->mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
 	mlx_hook(mlx->mlx_win_ptr, 2, 1L << 0, ft_dmg_control, mlx);
+	mlx_mouse_move(mlx->mlx_init_ptr, mlx->mlx_win_ptr, WIN_W / 2, WIN_H / 2);
+	mlx_mouse_hide(mlx->mlx_init_ptr, mlx->mlx_win_ptr);
+	mlx_hook(mlx->mlx_win_ptr, MotionNotify, PointerMotionMask, &handle_mouse_movement, mlx);
 	mlx_loop(mlx->mlx_init_ptr);
 }
 

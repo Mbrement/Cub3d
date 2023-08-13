@@ -6,11 +6,12 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/13 14:43:48 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/08/13 16:24:11 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdio.h>
 
 int	ft_hook(int key, t_mlx *mlx)
 {
@@ -29,34 +30,28 @@ int	ft_hook(int key, t_mlx *mlx)
 		end_of_prog_mlx(mlx);
 	else if (key == 119 || key == 65362)
 	{
-	    new_x += mvx * cos(mlx->player->look * rad);
-	    new_y += mvy * sin(mlx->player->look * rad);
+		new_x += mvx * cos(mlx->player->look * rad);
+		new_y += mvy * sin(mlx->player->look * rad);
 	}
 	else if (key == 115 || key == 65364)
 	{
-	    new_x -= mvx * cos(mlx->player->look * rad);
-	    new_y -= mvy * sin(mlx->player->look * rad);
+		new_x -= mvx * cos(mlx->player->look * rad);
+		new_y -= mvy * sin(mlx->player->look * rad);
 	}
-	else if (key == 97 || key == 65363)
+	else if (key == 97 || key == 65361)
 	{
-	    new_x += mvx * sin(mlx->player->look * rad);
-	    new_y -= mvy * cos(mlx->player->look * rad);
+		new_x += mvx * sin(mlx->player->look * rad);
+		new_y -= mvy * cos(mlx->player->look * rad);
 	}
-	else if (key == 100 || key == 65361)
+	else if (key == 100 || key == 65363)
 	{
-	    new_x -= mvx * sin(mlx->player->look * rad);
-	    new_y += mvy * cos(mlx->player->look * rad);
+		new_x -= mvx * sin(mlx->player->look * rad);
+		new_y += mvy * cos(mlx->player->look * rad);
 	}
 	else if (key == 113)
-	{
-		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
 		mlx->player->look -= 5;
-	}
 	else if (key == 101)
-	{
-		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
 		mlx->player->look += 5;
-	}
 	if (is_valid_move_y(mlx, new_y))
 		mlx->player->pos_y = new_y;
 	if (is_valid_move_x(mlx, new_x))
@@ -68,6 +63,27 @@ int	ft_hook(int key, t_mlx *mlx)
 	return (0);
 }
 
+int	handle_mouse_movement(int x, int y, t_mlx *mlx)
+{
+	if (x > (WIN_W / 2) + 150)
+		mlx->player->look += 1;
+	else if (x < (WIN_W / 2) - 150)
+		mlx->player->look -= 1;
+	else
+		return (0);
+	(void)y;
+	if (mlx->player->look > 360)
+		mlx->player->look = 0;
+	else if (mlx->player->look < 0)
+		mlx->player->look = 360;
+	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
+	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
+	ft_ray (mlx);
+	mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
+	mlx_destroy_image(mlx->mlx_init_ptr, mlx->data->img);
+	mlx_mouse_move(mlx->mlx_init_ptr, mlx->mlx_win_ptr, WIN_W / 2, WIN_H / 2);
+	return (0);
+}
 
 // left_arrow  65363
 // right_arrow 65361

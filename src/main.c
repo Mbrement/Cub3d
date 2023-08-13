@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 03:45:06 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/08/13 15:09:27 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ int	main(int argc, char **argv)
 	ft_print_tab(map.map);
 	printf("sucess\n");
 	//end of debug
-	// nfree((void **)&map.north_file);
-	// nfree((void **)&map.south_file);
-	// nfree((void **)&map.east_file);
-	// nfree((void **)&map.west_file);
 	mlx = malloc(sizeof(t_mlx));
 	ft_mlx(&map, mlx);
 	end_of_prog_mlx(mlx);
