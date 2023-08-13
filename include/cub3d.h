@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 06:29:31 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/13 14:49:44 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define WIN_W 1500
 # define WIN_H 750
 # define FOV 80
-# define SPEED 1
+# define SPEED 3
 
 typedef struct s_data{
 	void	*img;
@@ -66,8 +66,8 @@ typedef struct s_map
 	size_t	x_lenth;
 }		t_map;
 
-typedef struct s_t_wall_data{
-
+typedef struct s_t_wall_data
+{
 	char		*addr;
 	int			bits_py_px;
 	int			size_line;
@@ -129,7 +129,6 @@ void	put_player(t_mlx mlx, t_player player, int color);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
 void	map_img(t_mlx *mlx, t_map map);
 void	ft_ray(t_mlx *mlx);
-
 
 //////MATH//////
 void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color);

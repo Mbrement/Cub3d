@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/06 17:43:54 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/13 14:11:25 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ void	player_get_look(t_mlx *mlx, t_map map)
 	char	c;
 
 	c = map.map[locate_player_y(map.map)][locate_player_x(map.map)];
-	if (c == 'W')
+	if (c == 'N')
 		mlx->player->look = 270;
 	else if (c == 'E')
-		mlx->player->look = 90;
-	else if (c == 'S')
 		mlx->player->look = 0;
-	else if (c == 'N')
+	else if (c == 'S')
+		mlx->player->look = 90;
+	else if (c == 'W')
 		mlx->player->look = 180;
 }
 

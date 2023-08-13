@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/06 17:40:34 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/13 13:55:31 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdio.h>
 
 typedef struct	s_ray
 {
@@ -50,12 +51,15 @@ void ft_verline(int x, int start, int end, int color, t_mlx *mlx)
 void ft_ray(t_mlx *mlx)
 {
 	t_ray	ray;
+	double	angle_radiants;
 	int	color;
 
-		ray.dirx = -0.66;
-		ray.diry = 0;
-		ray.planx = 0;
-		ray.plany = 0.66;
+	angle_radiants = mlx->player->look * M_PI / 180.0;
+	ray.dirx = cos(angle_radiants);
+    ray.diry = sin(angle_radiants);
+	
+	ray.planx = -ray.diry;
+    ray.plany = ray.dirx;
 	// while (1)
 	// {
 		ray.x = 0;

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdio.h>
 
 int	is_valid_move_x(t_mlx *mlx, float new_x)
 {
@@ -20,8 +21,6 @@ int	is_valid_move_x(t_mlx *mlx, float new_x)
 
 	x = (int)floor(new_x / 50);
 	y = (int)floor(mlx->player->pos_y / 50);
-	if (y > mlx->map->x_lenth || x > mlx->map->y_lenth)
-		return (0);
 	c = mlx->map->map[y][x];
 	if (c == '1')
 		return (0);
@@ -36,8 +35,6 @@ int	is_valid_move_y(t_mlx *mlx, float new_y)
 
 	x = (int)floor(mlx->player->pos_x / 50);
 	y = (int)floor(new_y / 50);
-	if (y > mlx->map->x_lenth || x > mlx->map->y_lenth)
-		return (0);
 	c = mlx->map->map[y][x];
 	if (c == '1')
 		return (0);

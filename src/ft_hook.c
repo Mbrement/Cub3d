@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/06 10:57:10 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/13 14:43:48 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,38 +29,33 @@ int	ft_hook(int key, t_mlx *mlx)
 		end_of_prog_mlx(mlx);
 	else if (key == 119 || key == 65362)
 	{
-		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
-		new_x += mvx * sin(mlx->player->look * rad);
-		new_y += mvy * cos(mlx->player->look * rad);
+	    new_x += mvx * cos(mlx->player->look * rad);
+	    new_y += mvy * sin(mlx->player->look * rad);
 	}
 	else if (key == 115 || key == 65364)
 	{
-		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
-		new_x -= mvx * sin(mlx->player->look * rad);
-		new_y -= mvy * cos(mlx->player->look * rad);
-	}
-	else if (key == 100 || key == 65361)
-	{
-		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
-		new_x += mvx * sin((mlx->player->look + 90) * rad);
-		new_y += mvy * cos((mlx->player->look + 90) * rad);
+	    new_x -= mvx * cos(mlx->player->look * rad);
+	    new_y -= mvy * sin(mlx->player->look * rad);
 	}
 	else if (key == 97 || key == 65363)
 	{
-		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
-		new_x -= mvx * sin((mlx->player->look + 90) * rad);
-		new_y -= mvy * cos((mlx->player->look + 90) * rad);
-		
+	    new_x += mvx * sin(mlx->player->look * rad);
+	    new_y -= mvy * cos(mlx->player->look * rad);
+	}
+	else if (key == 100 || key == 65361)
+	{
+	    new_x -= mvx * sin(mlx->player->look * rad);
+	    new_y += mvy * cos(mlx->player->look * rad);
 	}
 	else if (key == 113)
 	{
 		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
-		mlx->player->look += 5;
+		mlx->player->look -= 5;
 	}
 	else if (key == 101)
 	{
 		// printf("%f %f\n", mlx->player->pos_x, mlx->player->pos_y);
-		mlx->player->look -= 5;
+		mlx->player->look += 5;
 	}
 	if (is_valid_move_y(mlx, new_y))
 		mlx->player->pos_y = new_y;
