@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/13 16:24:11 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:57:40 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ int	ft_hook(int key, t_mlx *mlx)
 
 int	handle_mouse_movement(int x, int y, t_mlx *mlx)
 {
-	if (x > (WIN_W / 2) + 150)
-		mlx->player->look += 1;
-	else if (x < (WIN_W / 2) - 150)
-		mlx->player->look -= 1;
+	int	move;
+
+	move = (int)((x - (int)(WIN_W / 2)) / 300);
+	if (0)
+		mlx->player->look += move;
 	else
 		return (0);
 	(void)y;

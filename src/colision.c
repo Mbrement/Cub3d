@@ -19,6 +19,10 @@ int	is_valid_move_x(t_mlx *mlx, float new_x)
 	size_t		y;
 	char		c;
 
+	if (new_x > mlx->player->pos_x)
+		new_x += 5;
+	else
+		new_x -= 5;
 	x = (int)floor(new_x / 50);
 	y = (int)floor(mlx->player->pos_y / 50);
 	c = mlx->map->map[y][x];
@@ -33,6 +37,10 @@ int	is_valid_move_y(t_mlx *mlx, float new_y)
 	size_t		y;
 	char		c;
 
+	if (new_y > mlx->player->pos_y)
+		new_y += 5;
+	else
+		new_y -= 5;
 	x = (int)floor(mlx->player->pos_x / 50);
 	y = (int)floor(new_y / 50);
 	c = mlx->map->map[y][x];
@@ -49,8 +57,6 @@ int	is_valid_move(t_mlx *mlx, float new_y, float new_x)
 
 	x = floor(new_x / 50);
 	y = floor(new_y / 50);
-	if (y > mlx->map->x_lenth || x > mlx->map->y_lenth)
-		return (0);
 	c = mlx->map->map[y][x];
 	if (c == '1')
 		return (0);
