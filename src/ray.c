@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/13 13:55:31 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:38:38 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stddef.h>
 #include <stdio.h>
 
 typedef struct	s_ray
@@ -22,21 +23,21 @@ typedef struct	s_ray
 	double		raydirx; //calcul de direction x du rayon
 	double		raydiry; //calcul de direction y du rayon
 	double		camerax; //point x sur la plan camera : Gauche ecran = -1, milieu = 0, droite = 1
-	int		mapx; // coordonée x du carré dans lequel est pos
-	int		mapy; // coordonnée y du carré dans lequel est pos
+	int			mapx; // coordonée x du carré dans lequel est pos
+	int			mapy; // coordonnée y du carré dans lequel est pos
 	double		sidedistx; //distance que le rayon parcours jusqu'au premier point d'intersection vertical (=un coté x)
 	double		sidedisty; //distance que le rayon parcours jusqu'au premier point d'intersection horizontal (= un coté y)
 	double		deltadistx; //distance que rayon parcours entre chaque point d'intersection vertical
 	double		deltadisty; //distance que le rayon parcours entre chaque point d'intersection horizontal
-	int		stepx; // -1 si doit sauter un carre dans direction x negative, 1 dans la direction x positive
-	int		stepy; // -1 si doit sauter un carre dans la direction y negative, 1 dans la direction y positive
-	int		hit; // 1 si un mur a ete touche, 0 sinon
-	int		side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
+	int			stepx; // -1 si doit sauter un carre dans direction x negative, 1 dans la direction x positive
+	int			stepy; // -1 si doit sauter un carre dans la direction y negative, 1 dans la direction y positive
+	int			hit; // 1 si un mur a ete touche, 0 sinon
+	int			side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
 	double		perpwalldist; // distance du joueur au mur
-	int		lineheight; //hauteur de la ligne a dessiner
-	int		drawstart; //position de debut ou il faut dessiner
-	int		drawend; //position de fin ou il faut dessiner
-	int		x; //permet de parcourir tous les rayons
+	int			lineheight; //hauteur de la ligne a dessiner
+	int			drawstart; //position de debut ou il faut dessiner
+	int			drawend; //position de fin ou il faut dessiner
+	int			x; //permet de parcourir tous les rayons
 }					t_ray;
 
 void ft_verline(int x, int start, int end, int color, t_mlx *mlx)
@@ -48,12 +49,87 @@ void ft_verline(int x, int start, int end, int color, t_mlx *mlx)
 	}
 }
 
+inline int ft_tex_coo(t_ray ray, t_mlx mlx)
+{
+	float	wallx;
+	int 	texx;
+
+	if (ray.side)
+		wallx = mlx.player->pos_y + ray.perpwalldist * ray.raydiry;
+	else
+		wallx = mlx.player->pos_x + ray.perpwalldist * ray.raydirx;
+	wallx = -floor(wallx);
+	texx=(int)(wallx * *mlx.wall->east_height);
+	if (ray.side && ray.raydirx > 0 )
+		texx = *mlx.wall->east_height - texx - 1;
+	if (!ray.side && ray.diry < 0)
+		texx = *mlx.wall->east_height - texx - 1;
+	return (texx);
+}
+
+void	ft_get_color(t_mlx mlx, t_ray ray, int texx)
+{
+	float	step;
+	float	tex_pos;
+	float 	texy;
+	int y;
+	// char *get;
+	int color;
+
+	step  = 1.0 * *mlx.wall->east_height / ray.lineheight;
+	tex_pos	= (ray.drawstart - (float)WIN_H / 2 + (float)ray.lineheight / 2) * ray.lineheight;	
+	y = ray.drawstart;
+	while (y < ray.drawend)
+	{
+		texy=(int)tex_pos & *mlx.wall->east_height;
+		// (void)get;
+		(void)texy;
+		(void)texx;
+		// get = mlx.wall->east_data.addr + (int)(*mlx.wall->east_height * texy + texx);
+		// // printf("%i\n", (int)(*mlx.wall->east_height * texy + texx));
+		// // color = *(unsigned int *)get;
+		// (void)get;
+		// color = *(unsigned int*)(mlx.wall->east_data.addr + ((int)(mlx.wall->east_data.bits_py_px * texy) + texx));
+		color = 0;
+		my_mlx_pixel_put(&mlx, ray.x, y, color);
+		tex_pos+=step;
+		y++;
+	}
+	return ;
+}
+
+void	ft_prep_floor(t_mlx *mlx)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while(++y<WIN_H / 2)
+	{
+		x = -1;
+		while(++x < WIN_W)
+		{
+			my_mlx_pixel_put(mlx, x, y, mlx->map->celing_color);
+		}
+	}
+	while(++y < WIN_H)
+	{
+		x = -1;
+		while(++x < WIN_W)
+		{
+			my_mlx_pixel_put(mlx, x, y, mlx->map->floor_color);
+		}
+	}
+}
+
 void ft_ray(t_mlx *mlx)
 {
 	t_ray	ray;
+	size_t	texx;
 	double	angle_radiants;
-	int	color;
+	// int	color;
 
+	ft_prep_floor(mlx);
 	angle_radiants = mlx->player->look * M_PI / 180.0;
 	ray.dirx = cos(angle_radiants);
     ray.diry = sin(angle_radiants);
@@ -124,19 +200,19 @@ void ft_ray(t_mlx *mlx)
 			else
 				ray.perpwalldist = ray.sidedisty - ray.deltadisty;
 			ray.lineheight = (int)(WIN_H / ray.perpwalldist);
-			
 			// printf("lineheight : %i perpwalldist : %f\n", ray.lineheight, ray.perpwalldist);
 			ray.drawstart = -ray.lineheight / 2 + WIN_H / 2;
 			if (ray.drawstart < 0)
 				ray.drawstart = 0;
 			ray.drawend = ray.lineheight / 2 + WIN_H / 2;
 			if (ray.drawend >= WIN_H)
-				ray.drawend = WIN_H - 1;
-			color = 0xFFFFA07A;
-			if (ray.side == 1)
-				color = color / 2;
+				ray.drawend = WIN_H;
+			texx = ft_tex_coo(ray, *mlx);
+			ft_get_color(*mlx, ray, texx);
+			// if (ray.side == 1)
+			// 	color = color / 2;
 			// printf("result : %i, %i\n", ray.drawstart, ray.drawend);
-			ft_verline(ray.x, ray.drawstart, ray.drawend, color, mlx);
+			// ft_verline(ray.x, ray.drawstart, ray.drawend, color, mlx);
 			ray.x+=1;
 		}
 	}
