@@ -6,13 +6,11 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/16 16:38:38 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/20 17:56:18 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-#include <stddef.h>
-#include <stdio.h>
 
 typedef struct	s_ray
 {
@@ -49,7 +47,7 @@ void ft_verline(int x, int start, int end, int color, t_mlx *mlx)
 	}
 }
 
-inline int ft_tex_coo(t_ray ray, t_mlx mlx)
+int ft_tex_coo(t_ray ray, t_mlx mlx)
 {
 	float	wallx;
 	int 	texx;
@@ -72,26 +70,35 @@ void	ft_get_color(t_mlx mlx, t_ray ray, int texx)
 	float	step;
 	float	tex_pos;
 	float 	texy;
-	int y;
-	// char *get;
-	int color;
+	int 	y;
+	char 	*get;
+	char 	*color;
 
 	step  = 1.0 * *mlx.wall->east_height / ray.lineheight;
-	tex_pos	= (ray.drawstart - (float)WIN_H / 2 + (float)ray.lineheight / 2) * ray.lineheight;	
+	tex_pos	= ((float)ray.drawstart - (float)WIN_H / 2 + (float)ray.lineheight / 2) * (float)step;	
 	y = ray.drawstart;
 	while (y < ray.drawend)
 	{
-		texy=(int)tex_pos & *mlx.wall->east_height;
+		texy=(int)(((int)tex_pos * ((WIN_H)/((ray.drawend - ray.drawstart) - 1))));
 		// (void)get;
-		(void)texy;
+		(void)color;
+		// (void)texy;
 		(void)texx;
-		// get = mlx.wall->east_data.addr + (int)(*mlx.wall->east_height * texy + texx);
 		// // printf("%i\n", (int)(*mlx.wall->east_height * texy + texx));
-		// // color = *(unsigned int *)get;
+		// color = *(unsigned int *)get;
 		// (void)get;
-		// color = *(unsigned int*)(mlx.wall->east_data.addr + ((int)(mlx.wall->east_data.bits_py_px * texy) + texx));
-		color = 0;
-		my_mlx_pixel_put(&mlx, ray.x, y, color);
+		// printf("texy = %f\n", texy);
+		if (texy < *mlx.wall->east_height && texy >= 0)
+		{
+			// get = (mlx.wall->east_data.addr + (int)(mlx.wall->east_data.size_line * y  +  ray.x * 4)); 					// it print the pic, but not scaled
+			get = (mlx.wall->east_data.addr + (int)(mlx.wall->east_data.size_line * texy  +  ray.x * 4));
+			// printf("%f",texy);
+		}
+		else
+			get = (mlx.wall->east_data.addr);
+		my_mlx_pixel_put(&mlx, ray.x, y, *(int *)get);
+		// color = mlx.data->addr + (int)249.5 ;
+		// *(unsigned int *)color =*(unsigned int *) get;
 		tex_pos+=step;
 		y++;
 	}
@@ -133,7 +140,7 @@ void ft_ray(t_mlx *mlx)
 	angle_radiants = mlx->player->look * M_PI / 180.0;
 	ray.dirx = cos(angle_radiants);
     ray.diry = sin(angle_radiants);
-	
+
 	ray.planx = -ray.diry;
     ray.plany = ray.dirx;
 	// while (1)

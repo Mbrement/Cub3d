@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 04:16:07 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/08/19 13:48:19 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,21 +238,45 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 	{
 		map->north_file = ft_strdup(str);
 		map->north = open(str, R_OK);
+		if (ft_strlen(str) <= 4 || (ft_strlen(str) > 4 \
+			&& ft_strcmp(str + ft_strlen(str) - 4, ".xpm") != 0))
+		{
+			printf("Wrong file format");
+			exit(1);
+		}
 	}
-	else if (i_am == 2  && map->south <= 0)
+	else if (i_am == 2 && map->south <= 0)
 	{
 		map->south_file = ft_strdup(str);
 		map->south = open(str, R_OK);
+		if (ft_strlen(str) <= 4 || (ft_strlen(str) > 4 \
+			&& ft_strcmp(str + ft_strlen(str) - 4, ".xpm") != 0))
+		{
+			printf("Wrong file format");
+			exit(1);
+		}
 	}
 	else if (i_am == 3 && map->west <= 0)
 	{
 		map->west_file = ft_strdup(str);
 		map->west = open(str, R_OK);
+		if (ft_strlen(str) <= 4 || (ft_strlen(str) > 4 \
+			&& ft_strcmp(str + ft_strlen(str) - 4, ".xpm") != 0))
+		{
+			printf("Wrong file format");
+			exit(1);
+		}
 	}
 	else if (i_am == 4 && map->east <= 0)
 	{
 		map->east_file = ft_strdup(str);
 		map->east = open(str, R_OK);
+		if (ft_strlen(str) <= 4 || (ft_strlen(str) > 4 \
+			&& ft_strcmp(str + ft_strlen(str) - 4, ".xpm") != 0))
+		{
+			printf("Wrong file format");
+			exit(1);
+		}
 	}
 	else if (i_am == 5)
 		rgb(buffer + 1, map, 1);
