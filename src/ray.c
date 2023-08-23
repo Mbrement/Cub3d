@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/20 17:56:18 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/23 14:56:46 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void ft_verline(int x, int start, int end, int color, t_mlx *mlx)
 int ft_tex_coo(t_ray ray, t_mlx mlx)
 {
 	float	wallx;
-	int 	texx;
+	float 	texx;
 
 	if (ray.side)
 		wallx = mlx.player->pos_y + ray.perpwalldist * ray.raydiry;
 	else
 		wallx = mlx.player->pos_x + ray.perpwalldist * ray.raydirx;
 	wallx = -floor(wallx);
-	texx=(int)(wallx * *mlx.wall->east_height);
+	texx=(wallx * *mlx.wall->east_height);
 	if (ray.side && ray.raydirx > 0 )
 		texx = *mlx.wall->east_height - texx - 1;
 	if (!ray.side && ray.diry < 0)
@@ -65,7 +65,7 @@ int ft_tex_coo(t_ray ray, t_mlx mlx)
 	return (texx);
 }
 
-void	ft_get_color(t_mlx mlx, t_ray ray, int texx)
+void	ft_get_color(t_mlx mlx, t_ray ray, float texx)
 {
 	float	step;
 	float	tex_pos;
@@ -79,7 +79,8 @@ void	ft_get_color(t_mlx mlx, t_ray ray, int texx)
 	y = ray.drawstart;
 	while (y < ray.drawend)
 	{
-		texy=(int)(((int)tex_pos * ((WIN_H)/((ray.drawend - ray.drawstart) - 1))));
+		texy=(((int)tex_pos & (*mlx.wall->east_height - 1)));
+		// texy = tex_pos ;
 		// (void)get;
 		(void)color;
 		// (void)texy;
@@ -132,7 +133,7 @@ void	ft_prep_floor(t_mlx *mlx)
 void ft_ray(t_mlx *mlx)
 {
 	t_ray	ray;
-	size_t	texx;
+	float	texx;
 	double	angle_radiants;
 	// int	color;
 
