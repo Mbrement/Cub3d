@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/16 16:41:10 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/08/31 18:02:08 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,32 @@ int	ft_hook(int key, t_mlx *mlx)
 int	handle_mouse_movement(int x, int y, t_mlx *mlx)
 {
 	int	move;
+	static int dif;
 
-	move = (int)((x - (int)(WIN_W / 2)) / 300);
-	if (0)
-		mlx->player->look += move;
-	else
+	move = (int)((x - (int)(WIN_W * 0.5)) * 0.01);
+	if (move == 0)
 		return (0);
+	
+	mlx->player->look += move;
+	if (move > 0)
+		dif += move;
+	else
+		dif -= move;
 	(void)y;
 	if (mlx->player->look > 360)
 		mlx->player->look = 0;
 	else if (mlx->player->look < 0)
 		mlx->player->look = 360;
-	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
-	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
-	ft_ray (mlx);
-	mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
-	mlx_destroy_image(mlx->mlx_init_ptr, mlx->data->img);
-	mlx_mouse_move(mlx->mlx_init_ptr, mlx->mlx_win_ptr, WIN_W / 2, WIN_H / 2);
+	mlx_mouse_move(mlx->mlx_init_ptr, mlx->mlx_win_ptr, WIN_W * 0.5, WIN_H * 0.5);
+	if (dif > 5)
+	{
+		dif = 0;
+		mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
+		mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
+		ft_ray (mlx);
+		mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
+		mlx_destroy_image(mlx->mlx_init_ptr, mlx->data->img);
+	}
 	return (0);
 }
 
