@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 10:50:25 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/09/27 16:59:36 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_get_color(t_mlx mlx, t_ray ray, float texx)
 	y = ray.drawstart;
 	while (y < ray.drawend)
 	{
-	texy=((((int)tex_pos & (*mlx.wall->east_height - 1))));
+	texy = (int)floor(tex_pos) % (*mlx.wall->east_height - 1);
 	// (void)texy;
 	tex_pos+=step;
 	get = (mlx.wall->east_data.addr + (int)(*(mlx.wall->east_data.size_line) * (int)(texy)  +  (ray.x * 4)));
