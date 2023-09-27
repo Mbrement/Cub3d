@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 11:15:46 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:23:45 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int		locate_player_y(char **maps);
 //////MLX//////
 void	ft_mlx(t_map *map, t_mlx *mlx);
 int		ft_hook(int key, t_mlx *mlx);
-int		handle_mouse_movement(int x, int y, t_mlx *mlx);
+int		handle_mouse(int x, int y, t_mlx *mlx);
 void	put_player(t_mlx mlx, t_player player, int color);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
 void	map_img(t_mlx *mlx, t_map map);
