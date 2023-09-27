@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 11:23:45 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:20:13 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	ft_mlx(t_map *map, t_mlx *mlx)
 	mlx->mlx_init_ptr = mlx_init();
 	if (!mlx->mlx_init_ptr)
 	{
-		printf("Mlx couldn't init\n");
+		printf("Error\nMlx couldn't init\n");
 		end_of_prog_mlx(mlx);
 	}
 	mlx->wall = put_img_in_wall(*map, *mlx);
 	mlx->mlx_win_ptr = mlx_new_window(mlx->mlx_init_ptr, WIN_W, WIN_H, "cub3d");
 	if (!mlx->mlx_win_ptr)
 	{
-		printf("Mlx create the window\n");
+		printf("Error\nMlx couldn't create the window\n");
 		end_of_prog_mlx(mlx);
 	}
 	init_game(mlx, *map);

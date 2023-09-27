@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 04:59:47 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/09/27 15:19:47 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ static void	check_format(char *map, int file_fd)
 {
 	if (file_fd <= 0)
 	{
-		(void)printf("Unreadable map\n");
+		(void)printf("Error\nUnreadable map\n");
 		close(file_fd);
 		exit(1);
 	}
 	if (ft_strlen(map) < 5)
 	{
-		(void)printf("Incorrect format of map\n");
+		(void)printf("Error\nIncorrect format of map\n");
 		close(file_fd);
 		exit(1);
 	}
 	if (ft_strcmp(map + ft_strlen(map) - 4, ".cub") != 0)
 	{
-		(void)printf("Incorrect format of map\n");
+		(void)printf("Error\nIncorrect format of map\n");
 		close(file_fd);
 		exit(1);
 	}
@@ -68,7 +68,7 @@ static int	what_is_it(char *str, t_map *map)
 			map->north_found += 1;
 			if (map->north_found != 1)
 			{
-				printf("2 of the same parameter in map\n");
+				printf("Error\n2 of the same parameter in map\n");
 				result = -1;
 			}
 			break ;
@@ -79,7 +79,7 @@ static int	what_is_it(char *str, t_map *map)
 			result = 2;
 			if (map->south_found != 1)
 			{
-				printf("2 of the same parameter in map\n");
+				printf("Error\n2 of the same parameter in map\n");
 				result = -1;
 			}
 			break ;
@@ -90,7 +90,7 @@ static int	what_is_it(char *str, t_map *map)
 			result = 3;
 			if (map->west_found != 1)
 			{
-				printf("2 of the same parameter in map\n");
+				printf("Error\n2 of the same parameter in map\n");
 				result = -1;
 			}
 			break ;
@@ -101,7 +101,7 @@ static int	what_is_it(char *str, t_map *map)
 			map->east_found += 1;
 			if (map->east_found != 1)
 			{
-				printf("2 of the same parameter in map\n");
+				printf("Error\n2 of the same parameter in map\n");
 				result = -1;
 			}
 			break ;
@@ -112,7 +112,7 @@ static int	what_is_it(char *str, t_map *map)
 			result = 5;
 			if (map->celing_found != 1)
 			{
-				printf("2 of the same parameter in map\n");
+				printf("Error\n2 of the same parameter in map\n");
 				result = -1;
 			}
 			break ;
@@ -123,7 +123,7 @@ static int	what_is_it(char *str, t_map *map)
 			map->floor_found += 1;
 			if (map->floor_found != 1)
 			{
-				printf("2 of the same parameter in map\n");
+				printf("Error\n2 of the same parameter in map\n");
 				result = -1;
 			}
 			break ;
@@ -232,8 +232,6 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 	if (str[ft_strlen(str) - 1] == '\n')
 		str[ft_strlen(str) - 1] = '\0';
 	tmp = ft_strjoin("./", str);
-	//debug
-	// (void)printf("|%s|\n", tmp);
 	if (i_am == 1 && map->north <= 0)
 	{
 		map->north_file = ft_strdup(str);
@@ -241,7 +239,7 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 		if (ft_strlen(str) <= 4 || (ft_strlen(str) > 4 \
 			&& ft_strcmp(str + ft_strlen(str) - 4, ".xpm") != 0))
 		{
-			printf("Wrong file format");
+			printf("Error\nWrong file format");
 			exit(1);
 		}
 	}
@@ -252,7 +250,7 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 		if (ft_strlen(str) <= 4 || (ft_strlen(str) > 4 \
 			&& ft_strcmp(str + ft_strlen(str) - 4, ".xpm") != 0))
 		{
-			printf("Wrong file format");
+			printf("Error\nWrong file format");
 			exit(1);
 		}
 	}
@@ -263,7 +261,7 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 		if (ft_strlen(str) <= 4 || (ft_strlen(str) > 4 \
 			&& ft_strcmp(str + ft_strlen(str) - 4, ".xpm") != 0))
 		{
-			printf("Wrong file format");
+			printf("Error\nWrong file format");
 			exit(1);
 		}
 	}
@@ -274,7 +272,7 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 		if (ft_strlen(str) <= 4 || (ft_strlen(str) > 4 \
 			&& ft_strcmp(str + ft_strlen(str) - 4, ".xpm") != 0))
 		{
-			printf("Wrong file format");
+			printf("Error\nWrong file format");
 			exit(1);
 		}
 	}
@@ -324,7 +322,7 @@ static t_map	check_inside(int file_fd)
 		i_am = what_is_it(buffer, &map);
 		if (i_am < 0)
 		{
-			(void)printf("Incorrect line in the map\n");
+			(void)printf("Error\nIncorrect line in the map\n");
 			while (buffer)
 			{
 				nfree((void **)&buffer);
@@ -348,7 +346,7 @@ static t_map	check_inside(int file_fd)
 		buffer = get_next_line(file_fd);
 		if (!buffer)
 		{
-			(void)printf("No map in map file\n");
+			(void)printf("Error\nNo map in map file\n");
 			end_of_prog(map);
 			exit(1);
 		}
@@ -394,14 +392,14 @@ static t_map	check_inside(int file_fd)
 	}
 	if (!check_chr_map(maps))
 	{
-		(void)printf("Incorrect map\n");
+		(void)printf("Error\nIncorrect map\n");
 		end_of_prog(map);
 		exit(1);
 	}
 	map.map = maps;
 	if (!check_walls(&map))
 	{
-		(void)printf("Incorrect map\n");
+		(void)printf("Error\nIncorrect map\n");
 		end_of_prog(map);
 		exit(1);
 	}

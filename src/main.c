@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 04:59:14 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/09/27 15:20:30 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	main(int argc, char **argv)
 	printf("north %i| south %i| east %i| west%i\n", map.north, map.south, map.east, map.west);
 	printf("map:\n");
 	ft_print_tab(map.map);
-	printf("success\n");
 	//end of debug
 	mlx = malloc(sizeof(t_mlx));
 	ft_mlx(&map, mlx);
