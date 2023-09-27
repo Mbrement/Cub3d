@@ -1,4 +1,4 @@
-NAME		:= cub3d
+NAME		:= cub3D
 
 DIR_OBJS	:= .objs
 DIR_SRCS	:= src
@@ -8,7 +8,7 @@ DIR_MLX		:= lib/mlx
 
 CC			:= gcc
 CSAN		:= -fsanitize=address -g3
-CFLAGS		:= -Wall -Wextra -Werror -g3  #-march=native -flto -O3 #-fsanitize=address
+CFLAGS		:= -Wall -Wextra -Werror -g3  -march=native -flto -O3 #-fsanitize=address
 RM			:= rm -rf
 
 LST_SRCS	:= check_map.c tmp.c main.c ft_mlx.c parsing.c player.c ft_hook.c player_map.c bresenham.c map.c pic.c end_of_prog.c colision.c end_of_prog.c data_wall.c ray.c
