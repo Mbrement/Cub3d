@@ -154,7 +154,7 @@ int	check_walls(t_map *map)
 	if (!complete_map(tmp_map))
 	{
 		free_tab(tmp_map);
-		printf("Incorrect map\n");
+		printf("Error\nIncorrect map\n");
 		end_of_prog(*map);
 		exit(1);
 	}
