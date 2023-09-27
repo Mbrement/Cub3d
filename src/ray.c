@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 09:25:35 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/09/27 10:50:25 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,27 @@ int ft_tex_coo(t_ray ray, t_mlx mlx)
 
 void	ft_get_color(t_mlx mlx, t_ray ray, float texx)
 {
-	float	step;
-	float	tex_pos;
-	float 	texy;
+	double	step;
+	double	tex_pos;
+	double 	texy;
 	int 	y;
 	char 	*get;
-	// char 	*color;
 
 	(void)texx;
 	step  = 1.0 * *mlx.wall->east_height / ray.lineheight;
-	tex_pos	= ((float)ray.drawstart - (float)WIN_H / 2 + (float)ray.lineheight / 2) * (float)step;	
+	tex_pos	= ((double)ray.drawstart - (double)WIN_H / 2 + (double)ray.lineheight / 2) * (double)step;	
 	y = ray.drawstart;
 	while (y < ray.drawend)
 	{
 	texy=((((int)tex_pos & (*mlx.wall->east_height - 1))));
+	// (void)texy;
 	tex_pos+=step;
-	get = (mlx.wall->east_data.addr + (int)(*mlx.wall->east_data.size_line * texy  +  texx));
-	if (get < mlx.wall->east_data.addr + (*mlx.wall->east_data.size_line * ray.lineheight + *mlx.wall->east_lenth))
-		my_mlx_pixel_put(&mlx, ray.x, y, 0x0080ff);
-	else
+	get = (mlx.wall->east_data.addr + (int)(*(mlx.wall->east_data.size_line) * (int)(texy)  +  (ray.x * 4)));
+	// if (get < mlx.wall->east_data.addr + (char)(*mlx.wall->east_data.size_line * *mlx.wall->east_height + *mlx.wall->east_lenth))
+		// my_mlx_pixel_put(&mlx, ray.x, y, 0x0080ff);
+	// else
 		my_mlx_pixel_put(&mlx, ray.x, y, *(int *)get);
+		// write(1, "1",1);
 	y++;	
 	}
 }
@@ -262,5 +263,5 @@ void ft_ray(t_mlx *mlx)
 			// ft_verline(ray.x, ray.drawstart, ray.drawend, color, mlx);
 			ray.x+=1;
 		}
-	}
+		}
 // }

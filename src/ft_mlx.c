@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 15:20:13 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:40:59 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,13 @@ t_wall	*put_img_in_wall(t_map map, t_mlx mlx)
 	wall->north = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
 		map.north_file, wall->north_height, wall->north_lenth);
 	wall->east = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
-		map.south_file, wall->south_height, wall->south_lenth);
-	wall->west = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
 		map.east_file, wall->east_height, wall->east_lenth);
-	wall->south = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
+	wall->west = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
 		map.west_file, wall->west_height, wall->west_lenth);
+	wall->south = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
+		map.south_file, wall->south_height, wall->south_lenth);
 	data_wall(wall);
-	return (wall);
+		return (wall);
 }
 
 void ft_fuse_pic(t_mlx mlx)
