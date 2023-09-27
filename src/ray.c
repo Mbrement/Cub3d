@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 11:03:22 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/27 07:12:46 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void	ft_get_color(t_mlx mlx, t_ray ray, float texx)
 	y = ray.drawstart;
 	while (y < ray.drawend)
 	{
-		texy=(((int)tex_pos & (*mlx.wall->east_height - 1)));
+		// texy=(((int)tex_pos & (*mlx.wall->east_height - 1)));
+		texy=((((int)tex_pos & (*mlx.wall->east_height - 1))) % *mlx.wall->east_height);
 		// texy = tex_pos ;
 		// (void)get;
 		(void)color;
@@ -101,8 +102,8 @@ void	ft_get_color(t_mlx mlx, t_ray ray, float texx)
 		// printf("texy = %f\n", texy);
 		if (texy < *mlx.wall->east_height && texy >= 0)
 		{
-			// get = (mlx.wall->east_data.addr + (int)(mlx.wall->east_data.size_line * y  +  ray.x * 4)); 					// it print the pic, but not scaled
-			get = (mlx.wall->east_data.addr + (int)(mlx.wall->east_data.size_line * texy  +  ray.x * 4));
+			// get = (mlx.wall->east_data.addr + (int)(*mlx.wall->east_data.size_line * y  +  ray.x * 4)); 					// it print the pic, but not scaled
+			get = (mlx.wall->east_data.addr + (int)(*mlx.wall->east_data.size_line * texy  +  ray.x * 4));
 			// printf("%f",texy);
 		}
 		else

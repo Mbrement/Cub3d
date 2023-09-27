@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 11:23:45 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/27 05:57:27 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ typedef struct s_map
 typedef struct s_t_wall_data
 {
 	char		*addr;
-	int			bits_py_px;
-	int			size_line;
-	int			endian;
+	int			*bits_py_px;
+	int			*size_line;
+	int			*endian;
 }	t_wall_data;
 
 typedef struct s_wall
