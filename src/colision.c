@@ -28,7 +28,7 @@ int	is_valid_move_x(t_mlx *mlx, float new_x)
 	if (x < 0 || y < 0 || y > ft_tablen(mlx->map->map) || x > (long int)ft_strlen(mlx->map->map[y]))
 		return (1);
 	c = mlx->map->map[y][x];
-	if (c == '1' && mlx->player->ghost == 0)
+	if (c == '1')
 		return (0);
 	return (1);
 }
@@ -48,7 +48,7 @@ int	is_valid_move_y(t_mlx *mlx, float new_y)
 	if (x < 0 || y < 0 || y > ft_tablen(mlx->map->map) || x > (long int)ft_strlen(mlx->map->map[y]))
 		return (1);
 	c = mlx->map->map[y][x];
-	if (c == '1' && mlx->player->ghost == 0)
+	if (c == '1')
 		return (0);
 	return (1);
 }

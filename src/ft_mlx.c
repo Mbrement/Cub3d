@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 11:04:05 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:16:15 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	init_game(t_mlx *mlx, t_map map)
 
 	player = malloc(sizeof(t_player));
 	mlx->player = player;
-	mlx->player->ghost = 0;
 	player_get_look(mlx, map);
 	mlx->map->x_lenth = 0;
 	while (map.map[++mlx->map->x_lenth])

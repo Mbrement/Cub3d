@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 11:09:34 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:15:36 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ int	ft_hook(int key, t_mlx *mlx)
 	mvy = (SPEED);
 	if (key == 65307)
 		end_of_prog_mlx(mlx);
-	else if (key == 103)
-	{
-		mlx->player->ghost = !mlx->player->ghost;
-		printf("ghost mode : %i\n", mlx->player->ghost); //temp
-	}
 	else if (key == 119 || key == 65362)
 	{
 		new_x += mvx * cos(mlx->player->look * rad);

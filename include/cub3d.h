@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 11:03:40 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:15:46 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ typedef struct s_player
 	float	pos_x;
 	float	pos_y;
 	float	look;
-	int		ghost;
 }	t_player;
 
 typedef struct s_mlx
