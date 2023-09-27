@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/23 14:56:46 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/09/27 11:03:22 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ typedef struct	s_ray
 	int			drawend; //position de fin ou il faut dessiner
 	int			x; //permet de parcourir tous les rayons
 }					t_ray;
+
+int	refresh_img(t_mlx *mlx)
+{
+	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
+	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
+	ft_ray (mlx);
+	mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
+	mlx_destroy_image(mlx->mlx_init_ptr, mlx->data->img);
+	return(0);
+}
 
 void ft_verline(int x, int start, int end, int color, t_mlx *mlx)
 {

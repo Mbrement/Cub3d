@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/16 15:41:44 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:04:05 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,6 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color)
 	*(unsigned int *)dst = color;
 }
 
-int	ft_dmg_control(int key, t_mlx *mlx)
-{
-	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
-	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
-	// printf ("addr %p, bpp %i, line lenth %i, endiant : %i\n", mlx->data->addr, mlx->data->bits_per_pixel, mlx->data->line_length, mlx->data->endian);
-	// put_player(*mlx, *mlx->player, 0);
-	// printf("%f\n", mlx->player->pos_x);
-	ft_hook(key, mlx);
-	ft_ray (mlx);
-	// printf("x = %f y = %f\n", mlx->player->pos_x, mlx->player->pos_y);
-	// ft_fuse_pic(*mlx);
-	// mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->org->img, 0, 0);
-	mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
-	mlx_destroy_image(mlx->mlx_init_ptr, mlx->data->img);
-	return (1);
-}
-
 
 int	ft_exit(int i, t_mlx *mlx)
 {
@@ -106,12 +89,12 @@ void	init_game(t_mlx *mlx, t_map map)
 	mlx->map->y_lenth = ft_strlen(map.map[1]) - 1;
 	player->pos_x = locate_player_x(map.map) * 50 + 25;
 	player->pos_y = locate_player_y(map.map) * 50 + 25;
-	ft_dmg_control(0, mlx);
 	mlx_hook(mlx->mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
-	mlx_hook(mlx->mlx_win_ptr, 2, 1L << 0, ft_dmg_control, mlx);
+	mlx_hook(mlx->mlx_win_ptr, 2, 1L << 0, ft_hook, mlx);
 	mlx_mouse_move(mlx->mlx_init_ptr, mlx->mlx_win_ptr, WIN_W / 2, WIN_H / 2);
 	mlx_mouse_hide(mlx->mlx_init_ptr, mlx->mlx_win_ptr);
 	mlx_hook(mlx->mlx_win_ptr, MotionNotify, PointerMotionMask, &handle_mouse_movement, mlx);
+	mlx_loop_hook(mlx->mlx_init_ptr, refresh_img, mlx);
 	mlx_loop(mlx->mlx_init_ptr);
 }
 
