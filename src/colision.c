@@ -25,8 +25,6 @@ int	is_valid_move_x(t_mlx *mlx, float new_x)
 		new_x -= 5;
 	x = (int)floor(new_x / 50);
 	y = (int)floor(mlx->player->pos_y / 50);
-	//secure seg fault movement for ghost mode (no wall collision)
-	printf(" move x: x : %li | y : %li\n", x, y);
 	if (x < 0 || y < 0 || y > ft_tablen(mlx->map->map) || x > (long int)ft_strlen(mlx->map->map[y]))
 		return (1);
 	c = mlx->map->map[y][x];
@@ -47,8 +45,6 @@ int	is_valid_move_y(t_mlx *mlx, float new_y)
 		new_y -= 5;
 	x = (int)floor(mlx->player->pos_x / 50);
 	y = (int)floor(new_y / 50);
-	//secure seg fault movement for ghost mode (no wall collision)
-	printf(" move y: x : %li | y : %li\n", x, y);
 	if (x < 0 || y < 0 || y > ft_tablen(mlx->map->map) || x > (long int)ft_strlen(mlx->map->map[y]))
 		return (1);
 	c = mlx->map->map[y][x];
