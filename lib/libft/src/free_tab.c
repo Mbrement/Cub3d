@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 16:13:39 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 01:12:36 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/09/27 04:45:35 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	free_tab(char **str)
 		return ;
 	while (str[i])
 	{
-		if (&str[i])
-			nfree((void **)&str[i]);
+		nfree((void **)&str[i]);
 		i++;
 	}
 	nfree((void **)&str);

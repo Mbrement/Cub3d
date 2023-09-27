@@ -144,7 +144,7 @@ int	check_walls(t_map *map)
 	tmp_map = dup_maps(map->map);
 	if (!tmp_map)
 	{
-		printf("Malloc error\n");
+		printf("Error\nMalloc error\n");
 		end_of_prog(*map);
 		exit(1);
 	}

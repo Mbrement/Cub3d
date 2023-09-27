@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/19 13:48:19 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/09/27 04:59:47 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,7 +359,7 @@ static t_map	check_inside(int file_fd)
 	maps = malloc(sizeof(char *) * 2);
 	if (!maps)
 	{
-		(void)printf("Malloc error\n");
+		(void)printf("Error\nMalloc error\n");
 		end_of_prog(map);
 		exit(1);
 	}
@@ -368,7 +368,7 @@ static t_map	check_inside(int file_fd)
 	maps = add_tab(maps, buffer);
 	if (!maps)
 	{
-		(void)printf("Malloc error\n");
+		(void)printf("Error\nMalloc error\n");
 		end_of_prog(map);
 		exit(1);
 	}
@@ -380,7 +380,7 @@ static t_map	check_inside(int file_fd)
 		maps = add_tab(maps, buffer);
 		if (!maps)
 		{
-			(void)printf("Malloc error\n");
+			(void)printf("Error\nMalloc error\n");
 			end_of_prog(map);
 			exit(1);
 		}
@@ -388,7 +388,7 @@ static t_map	check_inside(int file_fd)
 	maps = add_tab(maps, ft_strnew(1));
 	if (!maps)
 	{
-		(void)printf("Malloc error\n");
+		(void)printf("Error\nMalloc error\n");
 		end_of_prog(map);
 		exit(1);
 	}
