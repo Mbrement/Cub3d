@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 11:53:08 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:11:05 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,33 @@ int	ft_hook(int key, t_mlx *mlx)
 	float	new_x;
 	float	new_y;
 	float	rad;
+	float	radlook;
 
 	rad = (M_PI / 180);
 	new_x = mlx->player->pos_x;
 	new_y = mlx->player->pos_y;
+	radlook = mlx->player->look * rad;
 	if (key == 65307)
 		end_of_prog_mlx(mlx);
 	else if (key == 119 || key == 65362)
 	{
-		new_x += SPEED * cos(mlx->player->look * rad);
-		new_y += SPEED * sin(mlx->player->look * rad);
+		new_x += SPEED * cos(radlook);
+		new_y += SPEED * sin(radlook);
 	}
 	else if (key == 115 || key == 65364)
 	{
-		new_x -= SPEED * cos(mlx->player->look * rad);
-		new_y -= SPEED * sin(mlx->player->look * rad);
+		new_x -= SPEED * cos(radlook);
+		new_y -= SPEED * sin(radlook);
 	}
 	else if (key == 97 || key == 65361)
 	{
-		new_x += SPEED * sin(mlx->player->look * rad);
-		new_y -= SPEED * cos(mlx->player->look * rad);
+		new_x += SPEED * sin(radlook);
+		new_y -= SPEED * cos(radlook);
 	}
 	else if (key == 100 || key == 65363)
 	{
-		new_x -= SPEED * sin(mlx->player->look * rad);
-		new_y += SPEED * cos(mlx->player->look * rad);
+		new_x -= SPEED * sin(radlook);
+		new_y += SPEED * cos(radlook);
 	}
 	else if (key == 113)
 		mlx->player->look -= 5;
@@ -54,7 +56,7 @@ int	ft_hook(int key, t_mlx *mlx)
 		mlx->player->pos_x = new_x;
 	if (mlx->player->look < 0)
 		mlx->player->look += 360;
-	if (mlx->player->look >= 360)
+	else if (mlx->player->look >= 360)
 		mlx->player->look -= 360;
 	return (0);
 }
