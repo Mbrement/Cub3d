@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 16:59:36 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:15:37 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_get_color(t_mlx mlx, t_ray ray, float texx)
 	double 	texy;
 	int 	y;
 	char 	*get;
-
+ 
 	(void)texx;
 	step  = 1.0 * *mlx.wall->east_height / ray.lineheight;
 	tex_pos	= ((double)ray.drawstart - (double)WIN_H / 2 + (double)ray.lineheight / 2) * (double)step;	
