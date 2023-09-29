@@ -90,23 +90,31 @@ void	ft_get_color(t_mlx *mlx, t_ray ray, int screen_x)
 	float drawstart = (float)-ray.lineheight / 2 + half;
 	float drawend = drawstart + ray.lineheight;
 
-
 	if (ray.side == 1)
 	{
 		if (ray.raydiry < 0) // N
 		{
-			printf("%f %f\n", ray.pos_x, ray.pos_y);
+			printf("\033[31m%f %f\033[0m\n", ray.sidedistx, ray.sidedisty);
 			ft_draw_vertical(mlx, screen_x, drawstart, drawend, 0x00ffff);
 		}
 		else // S
+		{
+			printf("\033[32m%f %f\033[0m\n", ray.sidedistx, ray.sidedisty);
 			ft_draw_vertical(mlx, screen_x, drawstart, drawend, 0x0000ff);
+		}
 	}
 	else
 	{
 		if (ray.raydirx < 0) // W
+		{
+			printf("\033[33m%f %f\033[0m\n", ray.sidedistx, ray.sidedisty);
 			ft_draw_vertical(mlx, screen_x, drawstart, drawend, 0x00ff00);
+		}
 		else // E
+		{
+			printf("\033[34m%f %f\033[0m\n", ray.sidedistx, ray.sidedisty);
 			ft_draw_vertical(mlx, screen_x, drawstart, drawend, 0xff00ff);
+		}
 	}
 		
 	// 	texy = (int)floor(tex_pos) % (mlx.wall->east_height - 1);
@@ -164,7 +172,7 @@ void ft_ray(t_mlx *mlx)
 
 	// i = 0;
 	// while (i < WIN_W)7;
-	int range = 10;
+	int range = 1000;
 	int offset = 0;
 	i = WIN_W / 2 - range / 2 + offset;
 	while (i < WIN_W / 2 + range / 2 + offset)
