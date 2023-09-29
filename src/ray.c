@@ -155,16 +155,26 @@ void ft_ray(t_mlx *mlx)
 		ray.deltadistx = fabs(1 / ray.raydirx);
 		ray.deltadisty = fabs(1 / ray.raydiry);
 		ray.hit = 0;
-		ray.sidedistx = offset_x * ray.deltadistx;
-		ray.sidedisty = offset_y * ray.deltadisty;
 		if (ray.raydirx < 0)
+		{
+			ray.sidedistx = offset_x * ray.deltadistx;
 			ray.stepx = -1;
+		}
 		else
+		{
+			ray.sidedistx = (1 - offset_x) * ray.deltadistx;
 			ray.stepx = 1;
+		}
 		if (ray.raydiry < 0)
+		{
+			ray.sidedisty = offset_y * ray.deltadisty;
 			ray.stepy = -1;
-		else 
+		}
+		else
+		{
+			ray.sidedisty = (1 - offset_y) * ray.deltadisty;
 			ray.stepy = 1;
+		}
 		int maxDist = 100;
 		while (ray.hit == 0 && maxDist-- > 0)
 		{
