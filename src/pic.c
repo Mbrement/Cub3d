@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pic.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:05:52 by mbrement          #+#    #+#             */
-/*   Updated: 2023/08/04 02:44:06 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/09/29 13:46:29 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ unsigned int	get_color(void *img_ptr, int x, int y, t_mlx *mlx, int *ratio)
 	int		endian;
 
 	(void)mlx;
-	x = ((float)((*mlx->wall->east_height *  x) / ratio[0]) * ratio[2]/100);
-	y = ((float)((*mlx->wall->east_lenth * y) / ratio[1]) * ratio[2]/100);
+	x = ((float)((mlx->wall->east_height *  x) / ratio[0]) * ratio[2]/100);
+	y = ((float)((mlx->wall->east_lenth * y) / ratio[1]) * ratio[2]/100);
 	addr = mlx_get_data_addr(img_ptr, &bits_py_px, &size_line, &endian);
 	dst = addr + (y * size_line + x * 4);
 	// if (x > *mlx->wall.east_lenth || y > *mlx->wall.east_height || y < 0 || x < 0)

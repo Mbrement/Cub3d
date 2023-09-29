@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_of_prog.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 19:38:25 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 10:33:15 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/09/29 13:48:24 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,6 @@ void	end_of_prog_mlx(t_mlx *mlx)
 	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->east);
 	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->west);
 	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->south);
-	nfree((void **)&mlx->wall->north_height);
-	nfree((void **)&mlx->wall->south_height);
-	nfree((void **)&mlx->wall->east_height);
-	nfree((void **)&mlx->wall->west_height);
-	nfree((void **)&mlx->wall->north_lenth);
-	nfree((void **)&mlx->wall->south_lenth);
-	nfree((void **)&mlx->wall->east_lenth);
-	nfree((void **)&mlx->wall->west_lenth);
 	nfree((void **)&mlx->wall);
 	mlx_destroy_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr);
 	mlx_destroy_display(mlx->mlx_init_ptr);

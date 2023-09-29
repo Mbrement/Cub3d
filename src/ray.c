@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/28 15:15:37 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:44:26 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int ft_tex_coo(t_ray ray, t_mlx mlx)
 	else
 		wallx = mlx.player->pos_x + ray.perpwalldist * ray.raydirx;
 	wallx = -floor(wallx);
-	texx=(wallx * *mlx.wall->east_height);
+	texx=(wallx * mlx.wall->east_height);
 	if (ray.side && ray.raydirx > 0 )
-		texx = *mlx.wall->east_height - texx - 1;
+		texx = mlx.wall->east_height - texx - 1;
 	if (!ray.side && ray.diry < 0)
-		texx = *mlx.wall->east_height - texx - 1;
+		texx = mlx.wall->east_height - texx - 1;
 	return (texx);
 }
 
@@ -84,12 +84,12 @@ void	ft_get_color(t_mlx mlx, t_ray ray, float texx)
 	char 	*get;
  
 	(void)texx;
-	step  = 1.0 * *mlx.wall->east_height / ray.lineheight;
+	step  = 1.0 * mlx.wall->east_height / ray.lineheight;
 	tex_pos	= ((double)ray.drawstart - (double)WIN_H / 2 + (double)ray.lineheight / 2) * (double)step;	
 	y = ray.drawstart;
 	while (y < ray.drawend)
 	{
-	texy = (int)floor(tex_pos) % (*mlx.wall->east_height - 1);
+	texy = (int)floor(tex_pos) % (mlx.wall->east_height - 1);
 	// (void)texy;
 	tex_pos+=step;
 	get = (mlx.wall->east_data.addr + (int)(*(mlx.wall->east_data.size_line) * (int)(texy)  +  (ray.x * 4)));

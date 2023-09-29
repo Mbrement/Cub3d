@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 10:32:49 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/09/29 13:43:32 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,20 @@ typedef struct s_wall
 {
 	void		*north;
 	t_wall_data	north_data;
-	int			*north_height;
-	int			*north_lenth;
+	int			north_height;
+	int			north_lenth;
 	void		*east;
 	t_wall_data	east_data;
-	int			*east_height;
-	int			*east_lenth;
+	int			east_height;
+	int			east_lenth;
 	void		*west;
 	t_wall_data	west_data;
-	int			*west_height;
-	int			*west_lenth;
+	int			west_height;
+	int			west_lenth;
 	void		*south;
 	t_wall_data	south_data;
-	int			*south_height;
-	int			*south_lenth;
+	int			south_height;
+	int			south_lenth;
 }		t_wall;
 
 typedef struct s_player
