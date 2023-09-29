@@ -86,11 +86,17 @@ void	ft_get_color(t_mlx mlx, t_ray ray, int screen_x)
 	{
 		if (ray.side == 1)
 		{
-			my_mlx_pixel_put(&mlx, screen_x, y, 0x0000ff);
+			if (ray.raydiry < 0)
+				my_mlx_pixel_put(&mlx, screen_x, y, 0x00ffff);
+			else
+				my_mlx_pixel_put(&mlx, screen_x, y, 0x0000ff);
 		}
 		else
 		{
-			my_mlx_pixel_put(&mlx, screen_x, y, 0x00ff00);
+			if (ray.raydirx < 0)
+				my_mlx_pixel_put(&mlx, screen_x, y, 0x00ff00);
+			else
+				my_mlx_pixel_put(&mlx, screen_x, y, 0xff00ff);
 		}
 		
 	// 	texy = (int)floor(tex_pos) % (mlx.wall->east_height - 1);
