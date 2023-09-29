@@ -190,7 +190,7 @@ void ft_ray(t_mlx *mlx)
 				ray.pos_y += ray.stepy;
 				ray.side = 1;
 			}
-			if (!is_valid_move(mlx, ray.pos_y, ray.pos_x))
+			if (!is_valid_move(mlx, ray.pos_x, ray.pos_y))
 				ray.hit = 1;
 		}
 		i++;

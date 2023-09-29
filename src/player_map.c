@@ -52,11 +52,11 @@ void ray (t_mlx mlx, t_player player, int rgb)
 		{
 			x_angle_tmp = sinf(((mlx.player->look + cor) * radiant)) * mlx.org->pixel_to_mapx + x_angle;
 			y_angle_tmp = cosf(((mlx.player->look + cor) * radiant)) * mlx.org->pixel_to_mapy + y_angle;
-			if (!is_valid_move(&mlx, y_angle_tmp, x_angle_tmp))
+			if (!is_valid_move(&mlx, x_angle_tmp, y_angle_tmp))
 			{
 				// x_angle = x_angle_tmp;
 				// y_angle = y_angle_tmp;
-				while (is_valid_move(&mlx, y_angle, x_angle))
+				while (is_valid_move(&mlx, x_angle, y_angle))
 				{
 					x_angle += sin(mlx.player->look * (M_PI / 180));
 					y_angle += cos(mlx.player->look * (M_PI / 180));

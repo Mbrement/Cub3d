@@ -55,7 +55,7 @@ int	is_valid_move_y(t_mlx *mlx, float new_y)
 	return (1);
 }
 
-int	is_valid_move(t_mlx *mlx, float new_y, float new_x)
+int	is_valid_move(t_mlx *mlx, float new_x, float new_y)
 {
 	long int		x;
 	long int		y;
