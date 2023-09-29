@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/29 14:43:52 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:00:45 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ typedef struct	s_ray
 	double		raydirx; //calcul de direction x du rayon
 	double		raydiry; //calcul de direction y du rayon
 	double		camerax; //point x sur la plan camera : Gauche ecran = -1, milieu = 0, droite = 1
-	int			mapx; // coordonée x du carré dans lequel est pos
-	int			mapy; // coordonnée y du carré dans lequel est pos
 	double		sidedistx; //distance que le rayon parcours jusqu'au premier point d'intersection vertical (=un coté x)
 	double		sidedisty; //distance que le rayon parcours jusqu'au premier point d'intersection horizontal (= un coté y)
 	double		deltadistx; //distance que rayon parcours entre chaque point d'intersection vertical
@@ -33,6 +31,8 @@ typedef struct	s_ray
 	int			side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
 	double		perpwalldist; // distance du joueur au mur
 	int			lineheight; //hauteur de la ligne a dessiner
+	float		pos_x;
+	float		pos_y;
 }					t_ray;
 
 int	refresh_img(t_mlx *mlx)
@@ -129,7 +129,8 @@ void ft_ray(t_mlx *mlx)
 	float	texx;
 	double	angle_radiants;
 	int		i;
-	// int	color;
+	float	offset_x = mlx->player->pos_x - (int)mlx->player->pos_x;
+	float	offset_y = mlx->player->pos_y - (int)mlx->player->pos_y;
 
 	ft_prep_floor(mlx);
 	angle_radiants = mlx->player->look * M_PI / 180.0;
@@ -140,70 +141,56 @@ void ft_ray(t_mlx *mlx)
     ray.plany = ray.dirx;
 
 	// i = 0;
-	// while (i < WIN_W)
-	i = WIN_W / 2 - 10;
-	while (i < WIN_W / 2 + 10)
+	// while (i < WIN_W)7;
+	int range = WIN_W;
+	int offset = 0;
+	i = WIN_W / 2 - range / 2 + offset;
+	while (i < WIN_W / 2 + range / 2 + offset)
 	{
-		ray.mapx = mlx->player->pos_x;
-		ray.mapy = mlx->player->pos_y;
+		ray.pos_x = mlx->player->pos_x;
+		ray.pos_y = mlx->player->pos_y;
 		ray.camerax = 2 * i / (double)WIN_W - 1;
 		ray.raydirx = ray.dirx + ray.planx * ray.camerax;
 		ray.raydiry = ray.diry + ray.plany * ray.camerax;
-
 		ray.deltadistx = fabs(1 / ray.raydirx);
 		ray.deltadisty = fabs(1 / ray.raydiry);
-		if (ray.raydirx == 0)
-			ray.deltadistx = 1e30;
-		if (ray.raydiry == 0)
-			ray.deltadisty = 1e30;
 		ray.hit = 0;
+		ray.sidedistx = offset_x * ray.deltadistx;
+		ray.sidedisty = offset_y * ray.deltadisty;
 		if (ray.raydirx < 0)
-		{
 			ray.stepx = -1;
-			ray.sidedistx = (mlx->player->pos_x - ray.mapx) * ray.deltadistx;
-		}
 		else
-		{
 			ray.stepx = 1;
-			ray.sidedistx = (ray.mapx + 1.0 - mlx->player->pos_x) * ray.deltadistx;
-		}
 		if (ray.raydiry < 0)
-		{
 			ray.stepy = -1;
-			ray.sidedisty = (mlx->player->pos_y - ray.mapy) * ray.deltadisty;
-		}	
 		else 
-		{
 			ray.stepy = 1;
-			ray.sidedisty = (ray.mapy + 1.0 - mlx->player->pos_y) * ray.deltadisty;
-		}
-		while (ray.hit == 0)
+		int maxDist = 100;
+		while (ray.hit == 0 && maxDist-- > 0)
 		{
 			if (ray.sidedistx < ray.sidedisty)
 			{
 				ray.sidedistx += ray.deltadistx;
-				ray.mapx += ray.stepx;
+				ray.pos_x += ray.stepx;
 				ray.side = 0;
 			}
 			else
 			{
 				ray.sidedisty += ray.deltadisty;
-				ray.mapy += ray.stepy;
+				ray.pos_y += ray.stepy;
 				ray.side = 1;
 			}
-			if (!is_valid_move(mlx, ray.mapy, ray.mapx))
-			{
-				// printf("mapy : %i mapx : %i\n", ray.mapy, ray.mapx);
-				// printf("stepy : %i stepx : %i\n", ray.stepy, ray.stepx);
+			if (!is_valid_move(mlx, ray.pos_y, ray.pos_x))
 				ray.hit = 1;
-			}
 		}
+		i++;
+		if (!ray.hit)
+			continue;
 		if (ray.side == 0)
 			ray.perpwalldist = ray.sidedistx - ray.deltadistx;
 		else
 			ray.perpwalldist = ray.sidedisty - ray.deltadisty;
 		ray.lineheight = (int)(WIN_H / ray.perpwalldist);
 		ft_get_color(*mlx, ray, i);
-		i++;
 	}
 }
