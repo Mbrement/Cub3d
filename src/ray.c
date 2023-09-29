@@ -72,9 +72,13 @@ int ft_tex_coo(t_ray ray, t_mlx mlx)
 
 void	ft_draw_vertical(t_mlx *mlx, int screen_x, int drawstart, int drawend, unsigned int color)
 {
-	for (int y = drawstart; y < drawend; y++)
+	int	y;
+
+	y = drawstart;
+	while (y < drawend)
 	{
 		my_mlx_pixel_put(mlx, screen_x, y, color);
+		y++;
 	}
 }
 
