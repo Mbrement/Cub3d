@@ -84,7 +84,7 @@ void	ft_get_color(t_mlx mlx, t_ray ray, int screen_x)
 
 	for (int y = drawstart; y < drawend; y++)
 	{
-		if (ray.stepx == 1 && ray.stepy == 1)
+		if (ray.side == 1)
 		{
 			my_mlx_pixel_put(&mlx, screen_x, y, 0x0000ff);
 		}
