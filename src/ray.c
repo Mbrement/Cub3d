@@ -40,9 +40,9 @@ int	refresh_img(t_mlx *mlx)
 	// Only one loop
 	static int init = 0;
 
-	if (init)
-		return (0);
-	init = 1;
+	// if (init)
+	// 	return (0);
+	// init = 1;
 
 	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
 	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
