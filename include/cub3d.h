@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/29 13:43:32 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:26:10 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define WIN_W 1500
 # define WIN_H 750
 # define FOV 80
-# define SPEED 3
+# define SPEED 0.05
 
 typedef struct s_data{
 	void	*img;
