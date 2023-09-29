@@ -87,7 +87,10 @@ void	ft_get_color(t_mlx mlx, t_ray ray, int screen_x)
 		if (ray.side == 1)
 		{
 			if (ray.raydiry < 0)
+			{
+
 				my_mlx_pixel_put(&mlx, screen_x, y, 0x00ffff);
+			}
 			else
 				my_mlx_pixel_put(&mlx, screen_x, y, 0x0000ff);
 		}
