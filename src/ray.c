@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/29 14:20:43 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:43:52 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,23 @@ typedef struct	s_ray
 	int			side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
 	double		perpwalldist; // distance du joueur au mur
 	int			lineheight; //hauteur de la ligne a dessiner
-	int			x; //permet de parcourir tous les rayons
 }					t_ray;
 
 int	refresh_img(t_mlx *mlx)
 {
+	// Only one loop
+	static int init = 0;
+
+	if (init)
+		return (0);
+	init = 1;
+
 	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
 	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
 	ft_ray (mlx);
 	mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
 	mlx_destroy_image(mlx->mlx_init_ptr, mlx->data->img);
 	return(0);
-}
-
-void ft_verline(int x, int start, int end, int color, t_mlx *mlx)
-{
-	while (start < end)
-	{
-		my_mlx_pixel_put(mlx, x, start, color);
-		start++;
-	}
 }
 
 int ft_tex_coo(t_ray ray, t_mlx mlx)
@@ -73,7 +70,7 @@ int ft_tex_coo(t_ray ray, t_mlx mlx)
 	return (texx);
 }
 
-void	ft_get_color(t_mlx mlx, t_ray ray)
+void	ft_get_color(t_mlx mlx, t_ray ray, int screen_x)
 {
 	static double	half = (float)WIN_H / 2;
 
@@ -87,7 +84,7 @@ void	ft_get_color(t_mlx mlx, t_ray ray)
 
 	for (int y = drawstart; y < drawend; y++)
 	{
-		my_mlx_pixel_put(&mlx, ray.x, y, 0x00ff00);
+		my_mlx_pixel_put(&mlx, screen_x, y, 0x00ff00);
 		
 	// 	texy = (int)floor(tex_pos) % (mlx.wall->east_height - 1);
 	// 	// (void)texy;
@@ -101,50 +98,6 @@ void	ft_get_color(t_mlx mlx, t_ray ray)
 	// 	y++;
 	}
 }
-
-/*
-void	ft_get_color(t_mlx mlx, t_ray ray, float texx)
-{
-	float	step;
-	float	tex_pos;
-	float 	texy;
-	int 	y;
-	char 	*get;
-	char 	*color;
-
-	step  = 1.0 * *mlx.wall->east_height / ray.lineheight;
-	tex_pos	= ((float)ray.drawstart - (float)WIN_H / 2 + (float)ray.lineheight / 2) * (float)step;	
-	y = ray.drawstart;
-	while (y < ray.drawend)
-	{
-		// texy=(((int)tex_pos & (*mlx.wall->east_height - 1)));
-		texy=((((int)tex_pos & (*mlx.wall->east_height - 1))));
-		// texy = tex_pos ;
-		// (void)get;
-		(void)color;
-		// (void)texy;
-		(void)texx;
-		// // printf("%i\n", (int)(*mlx.wall->east_height * texy + texx));
-		// color = *(unsigned int *)get;
-		// (void)get;
-		// printf("texy = %f\n", texy);
-			// printf("%f\n", tex_pos);
-		if (texy < *mlx.wall->east_height && texy >= 0)
-		{
-			// get = (mlx.wall->east_data.addr + (int)(*mlx.wall->east_data.size_line * y  +  ray.x * 4)); 					// it print the pic, but not scaled
-			get = (mlx.wall->east_data.addr + (int)(*mlx.wall->east_data.size_line * texy  +  ray.x * 4));
-			// printf("%f",texy);
-			my_mlx_pixel_put(&mlx, ray.x, y, *(int *)get);
-		}
-		else
-			my_mlx_pixel_put(&mlx, ray.x, y, 0x0080FF);
-		// color = mlx.data->addr + (int)249.5 ;
-		// *(unsigned int *)color =*(unsigned int *) get;
-		tex_pos+=step;
-		y++;
-	}
-	return ;
-}?*/
 
 void	ft_prep_floor(t_mlx *mlx)
 {
@@ -175,6 +128,7 @@ void ft_ray(t_mlx *mlx)
 	t_ray	ray;
 	float	texx;
 	double	angle_radiants;
+	int		i;
 	// int	color;
 
 	ft_prep_floor(mlx);
@@ -184,77 +138,72 @@ void ft_ray(t_mlx *mlx)
 
 	ray.planx = -ray.diry;
     ray.plany = ray.dirx;
-	// while (1)
-	// {
-		ray.x = 0;
-		while (ray.x < WIN_W)
-		{
-			ray.mapx = mlx->player->pos_x;
-			ray.mapy = mlx->player->pos_y;
-			ray.camerax = 2 * ray.x / (double)WIN_W - 1;
-			ray.raydirx = ray.dirx + ray.planx * ray.camerax;
-			ray.raydiry = ray.diry + ray.plany * ray.camerax;
 
-			ray.deltadistx = fabs(1 / ray.raydirx);
-			ray.deltadisty = fabs(1 / ray.raydiry);
-			if (ray.raydirx == 0)
-				ray.deltadistx = 1e30;
-			if (ray.raydiry == 0)
-				ray.deltadisty = 1e30;
-			ray.hit = 0;
-			if (ray.raydirx < 0)
+	// i = 0;
+	// while (i < WIN_W)
+	i = WIN_W / 2 - 10;
+	while (i < WIN_W / 2 + 10)
+	{
+		ray.mapx = mlx->player->pos_x;
+		ray.mapy = mlx->player->pos_y;
+		ray.camerax = 2 * i / (double)WIN_W - 1;
+		ray.raydirx = ray.dirx + ray.planx * ray.camerax;
+		ray.raydiry = ray.diry + ray.plany * ray.camerax;
+
+		ray.deltadistx = fabs(1 / ray.raydirx);
+		ray.deltadisty = fabs(1 / ray.raydiry);
+		if (ray.raydirx == 0)
+			ray.deltadistx = 1e30;
+		if (ray.raydiry == 0)
+			ray.deltadisty = 1e30;
+		ray.hit = 0;
+		if (ray.raydirx < 0)
+		{
+			ray.stepx = -1;
+			ray.sidedistx = (mlx->player->pos_x - ray.mapx) * ray.deltadistx;
+		}
+		else
+		{
+			ray.stepx = 1;
+			ray.sidedistx = (ray.mapx + 1.0 - mlx->player->pos_x) * ray.deltadistx;
+		}
+		if (ray.raydiry < 0)
+		{
+			ray.stepy = -1;
+			ray.sidedisty = (mlx->player->pos_y - ray.mapy) * ray.deltadisty;
+		}	
+		else 
+		{
+			ray.stepy = 1;
+			ray.sidedisty = (ray.mapy + 1.0 - mlx->player->pos_y) * ray.deltadisty;
+		}
+		while (ray.hit == 0)
+		{
+			if (ray.sidedistx < ray.sidedisty)
 			{
-				ray.stepx = -1;
-				ray.sidedistx = (mlx->player->pos_x - ray.mapx) * ray.deltadistx;
+				ray.sidedistx += ray.deltadistx;
+				ray.mapx += ray.stepx;
+				ray.side = 0;
 			}
 			else
 			{
-				ray.stepx = 1;
-				ray.sidedistx = (ray.mapx + 1.0 - mlx->player->pos_x) * ray.deltadistx;
+				ray.sidedisty += ray.deltadisty;
+				ray.mapy += ray.stepy;
+				ray.side = 1;
 			}
-			if (ray.raydiry < 0)
+			if (!is_valid_move(mlx, ray.mapy, ray.mapx))
 			{
-				ray.stepy = -1;
-				ray.sidedisty = (mlx->player->pos_y - ray.mapy) * ray.deltadisty;
-			}	
-			else 
-			{
-				ray.stepy = 1;
-				ray.sidedisty = (ray.mapy + 1.0 - mlx->player->pos_y) * ray.deltadisty;
+				// printf("mapy : %i mapx : %i\n", ray.mapy, ray.mapx);
+				// printf("stepy : %i stepx : %i\n", ray.stepy, ray.stepx);
+				ray.hit = 1;
 			}
-			while (ray.hit == 0)
-			{
-				if (ray.sidedistx < ray.sidedisty)
-				{
-					ray.sidedistx += ray.deltadistx;
-					ray.mapx += ray.stepx;
-					ray.side = 0;
-				}
-				else
-				{
-					ray.sidedisty += ray.deltadisty;
-					ray.mapy += ray.stepy;
-					ray.side = 1;
-				}
-				if (!is_valid_move(mlx, ray.mapy, ray.mapx))
-				{
-					// printf("mapy : %i mapx : %i\n", ray.mapy, ray.mapx);
-					// printf("stepy : %i stepx : %i\n", ray.stepy, ray.stepx);
-					ray.hit = 1;
-				}
-			}
-			if (ray.side == 0)
-				ray.perpwalldist = ray.sidedistx - ray.deltadistx;
-			else
-				ray.perpwalldist = ray.sidedisty - ray.deltadisty;
-			ray.lineheight = (int)(WIN_H / ray.perpwalldist);
-			// printf("lineheight : %i perpwalldist : %f\n", ray.lineheight, ray.perpwalldist);
-			ft_get_color(*mlx, ray);
-			// if (ray.side == 1)
-			// 	color = color / 2;
-			// printf("result : %i, %i\n", ray.drawstart, ray.drawend);
-			// ft_verline(ray.x, ray.drawstart, ray.drawend, color, mlx);
-			ray.x+=1;
 		}
-		}
-// }
+		if (ray.side == 0)
+			ray.perpwalldist = ray.sidedistx - ray.deltadistx;
+		else
+			ray.perpwalldist = ray.sidedisty - ray.deltadisty;
+		ray.lineheight = (int)(WIN_H / ray.perpwalldist);
+		ft_get_color(*mlx, ray, i);
+		i++;
+	}
+}

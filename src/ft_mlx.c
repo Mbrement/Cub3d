@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/29 14:18:53 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:43:09 by ngennaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,18 +102,6 @@ t_wall	*put_img_in_wall(t_map map, t_mlx mlx)
 	t_wall	*wall;
 
 	wall = malloc(sizeof (t_wall));
-	// wall->north = malloc(sizeof(void *));
-	// wall->north_height = malloc(sizeof(int *));
-	// wall->north_lenth = malloc(sizeof(int *));
-	// wall->south = malloc(sizeof(void *));
-	// wall->south_height = malloc(sizeof(int *));
-	// wall->south_lenth = malloc(sizeof(int *));
-	// wall->east = malloc(sizeof(void *));
-	// wall->east_height = malloc(sizeof(int *));
-	// wall->east_lenth = malloc(sizeof(int *));
-	// wall->west = malloc(sizeof(void *));
-	// wall->west_height = malloc(sizeof(int *));
-	// wall->west_lenth = malloc(sizeof(int *));
 	if (!wall)
 		end_of_prog_mlx(&mlx);
 	wall->north = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
