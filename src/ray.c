@@ -84,7 +84,14 @@ void	ft_get_color(t_mlx mlx, t_ray ray, int screen_x)
 
 	for (int y = drawstart; y < drawend; y++)
 	{
-		my_mlx_pixel_put(&mlx, screen_x, y, 0x00ff00);
+		if (ray.stepx == 1 && ray.stepy == 1)
+		{
+			my_mlx_pixel_put(&mlx, screen_x, y, 0x0000ff);
+		}
+		else
+		{
+			my_mlx_pixel_put(&mlx, screen_x, y, 0x00ff00);
+		}
 		
 	// 	texy = (int)floor(tex_pos) % (mlx.wall->east_height - 1);
 	// 	// (void)texy;
