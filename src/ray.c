@@ -40,9 +40,9 @@ int	refresh_img(t_mlx *mlx)
 	// Only one loop
 	static int init = 0;
 
-	// if (init)
-	// 	return (0);
-	// init = 1;
+	if (init)
+		return (0);
+	init = 1;
 
 	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
 	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
@@ -70,7 +70,15 @@ int ft_tex_coo(t_ray ray, t_mlx mlx)
 	return (texx);
 }
 
-void	ft_get_color(t_mlx mlx, t_ray ray, int screen_x)
+void	ft_draw_vertical(t_mlx *mlx, int screen_x, int drawstart, int drawend, unsigned int color)
+{
+	for (int y = drawstart; y < drawend; y++)
+	{
+		my_mlx_pixel_put(mlx, screen_x, y, color);
+	}
+}
+
+void	ft_get_color(t_mlx *mlx, t_ray ray, int screen_x)
 {
 	static double	half = (float)WIN_H / 2;
 
@@ -82,25 +90,24 @@ void	ft_get_color(t_mlx mlx, t_ray ray, int screen_x)
 	float drawstart = (float)-ray.lineheight / 2 + half;
 	float drawend = drawstart + ray.lineheight;
 
-	for (int y = drawstart; y < drawend; y++)
-	{
-		if (ray.side == 1)
-		{
-			if (ray.raydiry < 0)
-			{
 
-				my_mlx_pixel_put(&mlx, screen_x, y, 0x00ffff);
-			}
-			else
-				my_mlx_pixel_put(&mlx, screen_x, y, 0x0000ff);
-		}
-		else
+	if (ray.side == 1)
+	{
+		if (ray.raydiry < 0) // N
 		{
-			if (ray.raydirx < 0)
-				my_mlx_pixel_put(&mlx, screen_x, y, 0x00ff00);
-			else
-				my_mlx_pixel_put(&mlx, screen_x, y, 0xff00ff);
+			printf("%f %f\n", ray.pos_x, ray.pos_y);
+			ft_draw_vertical(mlx, screen_x, drawstart, drawend, 0x00ffff);
 		}
+		else // S
+			ft_draw_vertical(mlx, screen_x, drawstart, drawend, 0x0000ff);
+	}
+	else
+	{
+		if (ray.raydirx < 0) // W
+			ft_draw_vertical(mlx, screen_x, drawstart, drawend, 0x00ff00);
+		else // E
+			ft_draw_vertical(mlx, screen_x, drawstart, drawend, 0xff00ff);
+	}
 		
 	// 	texy = (int)floor(tex_pos) % (mlx.wall->east_height - 1);
 	// 	// (void)texy;
@@ -112,7 +119,6 @@ void	ft_get_color(t_mlx mlx, t_ray ray, int screen_x)
 			// my_mlx_pixel_put(&mlx, ray.x, y, *(int *)get);
 	// 		// write(1, "1",1);
 	// 	y++;
-	}
 }
 
 void	ft_prep_floor(t_mlx *mlx)
@@ -158,7 +164,7 @@ void ft_ray(t_mlx *mlx)
 
 	// i = 0;
 	// while (i < WIN_W)7;
-	int range = WIN_W;
+	int range = 10;
 	int offset = 0;
 	i = WIN_W / 2 - range / 2 + offset;
 	while (i < WIN_W / 2 + range / 2 + offset)
@@ -217,6 +223,6 @@ void ft_ray(t_mlx *mlx)
 		else
 			ray.perpwalldist = ray.sidedisty - ray.deltadisty;
 		ray.lineheight = (int)(WIN_H / ray.perpwalldist);
-		ft_get_color(*mlx, ray, i);
+		ft_get_color(mlx, ray, i);
 	}
 }
