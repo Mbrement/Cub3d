@@ -96,9 +96,9 @@ typedef struct s_wall
 
 typedef struct s_player
 {
-	float	pos_x;
-	float	pos_y;
-	float	look;
+	double	pos_x;
+	double	pos_y;
+	double	look;
 }	t_player;
 
 typedef struct s_mlx
@@ -133,11 +133,11 @@ void	ft_ray(t_mlx *mlx);
 int		refresh_img(t_mlx *mlx);
 
 //////MATH//////
-void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color);
-int		is_valid_move_y(t_mlx *mlx, float new_y);
-int		is_valid_move_x(t_mlx *mlx, float new_x);
-int		is_valid_move(t_mlx *mlx, float new_x, float new_y);
-void	road_to_wall(t_mlx *mlx, int y, int x, float angle);
+void	bresenham_cub(t_mlx mlx, double dest_x, double dest_y, int color);
+int		is_valid_move_y(t_mlx *mlx, double new_y);
+int		is_valid_move_x(t_mlx *mlx, double new_x);
+int		is_valid_move(t_mlx *mlx, double new_x, double new_y);
+void	road_to_wall(t_mlx *mlx, int y, int x, double angle);
 
 //////TOOLS//////
 void	end_of_prog(t_map map);

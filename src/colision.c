@@ -13,7 +13,7 @@
 #include "../include/cub3d.h"
 #include <stdio.h>
 
-int	is_valid_move_x(t_mlx *mlx, float new_x)
+int	is_valid_move_x(t_mlx *mlx, double new_x)
 {
 	long int		x;
 	long int		y;
@@ -34,7 +34,7 @@ int	is_valid_move_x(t_mlx *mlx, float new_x)
 	return (1);
 }
 
-int	is_valid_move_y(t_mlx *mlx, float new_y)
+int	is_valid_move_y(t_mlx *mlx, double new_y)
 {
 	long int		x;
 	long int		y;
@@ -55,7 +55,7 @@ int	is_valid_move_y(t_mlx *mlx, float new_y)
 	return (1);
 }
 
-int	is_valid_move(t_mlx *mlx, float new_x, float new_y)
+int	is_valid_move(t_mlx *mlx, double new_x, double new_y)
 {
 	long int		x;
 	long int		y;

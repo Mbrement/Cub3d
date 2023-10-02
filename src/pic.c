@@ -31,8 +31,8 @@
 // 	int		endian;
 
 // 	(void)mlx;
-// 	x = ((float)((mlx->wall->east_height *  x) / ratio[0]) * ratio[2]/100);
-// 	y = ((float)((mlx->wall->east_lenth * y) / ratio[1]) * ratio[2]/100);
+// 	x = ((double)((mlx->wall->east_height *  x) / ratio[0]) * ratio[2]/100);
+// 	y = ((double)((mlx->wall->east_lenth * y) / ratio[1]) * ratio[2]/100);
 // 	addr = mlx_get_data_addr(img_ptr, &bits_py_px, &size_line, &endian);
 // 	dst = addr + (y * size_line + x * 4);
 // 	// if (x > *mlx->wall.east_lenth || y > *mlx->wall.east_height || y < 0 || x < 0)
@@ -43,7 +43,7 @@
 	
 // }
 
-// void	road_to_wall(t_mlx *mlx, int y, int x, float angle)
+// void	road_to_wall(t_mlx *mlx, int y, int x, double angle)
 // {
 // 	void	*init_tmp;
 // 	void	*win_tmp;

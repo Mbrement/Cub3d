@@ -27,15 +27,15 @@ void	put_player(t_mlx mlx, t_player player, int color)
 
 void ray (t_mlx mlx, t_player player, int rgb)
 {
-	float	x_angle;
-	float	y_angle;
-	float	x_angle_tmp;
-	float	y_angle_tmp;
-	float	cor;
-	float	radiant;
+	double	x_angle;
+	double	y_angle;
+	double	x_angle_tmp;
+	double	y_angle_tmp;
+	double	cor;
+	double	radiant;
 	int i;
-	// float	tmp_cos;
-	// float	tmp_sin;
+	// double	tmp_cos;
+	// double	tmp_sin;
 
 	(void)player;
 	i = 0;
@@ -69,7 +69,7 @@ void ray (t_mlx mlx, t_player player, int rgb)
 		// my_mlx_pixel_put(&mlx, x_angle, y_angle, rgb);
 		// printf("%f\n",y_angle);
 		bresenham_cub(mlx, x_angle, y_angle, rgb);
-		cor += ((float)FOV / WIN_W);
+		cor += ((double)FOV / WIN_W);
 		i++;
 	}
 	// road_to_wall(&mlx, y_angle, x_angle, cor);

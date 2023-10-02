@@ -13,7 +13,7 @@
 #include "../include/cub3d.h"
 
 
-void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
+void	bresenham_cub(t_mlx mlx, double dest_x, double dest_y, int color)
 {
 	int	dx;
 	int	dy;
@@ -236,13 +236,13 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 }
 
 
-// void	bresenham_cu2b(t_mlx mlx, float dest_x, float dest_y, int color)
+// void	bresenham_cu2b(t_mlx mlx, double dest_x, double dest_y, int color)
 // {
 // 	int		x;
 // 	int		y;
 // 	int		dx;
 // 	int		dy;
-// 	float	rationel[3];
+// 	double	rationel[3];
 
 // 	(void)color;
 
@@ -275,7 +275,7 @@ void	bresenham_cub(t_mlx mlx, float dest_x, float dest_y, int color)
 
 
 
-// void	bresenham_cub4(t_mlx mlx, float dest_x, float dest_y, int color)
+// void	bresenham_cub4(t_mlx mlx, double dest_x, double dest_y, int color)
 // {
 // 	int	dx;
 // 	int	dy;

@@ -15,9 +15,9 @@
 
 int	ft_hook(int key, t_mlx *mlx)
 {
-	float	new_x;
-	float	new_y;
-	float	rad;
+	double	new_x;
+	double	new_y;
+	double	rad;
 
 	rad = (M_PI / 180);
 	new_x = mlx->player->pos_x;
