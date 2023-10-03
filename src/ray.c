@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/29 18:00:45 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/10/03 04:54:123 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void ft_draw_vertical_north(t_mlx *mlx, int screen_x, int drawstart, int drawend
     while (y < drawend)
     {
         // Calculer l'indice du pixel dans la colonne x de la texture
-        int tex_y = (int)((y - drawstart) * (mlx->wall->north_lenth / (double)(drawend - drawstart)));
+        int tex_y = ((int)((y - drawstart) * (mlx->wall->north_lenth)) / (double)(drawend - drawstart));
         
         // Calculer l'adresse mémoire du pixel dans la texture
         char *tex_pixel_addr = mlx->wall->north_data.addr + (tex_y * *mlx->wall->north_data.size_line + x * (*mlx->wall->north_data.bits_py_px / 8));
@@ -100,7 +100,7 @@ void ft_draw_vertical_south(t_mlx *mlx, int screen_x, int drawstart, int drawend
     while (y < drawend)
     {
         // Calculer l'indice du pixel dans la colonne x de la texture
-        int tex_y = (int)((y - drawstart) * (mlx->wall->south_lenth / (double)(drawend - drawstart)));
+        int tex_y = ((int)((y - drawstart) * (mlx->wall->south_lenth)) / (double)(drawend - drawstart));
         
         // Calculer l'adresse mémoire du pixel dans la texture
         char *tex_pixel_addr = mlx->wall->south_data.addr + (tex_y * *mlx->wall->south_data.size_line + x * (*mlx->wall->south_data.bits_py_px / 8));
@@ -122,7 +122,7 @@ void ft_draw_vertical_east(t_mlx *mlx, int screen_x, int drawstart, int drawend,
     while (y < drawend)
     {
         // Calculer l'indice du pixel dans la colonne x de la texture
-        int tex_y = (int)((y - drawstart) * (mlx->wall->east_lenth / (double)(drawend - drawstart)));
+        int tex_y = ((int)((y - drawstart) * (mlx->wall->east_lenth)) / (double)(drawend - drawstart));
         
         // Calculer l'adresse mémoire du pixel dans la texture
         char *tex_pixel_addr = mlx->wall->east_data.addr + (tex_y * *mlx->wall->east_data.size_line + x * (*mlx->wall->east_data.bits_py_px / 8));
@@ -144,7 +144,7 @@ void ft_draw_vertical_west(t_mlx *mlx, int screen_x, int drawstart, int drawend,
     while (y < drawend)
     {
         // Calculer l'indice du pixel dans la colonne x de la texture
-        int tex_y = (int)((y - drawstart) * (mlx->wall->west_lenth / (double)(drawend - drawstart)));
+        int tex_y = ((int)((y - drawstart) * (mlx->wall->west_lenth)) / (double)(drawend - drawstart));
         
         // Calculer l'adresse mémoire du pixel dans la texture
         char *tex_pixel_addr = mlx->wall->west_data.addr + (tex_y * *mlx->wall->west_data.size_line + x * (*mlx->wall->west_data.bits_py_px / 8));
@@ -162,6 +162,8 @@ void	ft_get_color(t_mlx *mlx, t_ray ray, int screen_x, double x, double y)
 {
 	static double	half = (double)WIN_H / 2;
 
+	printf("\ninter x = %f\n", x);
+	printf("inter y = %f\n", y);
  
 	double drawstart = (double)-ray.lineheight / 2 + half;
 	double drawend = drawstart + ray.lineheight;
@@ -268,6 +270,30 @@ struct point get_collision_point_x(struct point P, struct vector v, double a) {
   return collision_point;
 }
 
+void debug(t_ray r){
+	printf("===== DEBUG ===== \n");
+	printf("ray->dirx = %f\n", r.dirx); 
+	printf("ray->diry = %f\n", r.diry); 
+	printf("ray->planx = %f\n", r.planx);
+	printf("ray->plany = %f\n", r.plany);
+	printf("ray->raydirx = %f\n", r.raydirx);
+	printf("ray->raydiry = %f\n", r.raydiry);
+	printf("ray->camerax = %f\n", r.camerax);
+	printf("ray->sidedistx = %f\n", r.sidedistx);
+	printf("ray->sidedisty = %f\n", r.sidedisty);
+	printf("ray->deltadistx = %f\n", r.deltadistx);
+	printf("ray->deltadisty = %f\n", r.deltadisty);
+	printf("ray->stepx = %d\n", r.stepx);
+	printf("ray->stepy = %d\n", r.stepy);
+	printf("ray->hit = %d\n", r.hit);
+	printf("ray->side = %d\n", r.side);
+	printf("ray->perpwalldist = %f\n", r.perpwalldist);
+	printf("ray->lineheight = %d\n", r.lineheight); // undefined
+	printf("ray->pos_x = %f\n", r.pos_x); // Possition de depart du rayon
+	printf("ray->pos_y = %f\n", r.pos_y);
+	printf("====================\n\n");
+}
+
 void ft_ray(t_mlx *mlx)
 {
 	t_ray	ray;
@@ -288,16 +314,18 @@ void ft_ray(t_mlx *mlx)
 	// while (i < WIN_W)7;
 	int range = WIN_W;
 	int offset = 0;
-	i = WIN_W / 2 - range / 2 + offset;
-	while (i < WIN_W / 2 + range / 2 + offset)
+	i = WIN_W / 2;
+	while (i != (WIN_W / 2) +1 )
+	// i = 0;
+	// while(i < WIN_W)
 	{
-		ray.pos_x = mlx->player->pos_x;
-		ray.pos_y = mlx->player->pos_y;
-		ray.camerax = 2 * i / (double)WIN_W - 1;
-		ray.raydirx = ray.dirx + ray.planx * ray.camerax;
-		ray.raydiry = ray.diry + ray.plany * ray.camerax;
-		ray.deltadistx = fabs(1 / ray.raydirx);
-		ray.deltadisty = fabs(1 / ray.raydiry);
+		ray.pos_x = (int)mlx->player->pos_x; // position of start x
+        ray.pos_y = (int)mlx->player->pos_y; // position of start y
+        ray.camerax = 2 * i / (double)WIN_W - 1; // good idk
+        ray.raydirx = ray.dirx + (ray.planx * ray.camerax); // good
+        ray.raydiry = ray.diry + ray.plany * ray.camerax; // good
+        ray.deltadistx = fabs(1 / ray.raydirx); // good uss
+        ray.deltadisty = fabs(1 / ray.raydiry); // good uss
 		ray.hit = 0;
 		if (ray.raydirx < 0)
 		{
@@ -325,6 +353,7 @@ void ft_ray(t_mlx *mlx)
 			if (ray.sidedistx < ray.sidedisty)
 			{
 				ray.sidedistx += ray.deltadistx;
+				// printf("rStep = %d", ray.stepx);
 				ray.pos_x += ray.stepx;
 				ray.side = 0;
 			}
@@ -334,8 +363,12 @@ void ft_ray(t_mlx *mlx)
 				ray.pos_y += ray.stepy;
 				ray.side = 1;
 			}
-			if (!is_valid_move(mlx, ray.pos_x, ray.pos_y))
+			if (!is_valid_move(mlx, ray.pos_x, ray.pos_y)){
+				// debug(ray);
+				// printf ("player pos x = %f\n", mlx->player->pos_x);
+				// printf ("player pos y = %f\n", mlx->player->pos_y);
 				ray.hit = 1;
+			}
 		}
 		i++;
 		if (!ray.hit)
@@ -345,28 +378,31 @@ void ft_ray(t_mlx *mlx)
 		else
 			ray.perpwalldist = ray.sidedisty - ray.deltadisty;
 		ray.lineheight = (int)(WIN_H / ray.perpwalldist);
-		struct vector p = get_u(ray.raydirx, ray.raydiry, ray.perpwalldist);
-		struct point player = {
-			.x = mlx->player->pos_x,
-			.y = mlx->player->pos_y
-		};
-		struct vector v = {
-			.x = ray.raydirx,
-			.y = ray.raydiry
-		};
-		if (ray.side == 0)
-		{
-			double x_av = (double)round(mlx->player->pos_x + p.x);
-			struct point wall_point = get_collision_point_x(player, v, x_av);
-			// printf("%f, %f\n", mlx->player->pos_x + p.x, wall_point.x);
-			ft_get_color(mlx, ray, i, x_av, wall_point.y);
-		}
-		else
-		{
-			double y_av = (double)round(mlx->player->pos_y + p.y);
-			struct point wall_point = get_collision_point(player, v, y_av);
-			// printf("%f, %f\n", mlx->player->pos_x + p.x, wall_point.x);
-			ft_get_color(mlx, ray, i, wall_point.x, y_av);
-		}
+		struct vector p = get_u(ray.raydirx, ray.raydiry, ray.);
+	
+		ft_get_color(mlx, ray, i, mlx->player->pos_x + p.x, mlx->player->pos_y + p.y);
+		
+		// struct point player = {
+		// 	.x = mlx->player->pos_x,
+		// 	.y = mlx->player->pos_y
+		// };
+		// struct vector v = {
+		// 	.x = ray.raydirx,
+		// 	.y = ray.raydiry
+		// };
+		// if (ray.side == 0)
+		// {
+		// 	double x_av = ray.pos_x;
+		// 	struct point wall_point = get_collision_point_x(player, v, x_av);
+		// 	// printf("%f, %f\n", mlx->player->pos_x + p.x, wall_point.x);
+		// 	ft_get_color(mlx, ray, i, x_av, wall_point.y);
+		// }
+		// else
+		// {
+		// 	double y_av = ray.pos_y;
+		// 	struct point wall_point = get_collision_point(player, v, y_av);
+		// 	// printf("%f, %f\n", mlx->player->pos_x + p.x, wall_point.x);
+		// 	ft_get_color(mlx, ray, i, wall_point.x, y_av);
+		// }
 	}
 }
