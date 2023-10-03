@@ -314,10 +314,10 @@ void ft_ray(t_mlx *mlx)
 	// while (i < WIN_W)7;
 	int range = WIN_W;
 	int offset = 0;
-	i = WIN_W / 2;
-	while (i != (WIN_W / 2) +1 )
-	// i = 0;
-	// while(i < WIN_W)
+	//i = WIN_W / 2;
+	//while (i != (WIN_W / 2) +1 )
+	i = 0;
+	while(i < WIN_W)
 	{
 		ray.pos_x = (int)mlx->player->pos_x; // position of start x
         ray.pos_y = (int)mlx->player->pos_y; // position of start y
@@ -378,7 +378,7 @@ void ft_ray(t_mlx *mlx)
 		else
 			ray.perpwalldist = ray.sidedisty - ray.deltadisty;
 		ray.lineheight = (int)(WIN_H / ray.perpwalldist);
-		struct vector p = get_u(ray.raydirx, ray.raydiry, ray.);
+		struct vector p = get_u(ray.raydirx, ray.raydiry, ray.perpwalldist);
 	
 		ft_get_color(mlx, ray, i, mlx->player->pos_x + p.x, mlx->player->pos_y + p.y);
 		
