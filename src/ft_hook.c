@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/09 15:58:28 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/09 16:11:34 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	key_pressed(int key, t_mlx *mlx)
 		mlx->player->turn_left = 1;
 	else if (key == 101)
 		mlx->player->turn_right = 1;
+	else if (key == 65505)
+		mlx->player->boost = 1;
 	return (0);
 }
 
@@ -46,7 +48,25 @@ int	key_released(int key, t_mlx *mlx)
 		mlx->player->turn_left = 0;
 	else if (key == 101)
 		mlx->player->turn_right = 0;
+	else if (key == 65505)
+		mlx->player->boost = 0;
 	return (0);
+}
+
+int nbr_of_key(t_mlx *mlx)
+{
+	int i;
+
+	i = 0;
+	if (mlx->player->move_up == 1)
+		i++;
+	if (mlx->player->move_down == 1)
+		i++;
+	if (mlx->player->move_left == 1)
+		i++;
+	if (mlx->player->move_right == 1)
+		i++;
+	return (i);
 }
 
 int	ft_move(t_mlx *mlx)
@@ -54,75 +74,44 @@ int	ft_move(t_mlx *mlx)
 	double			new_x;
 	double			new_y;
 	static double	rad = (M_PI / 180);
+	double			speed;
 
 	new_x = mlx->player->pos_x;
 	new_y = mlx->player->pos_y;
+	if (mlx->player->boost == 1)
+		speed = SPEED*2;
+	else
+		speed = SPEED;
+	if (nbr_of_key(mlx) > 1)
+		speed *= 0.75;
 	if (mlx->player->move_up == 1)
 	{
-		if (mlx->player->move_down == 1 || mlx->player->move_left == 1 || mlx->player->move_right == 1)
-		{
-			new_y += SPEED*0.75 * sin(mlx->player->look * rad);
-			new_x += SPEED*0.75 * cos(mlx->player->look * rad);
-		}
-		else
-		{
-			new_y += SPEED * sin(mlx->player->look * rad);
-			new_x += SPEED * cos(mlx->player->look * rad);
-		}
+		new_y += speed * sin(mlx->player->look * rad);
+		new_x += speed * cos(mlx->player->look * rad);
 	}
 	if (mlx->player->move_down == 1)
 	{
-		if (mlx->player->move_up == 1 || mlx->player->move_left == 1 || mlx->player->move_right == 1)
-		{
-			new_y -= SPEED*0.75 * sin(mlx->player->look * rad);
-			new_x -= SPEED*0.75 * cos(mlx->player->look * rad);
-		}
-		else
-		{
-			new_y -= SPEED * sin(mlx->player->look * rad);
-			new_x -= SPEED * cos(mlx->player->look * rad);
-		}
+		new_y -= speed * sin(mlx->player->look * rad);
+		new_x -= speed * cos(mlx->player->look * rad);
 	}
 	if (mlx->player->move_left == 1)
 	{
-		if (mlx->player->move_up == 1 || mlx->player->move_down == 1 || mlx->player->move_right == 1)
-		{
-			new_x += SPEED*0.75 * sin(mlx->player->look * rad);
-			new_y -= SPEED*0.75 * cos(mlx->player->look * rad);
-		}
-		else
-		{
-			new_x += SPEED * sin(mlx->player->look * rad);
-			new_y -= SPEED * cos(mlx->player->look * rad);
-		}
+		new_x += speed * sin(mlx->player->look * rad);
+		new_y -= speed * cos(mlx->player->look * rad);
 	}
 	if (mlx->player->move_right == 1)
 	{
-		if (mlx->player->move_up == 1 || mlx->player->move_down == 1 || mlx->player->move_left == 1)
-		{
-			new_x -= SPEED*0.75 * sin(mlx->player->look * rad);
-			new_y += SPEED*0.75 * cos(mlx->player->look * rad);
-		}
-		else
-		{
-			new_x -= SPEED * sin(mlx->player->look * rad);
-			new_y += SPEED * cos(mlx->player->look * rad);
-		}
+		new_x -= speed * sin(mlx->player->look * rad);
+		new_y += speed * cos(mlx->player->look * rad);
 	}
-	if (mlx->player->turn_left == 1)
-	{
-		if (mlx->player->move_up == 1 || mlx->player->move_down == 1 || mlx->player->move_left == 1 || mlx->player->move_right == 1)
-			mlx->player->look -= 2;
-		else
-			mlx->player->look -= 3;
-	}
-	if (mlx->player->turn_right == 1)
-	{
-		if (mlx->player->move_up == 1 || mlx->player->move_down == 1 || mlx->player->move_left == 1 || mlx->player->move_right == 1)
-			mlx->player->look += 2;
-		else
-			mlx->player->look += 3;
-	}
+	if (mlx->player->turn_left == 1 && nbr_of_key(mlx) == 1)
+		mlx->player->look -= 3;
+	else if (mlx->player->turn_left == 1)
+		mlx->player->look -= 2;
+	if (mlx->player->turn_right == 1 && nbr_of_key(mlx) == 1)
+		mlx->player->look += 3;
+	else if (mlx->player->turn_right == 1)
+		mlx->player->look += 2;
 	if (is_valid_move_y(mlx, new_y))
 		mlx->player->pos_y = new_y;
 	if (is_valid_move_x(mlx, new_x))

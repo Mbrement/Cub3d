@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/09 15:35:35 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/09 16:01:02 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_player
 	int		move_right;
 	int		turn_left;
 	int		turn_right;
+	int 	boost;
 }	t_player;
 
 typedef struct s_mlx
