@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/29 16:53:21 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:35:35 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ typedef struct s_player
 	double	pos_x;
 	double	pos_y;
 	double	look;
+	int		move_up;
+	int		move_down;
+	int		move_left;
+	int		move_right;
+	int		turn_left;
+	int		turn_right;
 }	t_player;
 
 typedef struct s_mlx
@@ -124,7 +130,9 @@ int		locate_player_y(char **maps);
 
 //////MLX//////
 void	ft_mlx(t_map *map, t_mlx *mlx);
-int		ft_hook(int key, t_mlx *mlx);
+int		key_pressed(int key, t_mlx *mlx);
+int		key_released(int key, t_mlx *mlx);
+int		ft_move(t_mlx *mlx);
 int		handle_mouse(int x, int y, t_mlx *mlx);
 void	put_player(t_mlx mlx, t_player player, int color);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);

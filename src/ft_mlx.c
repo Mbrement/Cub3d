@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/29 14:43:09 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:36:15 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ void	init_game(t_mlx *mlx, t_map map)
 	player->pos_x = locate_player_x(map.map) + 0.5;
 	player->pos_y = locate_player_y(map.map) + 0.5;
 	mlx_hook(mlx->mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
-	mlx_hook(mlx->mlx_win_ptr, 2, 1L << 0, ft_hook, mlx);
+	mlx_do_key_autorepeatoff(mlx->mlx_init_ptr);
+	mlx_hook(mlx->mlx_win_ptr, 2, 1L << 0, key_pressed, mlx);
+	mlx_hook(mlx->mlx_win_ptr, 3, 1L << 1, key_released, mlx);
 	mlx_mouse_move(mlx->mlx_init_ptr, mlx->mlx_win_ptr, WIN_W / 2, WIN_H / 2);
 	mlx_mouse_hide(mlx->mlx_init_ptr, mlx->mlx_win_ptr);
 	mlx_hook(mlx->mlx_win_ptr, MotionNotify, PointerMotionMask, &handle_mouse, mlx);

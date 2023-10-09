@@ -43,7 +43,7 @@ int	refresh_img(t_mlx *mlx)
 	if (init)
 		return (0);
 	//init = 1;
-
+	ft_move(mlx);
 	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
 	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
 	ft_ray (mlx);
@@ -161,10 +161,6 @@ void ft_draw_vertical_west(t_mlx *mlx, int screen_x, int drawstart, int drawend,
 void	ft_get_color(t_mlx *mlx, t_ray ray, int screen_x, double x, double y)
 {
 	static double	half = (double)WIN_H / 2;
-
-	printf("\ninter x = %f\n", x);
-	printf("inter y = %f\n", y);
- 
 	double drawstart = (double)-ray.lineheight / 2 + half;
 	double drawend = drawstart + ray.lineheight;
 
