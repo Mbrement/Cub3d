@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/09 15:40:52 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/09 15:58:28 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,70 @@ int	ft_move(t_mlx *mlx)
 	new_y = mlx->player->pos_y;
 	if (mlx->player->move_up == 1)
 	{
-		new_x += SPEED * cos(mlx->player->look * rad);
-		new_y += SPEED * sin(mlx->player->look * rad);
+		if (mlx->player->move_down == 1 || mlx->player->move_left == 1 || mlx->player->move_right == 1)
+		{
+			new_y += SPEED*0.75 * sin(mlx->player->look * rad);
+			new_x += SPEED*0.75 * cos(mlx->player->look * rad);
+		}
+		else
+		{
+			new_y += SPEED * sin(mlx->player->look * rad);
+			new_x += SPEED * cos(mlx->player->look * rad);
+		}
 	}
 	if (mlx->player->move_down == 1)
 	{
-		new_x -= SPEED * cos(mlx->player->look * rad);
-		new_y -= SPEED * sin(mlx->player->look * rad);
+		if (mlx->player->move_up == 1 || mlx->player->move_left == 1 || mlx->player->move_right == 1)
+		{
+			new_y -= SPEED*0.75 * sin(mlx->player->look * rad);
+			new_x -= SPEED*0.75 * cos(mlx->player->look * rad);
+		}
+		else
+		{
+			new_y -= SPEED * sin(mlx->player->look * rad);
+			new_x -= SPEED * cos(mlx->player->look * rad);
+		}
 	}
 	if (mlx->player->move_left == 1)
 	{
-		new_x += SPEED * sin(mlx->player->look * rad);
-		new_y -= SPEED * cos(mlx->player->look * rad);
+		if (mlx->player->move_up == 1 || mlx->player->move_down == 1 || mlx->player->move_right == 1)
+		{
+			new_x += SPEED*0.75 * sin(mlx->player->look * rad);
+			new_y -= SPEED*0.75 * cos(mlx->player->look * rad);
+		}
+		else
+		{
+			new_x += SPEED * sin(mlx->player->look * rad);
+			new_y -= SPEED * cos(mlx->player->look * rad);
+		}
 	}
 	if (mlx->player->move_right == 1)
 	{
-		new_x -= SPEED * sin(mlx->player->look * rad);
-		new_y += SPEED * cos(mlx->player->look * rad);
+		if (mlx->player->move_up == 1 || mlx->player->move_down == 1 || mlx->player->move_left == 1)
+		{
+			new_x -= SPEED*0.75 * sin(mlx->player->look * rad);
+			new_y += SPEED*0.75 * cos(mlx->player->look * rad);
+		}
+		else
+		{
+			new_x -= SPEED * sin(mlx->player->look * rad);
+			new_y += SPEED * cos(mlx->player->look * rad);
+		}
 	}
 	if (mlx->player->turn_left == 1)
-		mlx->player->look -= 3;
+	{
+		if (mlx->player->move_up == 1 || mlx->player->move_down == 1 || mlx->player->move_left == 1 || mlx->player->move_right == 1)
+			mlx->player->look -= 2;
+		else
+			mlx->player->look -= 3;
+	}
 	if (mlx->player->turn_right == 1)
-		mlx->player->look += 3;
+	{
+		if (mlx->player->move_up == 1 || mlx->player->move_down == 1 || mlx->player->move_left == 1 || mlx->player->move_right == 1)
+			mlx->player->look += 2;
+		else
+			mlx->player->look += 3;
+	}
 	if (is_valid_move_y(mlx, new_y))
 		mlx->player->pos_y = new_y;
 	if (is_valid_move_x(mlx, new_x))
