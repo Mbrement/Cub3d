@@ -375,30 +375,8 @@ void ft_ray(t_mlx *mlx)
 			ray.perpwalldist = ray.sidedisty - ray.deltadisty;
 		ray.lineheight = (int)(WIN_H / ray.perpwalldist);
 		struct vector p = get_u(ray.raydirx, ray.raydiry, ray.perpwalldist);
-	
-		ft_get_color(mlx, ray, i, mlx->player->pos_x + p.x, mlx->player->pos_y + p.y);
-		
-		// struct point player = {
-		// 	.x = mlx->player->pos_x,
-		// 	.y = mlx->player->pos_y
-		// };
-		// struct vector v = {
-		// 	.x = ray.raydirx,
-		// 	.y = ray.raydiry
-		// };
-		// if (ray.side == 0)
-		// {
-		// 	double x_av = ray.pos_x;
-		// 	struct point wall_point = get_collision_point_x(player, v, x_av);
-		// 	// printf("%f, %f\n", mlx->player->pos_x + p.x, wall_point.x);
-		// 	ft_get_color(mlx, ray, i, x_av, wall_point.y);
-		// }
-		// else
-		// {
-		// 	double y_av = ray.pos_y;
-		// 	struct point wall_point = get_collision_point(player, v, y_av);
-		// 	// printf("%f, %f\n", mlx->player->pos_x + p.x, wall_point.x);
-		// 	ft_get_color(mlx, ray, i, wall_point.x, y_av);
-		// }
+		double hit_x = ray.pos_x + ray.perpwalldist * ray.raydirx;
+		double hit_y = ray.pos_y + ray.perpwalldist * ray.raydiry;
+		ft_get_color(mlx, ray, i, hit_x + mlx->player->pos_x, hit_y + mlx->player->pos_y);
 	}
 }
