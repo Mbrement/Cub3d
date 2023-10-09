@@ -187,7 +187,7 @@ void	ft_get_color(t_mlx *mlx, t_ray ray, int screen_x, double x, double y)
 		else // E
 		{
 			// printf("\033[34mE %f %f %f\033[0m\n", x, y, y - floor(y));
-			ft_draw_vertical_west(mlx, screen_x, drawstart, drawend, (y - floor(y)) * mlx->wall->west_height);
+			ft_draw_vertical_west(mlx, screen_x, drawstart, drawend, (y - floor(y)) * mlx->wall->east_height);
 		}
 	}
 		
