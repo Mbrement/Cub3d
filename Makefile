@@ -12,7 +12,8 @@ CFLAGS		:= -Wall -Wextra -g3 -Werror -march=native -flto -O2
 RM			:= rm -rf
 
 LST_SRCS	:=	check_map.c \
-				tmp.c main.c \
+				tools.c \
+				main.c \
 				ft_mlx.c \
 				parsing.c \
 				player.c \

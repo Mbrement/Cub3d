@@ -6,11 +6,17 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 19:38:25 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/29 13:48:24 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/10/10 10:06:04 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	ft_exit(int i, t_mlx *mlx)
+{
+	end_of_prog_mlx(mlx);
+	return (i);
+}
 
 void	end_of_prog(t_map map)
 {

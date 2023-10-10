@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 09:39:32 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 10:06:35 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ void	road_to_wall(t_mlx *mlx, int y, int x, double angle);
 //////TOOLS//////
 void	end_of_prog(t_map map);
 void	end_of_prog_mlx(t_mlx *mlx);
+int		ft_exit(int i, t_mlx *mlx);
 void	data_wall(t_wall *wall);
 
 ///TMP A DELETE///

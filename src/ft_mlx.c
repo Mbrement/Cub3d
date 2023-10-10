@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/09 15:36:15 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 10:06:00 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 void	ray(t_mlx mlx, t_player player, int rgb);
 t_wall	*put_img_in_wall(t_map map, t_mlx mlx);
 void	init_game(t_mlx *mlx, t_map map);
-void	ft_fuse_pic(t_mlx mlx);
-
 
 void	ft_mlx(t_map *map, t_mlx *mlx)
 {
@@ -51,13 +49,6 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color)
 		return ;
 	dst = mlx->data->addr + (y * mlx->data->line_length + x * 4);
 	*(unsigned int *)dst = color;
-}
-
-
-int	ft_exit(int i, t_mlx *mlx)
-{
-	end_of_prog_mlx(mlx);
-	return (i);
 }
 
 void	player_get_look(t_mlx *mlx, t_map map)
@@ -94,7 +85,8 @@ void	init_game(t_mlx *mlx, t_map map)
 	mlx_hook(mlx->mlx_win_ptr, 3, 1L << 1, key_released, mlx);
 	mlx_mouse_move(mlx->mlx_init_ptr, mlx->mlx_win_ptr, WIN_W / 2, WIN_H / 2);
 	mlx_mouse_hide(mlx->mlx_init_ptr, mlx->mlx_win_ptr);
-	mlx_hook(mlx->mlx_win_ptr, MotionNotify, PointerMotionMask, &handle_mouse, mlx);
+	mlx_hook(mlx->mlx_win_ptr, MotionNotify,
+		PointerMotionMask, &handle_mouse, mlx);
 	mlx_loop_hook(mlx->mlx_init_ptr, refresh_img, mlx);
 	mlx_loop(mlx->mlx_init_ptr);
 }
@@ -116,29 +108,4 @@ t_wall	*put_img_in_wall(t_map map, t_mlx mlx)
 		map.south_file, &wall->south_height, &wall->south_lenth);
 	data_wall(wall);
 	return (wall);
-}
-
-void ft_fuse_pic(t_mlx mlx)
-{
-	char			*dst;
-	int				x;
-	int				y;
-	unsigned int	color;
-
-	y = 0;
-	while (y < WIN_H)
-	{
-		x = 0;
-		while (x < WIN_W)
-		{
-			dst = mlx.data->addr + (y * mlx.data->line_length + x * 4);
-			if (*(unsigned int *)(mlx.data->addr + (y * mlx.data->line_length + x * 4)))
-				color = *(unsigned int *)(mlx.data->addr + (y * mlx.data->line_length + x * 4));
-			else
-				color = *(unsigned int *)(mlx.org->addr + (y * mlx.org->line_length + x * 4));
-			*(unsigned int *)dst = color;
-			x++;
-		}
-	y++;
-	}
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 03:33:27 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/03 04:54:123 by ngennaro         ###   ########lyon.fr   */
+/*   Created: 2023/10/10 10:09:09 by ngennaro          #+#    #+#             */
+/*   Updated: 2023/10/10 10:10:59 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ int	refresh_img(t_mlx *mlx)
 {
 	ft_move(mlx);
 	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
-	mlx->data->addr = mlx_get_data_addr(mlx->data->img, &mlx->data->bits_per_pixel, &mlx->data->line_length, &mlx->data->endian);
+	mlx->data->addr = mlx_get_data_addr(mlx->data->img,
+			&mlx->data->bits_per_pixel, &mlx->data->line_length,
+			&mlx->data->endian);
 	ft_ray (mlx);
-	mlx_put_image_to_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr, mlx->data->img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx_init_ptr,
+		mlx->mlx_win_ptr, mlx->data->img, 0, 0);
 	mlx_destroy_image(mlx->mlx_init_ptr, mlx->data->img);
 	return (0);
 }
