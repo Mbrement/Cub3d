@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_of_prog.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 19:38:25 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 10:06:04 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 08:13:47 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,35 @@ void	end_of_prog_no_exit(t_map map)
 	free_tab(map.map);
 }
 
+static void free_wall_data(t_mlx *mlx)
+{
+	nfree((void**)&mlx->wall->north_data.bits_py_px);
+	nfree((void**)&mlx->wall->east_data.bits_py_px);	
+	nfree((void**)&mlx->wall->west_data.bits_py_px);
+	nfree((void**)&mlx->wall->south_data.bits_py_px);
+	nfree((void**)&mlx->wall->north_data.endian);
+	nfree((void**)&mlx->wall->east_data.endian);
+	nfree((void**)&mlx->wall->west_data.endian);
+	nfree((void**)&mlx->wall->south_data.endian);
+	nfree((void**)&mlx->wall->north_data.size_line);
+	nfree((void**)&mlx->wall->east_data.size_line);	
+	nfree((void**)&mlx->wall->west_data.size_line);
+	nfree((void**)&mlx->wall->south_data.size_line);
+}
+
 void	end_of_prog_mlx(t_mlx *mlx)
 {
 	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->north);
 	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->east);
 	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->west);
 	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->south);
+	free_wall_data(mlx);
 	nfree((void **)&mlx->wall);
 	mlx_destroy_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr);
 	mlx_destroy_display(mlx->mlx_init_ptr);
 	nfree((void **)&mlx->mlx_init_ptr);
 	nfree((void **)&mlx->data);
+	nfree((void **)&mlx->player);
 	end_of_prog_no_exit(*mlx->map);
 	nfree((void **)&mlx);
 	exit(0);

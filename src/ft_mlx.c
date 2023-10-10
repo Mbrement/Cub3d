@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 10:06:00 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 08:13:22 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	init_game(t_mlx *mlx, t_map map)
 	t_player	*player;
 
 	player = malloc(sizeof(t_player));
+	if(!player)
+		end_of_prog_mlx(mlx);
 	mlx->player = player;
 	player_get_look(mlx, map);
 	mlx->map->x_lenth = 0;

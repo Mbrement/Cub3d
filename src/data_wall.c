@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 17:46:55 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 10:36:12 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 07:35:17 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,21 @@ static t_wall_data	get_data_wall(void *wall)
 	bits_py_px = malloc(sizeof (int));
 	size_line = malloc(sizeof (int));
 	endian = malloc(sizeof (int));
+	if (!endian || !size_line || !bits_py_px)
+	{
+		nfree((void **)&bits_py_px);
+		nfree((void **)&size_line);
+		nfree((void **)&endian);
+		return (data);
+	}
 	data.addr = mlx_get_data_addr(wall, bits_py_px, size_line, endian);
+	if(!data.addr)
+	{
+		nfree((void **)&bits_py_px);
+		nfree((void **)&size_line);
+		nfree((void **)&endian);
+		return (data);
+	}
 	data.size_line = size_line;
 	data.bits_py_px = bits_py_px;
 	data.endian = endian;

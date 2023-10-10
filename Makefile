@@ -18,10 +18,6 @@ LST_SRCS	:=	check_map.c \
 				parsing.c \
 				player.c \
 				ft_hook.c \
-				player_map.c \
-				bresenham.c \
-				map.c \
-				pic.c \
 				end_of_prog.c \
 				colision.c \
 				end_of_prog.c \

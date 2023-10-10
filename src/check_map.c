@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 09:56:45 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 07:21:14 by kali             ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,7 +316,7 @@ static t_map	check_inside(int file_fd)
 		i_am = what_is_it(buffer, &map);
 		if (i_am < 0)
 		{
-			(void)printf("Incorrect line in the map\n");
+			(void)printf("Error\nIncorrect line in the map\n");
 			while (buffer)
 			{
 				nfree((void **)&buffer);
@@ -340,7 +340,7 @@ static t_map	check_inside(int file_fd)
 		buffer = get_next_line(file_fd);
 		if (!buffer)
 		{
-			(void)printf("No map in map file\n");
+			(void)printf("Error\nNo map in map file\n");
 			end_of_prog(map);
 			exit(1);
 		}
@@ -386,14 +386,14 @@ static t_map	check_inside(int file_fd)
 	}
 	if (!check_chr_map(maps))
 	{
-		(void)printf("Incorrect map\n");
+		(void)printf("Error\nIncorrect map\n");
 		end_of_prog(map);
 		exit(1);
 	}
 	map.map = maps;
 	if (!check_walls(&map))
 	{
-		(void)printf("Incorrect map\n");
+		(void)printf("Error\nIncorrect map\n");
 		end_of_prog(map);
 		exit(1);
 	}
