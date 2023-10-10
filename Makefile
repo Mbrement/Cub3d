@@ -11,7 +11,7 @@ CSAN		:= -fsanitize=address -g3
 CFLAGS		:= -Wall -Wextra -g3 # -Werror -march=native -flto -O2 #-fsanitize=address
 RM			:= rm -rf
 
-LST_SRCS	:= check_map.c tmp.c main.c ft_mlx.c parsing.c player.c ft_hook.c player_map.c bresenham.c map.c pic.c end_of_prog.c colision.c end_of_prog.c data_wall.c ray.c
+LST_SRCS	:= check_map.c tmp.c main.c ft_mlx.c parsing.c player.c ft_hook.c player_map.c bresenham.c map.c pic.c end_of_prog.c colision.c end_of_prog.c data_wall.c ray.c draw.c
 LST_OBJS	:= $(LST_SRCS:.c=.o)
 LST_INCS	:= cub3d.h
 

@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/09 16:01:02 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 09:39:32 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,29 @@ typedef struct s_mlx
 	t_map		*map;
 }		t_mlx;
 
+typedef struct	s_ray
+{
+	double		dirx; //vecteur de direction (commence à -1 pour N, 1 pour S, 0 sinon)
+	double		diry; //vecteur de direction (commence à -1 pour W, 1 pour E, 0 sinon)
+	double		planx; //vecteur du plan (commence à 0.66 pour E, -0.66 pour W, 0 sinon)
+	double		plany; //vecteur du plan (commence à 0.66 pour N, -0.66 pour S, 0 sinon)
+	double		raydirx; //calcul de direction x du rayon
+	double		raydiry; //calcul de direction y du rayon
+	double		camerax; //point x sur la plan camera : Gauche ecran = -1, milieu = 0, droite = 1
+	double		sidedistx; //distance que le rayon parcours jusqu'au premier point d'intersection vertical (=un coté x)
+	double		sidedisty; //distance que le rayon parcours jusqu'au premier point d'intersection horizontal (= un coté y)
+	double		deltadistx; //distance que rayon parcours entre chaque point d'intersection vertical
+	double		deltadisty; //distance que le rayon parcours entre chaque point d'intersection horizontal
+	int			stepx; // -1 si doit sauter un carre dans direction x negative, 1 dans la direction x positive
+	int			stepy; // -1 si doit sauter un carre dans la direction y negative, 1 dans la direction y positive
+	int			hit; // 1 si un mur a ete touche, 0 sinon
+	int			side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
+	double		perpwalldist; // distance du joueur au mur
+	int			lineheight; //hauteur de la ligne a dessiner
+	double		pos_x;
+	double		pos_y;
+}					t_ray;
+
 //////PARSING//////
 t_map	check_file(char *map);
 int		check_chr_map(char **maps);
@@ -140,6 +163,10 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
 void	map_img(t_mlx *mlx, t_map map);
 void	ft_ray(t_mlx *mlx);
 int		refresh_img(t_mlx *mlx);
+void	ft_draw_vertical_north(t_mlx *mlx, int screen_x, int *drawn, int x);
+void	ft_draw_vertical_south(t_mlx *mlx, int screen_x, int *drawn, int x);
+void	ft_draw_vertical_west(t_mlx *mlx, int screen_x, int *drawn, int x);
+void	ft_draw_vertical_east(t_mlx *mlx, int screen_x, int *drawn, int x);
 
 //////MATH//////
 void	bresenham_cub(t_mlx mlx, double dest_x, double dest_y, int color);

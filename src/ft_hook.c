@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/09 16:11:34 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 09:48:37 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	key_released(int key, t_mlx *mlx)
 	return (0);
 }
 
-int nbr_of_key(t_mlx *mlx)
+int	nbr_of_key(t_mlx *mlx)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if (mlx->player->move_up == 1)
@@ -79,7 +79,7 @@ int	ft_move(t_mlx *mlx)
 	new_x = mlx->player->pos_x;
 	new_y = mlx->player->pos_y;
 	if (mlx->player->boost == 1)
-		speed = SPEED*2;
+		speed = SPEED * 2;
 	else
 		speed = SPEED;
 	if (nbr_of_key(mlx) > 1)
@@ -104,11 +104,11 @@ int	ft_move(t_mlx *mlx)
 		new_x -= speed * sin(mlx->player->look * rad);
 		new_y += speed * cos(mlx->player->look * rad);
 	}
-	if (mlx->player->turn_left == 1 && nbr_of_key(mlx) == 1)
+	if (mlx->player->turn_left == 1 && nbr_of_key(mlx) == 0)
 		mlx->player->look -= 3;
 	else if (mlx->player->turn_left == 1)
 		mlx->player->look -= 2;
-	if (mlx->player->turn_right == 1 && nbr_of_key(mlx) == 1)
+	if (mlx->player->turn_right == 1 && nbr_of_key(mlx) == 0)
 		mlx->player->look += 3;
 	else if (mlx->player->turn_right == 1)
 		mlx->player->look += 2;
