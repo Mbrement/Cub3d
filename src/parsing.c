@@ -121,13 +121,12 @@ int	complete_map(char **temp_maps)
 			y = 0;
 			while (temp_maps[x][y])
 			{
-				if (temp_maps[x][y] == '*')
+				if (temp_maps[x][y++] == '*')
 				{
 					if (death_around(temp_maps, x, y))
 						return (0);
 					replace_chr(temp_maps, x, y, &new);
 				}
-				y++;
 			}
 			x++;
 		}

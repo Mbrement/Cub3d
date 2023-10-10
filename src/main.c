@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 10:33:22 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 09:52:46 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ int	main(int argc, char **argv)
 	map = define_map(map);
 	map = check_file(argv[1]);
 	death_map(&map);
-	//debug
-	printf("floor : %i|%i|%i|%i\ncelling : %i|%i|%i|%i|\n", map.floor[0], map.floor[1], map.floor[2], map.floor_color, map.celing[0], map.celing[1], map.celing[2], map.celing_color);
-	printf("north %i| south %i| east %i| west%i\n", map.north, map.south, map.east, map.west);
-	printf("map:\n");
-	ft_print_tab(map.map);
-	//end of debug
 	mlx = malloc(sizeof(t_mlx));
 	ft_mlx(&map, mlx);
 	end_of_prog_mlx(mlx);
@@ -60,13 +54,8 @@ void	death_map(t_map *map)
 		end_of_prog(*map);
 		exit(1);
 	}
-	if (map->floor[0] < 0 || map->floor[1] < 0 || map->floor[2] < 0)
-	{
-		(void)printf("Error\nCan't find RGB\n");
-		end_of_prog(*map);
-		exit(1);
-	}
-	if (map->celing[0] < 0 || map->celing[1] < 0 || map->celing[2] < 0)
+	if ((map->floor[0] < 0 || map->floor[1] < 0 || map->floor[2] < 0)
+		|| (map->celing[0] < 0 || map->celing[1] < 0 || map->celing[2] < 0))
 	{
 		(void)printf("Error\nCan't find RGB\n");
 		end_of_prog(*map);

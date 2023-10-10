@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/09/27 10:38:55 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/10/10 09:56:45 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int	ft_atoi_rgb(char *str, int i)
 	char	tmp[4];
 	int		rtn;
 
-	while(str && str[i] && str[i] == '0' && str[i+1] && str[i+1] != '\n')
+	while (str && str[i] && str[i] == '0' && str[i+1] && str[i+1] != '\n')
 		i++;
 	if ((int)ft_strlen(str) >= i + 1 && (str[i + 1] == ',' || str[i + 1]  == ' ' || str[i + 1] == '\n'))
 	{
@@ -174,7 +174,6 @@ int	ft_atoi_rgb(char *str, int i)
 		rtn = -1;
 	return (rtn);
 }
-
 
 void	rgb(char *str, t_map *map, int index)
 {
@@ -208,12 +207,7 @@ void	rgb(char *str, t_map *map, int index)
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\0')
-	{
-		//debug
-		printf("trigger by : %c at %i of %zu\n", str[i], i, ft_strlen(str) - 1);
-		//end of debug
 		map->floor[0] = -1;
-	}
 }
 
 static void	fill_map(int i_am, char *buffer, t_map *map)
@@ -232,8 +226,6 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 	if (str[ft_strlen(str) - 1] == '\n')
 		str[ft_strlen(str) - 1] = '\0';
 	tmp = ft_strjoin("./", str);
-	//debug
-	// (void)printf("|%s|\n", tmp);
 	if (i_am == 1 && map->north <= 0)
 	{
 		map->north_file = ft_strdup(str);
