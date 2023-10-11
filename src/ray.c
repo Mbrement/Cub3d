@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:09:09 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/11 13:04:25 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/11 16:14:45 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ void	ft_ray(t_mlx *mlx)
 	ray.diry = sin(angle_radiants);
 	ray.planx = -ray.diry;
 	ray.plany = ray.dirx;
-	i = 0;
-	while (i < WIN_W)
+	i = -1;
+	while (++i < WIN_W)
 	{
 		ray.pos_x = (int)mlx->player->pos_x;
 		ray.pos_y = (int)mlx->player->pos_y;
@@ -161,7 +161,6 @@ void	ft_ray(t_mlx *mlx)
 			if (!is_valid_move(mlx, ray.pos_x, ray.pos_y))
 				ray.hit = 1;
 		}
-		i++;
 		if (!ray.hit)
 			continue ;
 		if (ray.side == 0)
