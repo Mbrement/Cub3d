@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_of_prog.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 19:38:25 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 08:13:47 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/10/11 10:57:15 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,20 @@ void	end_of_prog_no_exit(t_map map)
 	free_tab(map.map);
 }
 
-static void free_wall_data(t_mlx *mlx)
+static void	free_wall_data(t_mlx *mlx)
 {
-	nfree((void**)&mlx->wall->north_data.bits_py_px);
-	nfree((void**)&mlx->wall->east_data.bits_py_px);	
-	nfree((void**)&mlx->wall->west_data.bits_py_px);
-	nfree((void**)&mlx->wall->south_data.bits_py_px);
-	nfree((void**)&mlx->wall->north_data.endian);
-	nfree((void**)&mlx->wall->east_data.endian);
-	nfree((void**)&mlx->wall->west_data.endian);
-	nfree((void**)&mlx->wall->south_data.endian);
-	nfree((void**)&mlx->wall->north_data.size_line);
-	nfree((void**)&mlx->wall->east_data.size_line);	
-	nfree((void**)&mlx->wall->west_data.size_line);
-	nfree((void**)&mlx->wall->south_data.size_line);
+	nfree ((void **)&mlx->wall->north_data.bits_py_px);
+	nfree ((void **)&mlx->wall->east_data.bits_py_px);
+	nfree ((void **)&mlx->wall->west_data.bits_py_px);
+	nfree ((void **)&mlx->wall->south_data.bits_py_px);
+	nfree ((void **)&mlx->wall->north_data.endian);
+	nfree ((void **)&mlx->wall->east_data.endian);
+	nfree ((void **)&mlx->wall->west_data.endian);
+	nfree ((void **)&mlx->wall->south_data.endian);
+	nfree ((void **)&mlx->wall->north_data.size_line);
+	nfree ((void **)&mlx->wall->east_data.size_line);
+	nfree ((void **)&mlx->wall->west_data.size_line);
+	nfree ((void **)&mlx->wall->south_data.size_line);
 }
 
 void	end_of_prog_mlx(t_mlx *mlx)

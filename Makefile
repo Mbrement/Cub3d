@@ -23,7 +23,8 @@ LST_SRCS	:=	check_map.c \
 				end_of_prog.c \
 				data_wall.c \
 				ray.c \
-				draw.c
+				draw.c \
+				put_imt_in_wall.c
 
 LST_OBJS	:= $(LST_SRCS:.c=.o)
 LST_INCS	:= cub3d.h

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-#include <stdio.h>
 
 int	is_valid_move_x(t_mlx *mlx, double new_x)
 {

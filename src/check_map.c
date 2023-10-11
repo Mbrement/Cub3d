@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 07:21:14 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/10/11 11:45:03 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ t_map	check_file(char *map)
 	file_fd = open(map, R_OK);
 	check_format(map, file_fd);
 	true_map = check_inside(file_fd);
-	//debug
 	close(file_fd);
-	//end of debug
 	return (true_map);
 }
 
