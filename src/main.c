@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 08:17:00 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/10/11 11:42:55 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	map = check_file(argv[1]);
 	death_map(&map);
 	mlx = malloc(sizeof(t_mlx));
-	if(!mlx)
+	if (!mlx)
 	{
 		printf("Error\nMalloc error\n");
 		end_of_prog(map);

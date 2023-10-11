@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 18:39:42 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/11 15:42:49 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ t_map	check_file(char *map)
 	file_fd = open(map, R_OK);
 	check_format(map, file_fd);
 	true_map = check_inside(file_fd);
-	//debug
 	close(file_fd);
-	//end of debug
 	return (true_map);
 }
 

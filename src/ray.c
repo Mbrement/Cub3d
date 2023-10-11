@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:09:09 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/10 10:10:59 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/11 13:04:25 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	ft_get_color(t_mlx *mlx, t_ray ray, int screen_x, double x, double y)
 	{
 		if (ray.raydirx < 0)
 			ft_draw_vertical_east(mlx, screen_x, drawn,
-				(1. - y + floor(y)) * mlx->wall->west_height);
+				(1. - y + floor(y)) * mlx->wall->east_height);
 		else
 			ft_draw_vertical_west(mlx, screen_x, drawn,
-				(y - floor(y)) * mlx->wall->east_height);
+				(y - floor(y)) * mlx->wall->west_height);
 	}
 }
 

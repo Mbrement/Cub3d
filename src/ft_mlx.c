@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 08:13:22 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/10/11 12:59:43 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-#include <stdio.h>
 
 void	ray(t_mlx mlx, t_player player, int rgb);
 t_wall	*put_img_in_wall(t_map map, t_mlx mlx);
@@ -66,14 +65,27 @@ void	player_get_look(t_mlx *mlx, t_map map)
 		mlx->player->look = 180;
 }
 
+static void	ft_fill_player(t_player *player)
+{
+	player->boost = 0;
+	player->move_down = 0;
+	player->move_up = 0;
+	player->move_right = 0;
+	player->move_left = 0;
+	player->turn_left = 0;
+	player->turn_right = 0;
+}
+
 void	init_game(t_mlx *mlx, t_map map)
 {
 	t_player	*player;
 
 	player = malloc(sizeof(t_player));
-	if(!player)
+	if (!player)
 		end_of_prog_mlx(mlx);
+	ft_fill_player(player);
 	mlx->player = player;
+	mlx->player->boost = 0;
 	player_get_look(mlx, map);
 	mlx->map->x_lenth = 0;
 	while (map.map[++mlx->map->x_lenth])
@@ -93,21 +105,3 @@ void	init_game(t_mlx *mlx, t_map map)
 	mlx_loop(mlx->mlx_init_ptr);
 }
 
-t_wall	*put_img_in_wall(t_map map, t_mlx mlx)
-{
-	t_wall	*wall;
-
-	wall = malloc(sizeof (t_wall));
-	if (!wall)
-		end_of_prog_mlx(&mlx);
-	wall->north = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
-		map.north_file, &wall->north_height, &wall->north_lenth);
-	wall->east = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
-		map.east_file, &wall->east_height, &wall->east_lenth);
-	wall->west = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
-		map.west_file, &wall->west_height, &wall->west_lenth);
-	wall->south = mlx_xpm_file_to_image(mlx.mlx_init_ptr, \
-		map.south_file, &wall->south_height, &wall->south_lenth);
-	data_wall(wall);
-	return (wall);
-}

@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   data_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 17:46:55 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 07:35:17 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/10/11 10:44:44 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+static void	free_data(int *bits_py_px, int *size_line, int *endian)
+{
+	nfree((void **)&bits_py_px);
+	nfree((void **)&size_line);
+	nfree((void **)&endian);
+}
 
 static t_wall_data	get_data_wall(void *wall)
 {
@@ -24,17 +31,14 @@ static t_wall_data	get_data_wall(void *wall)
 	endian = malloc(sizeof (int));
 	if (!endian || !size_line || !bits_py_px)
 	{
-		nfree((void **)&bits_py_px);
-		nfree((void **)&size_line);
-		nfree((void **)&endian);
+		free_data(bits_py_px, size_line, endian);
+		data.addr = NULL;
 		return (data);
 	}
 	data.addr = mlx_get_data_addr(wall, bits_py_px, size_line, endian);
-	if(!data.addr)
+	if (!data.addr)
 	{
-		nfree((void **)&bits_py_px);
-		nfree((void **)&size_line);
-		nfree((void **)&endian);
+		free_data(bits_py_px, size_line, endian);
 		return (data);
 	}
 	data.size_line = size_line;
