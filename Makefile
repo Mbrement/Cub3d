@@ -38,10 +38,10 @@ deps:
 	@$(MAKE) --no-print-directory -C $(DIR_LIBFT)
 	@$(MAKE) --no-print-directory -C $(DIR_MLX)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(DIR_LIBFT)/libft.a $(DIR_MLX)/libmlx.a
 	$(CC) $(CFLAGS) $^ -o $@  $(DIR_LIBFT)/libft.a $(DIR_MLX)/libmlx.a $(MLXFLAGS) -lX11 -lXext -lm -L${DIR_MLX}
 
-$(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c $(INCS) Makefile $(DIR_INCS)/$(LST_INCS)| $(DIR_OBJS)
+$(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c $(INCS) $(DIR_INCS)/$(LST_INCS)| $(DIR_OBJS)
 	$(CC) $(CFLAGS) -I $(DIR_INCS) -Imlx  -c $< -o $@
 
 $(DIR_OBJS):
@@ -58,3 +58,5 @@ fclean: clean
 	make clean -C ${DIR_MLX}
 
 re: fclean all
+
+.PHONY: all clean fclean re

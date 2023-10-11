@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-#include <stdio.h>
 
 int	is_valid_move_x(t_mlx *mlx, double new_x)
 {
@@ -25,9 +24,6 @@ int	is_valid_move_x(t_mlx *mlx, double new_x)
 		new_x -= 0.1;
 	x = (int)floor(new_x);
 	y = (int)floor(mlx->player->pos_y);
-	if (x < 0 || y < 0 || y > ft_tablen(mlx->map->map)
-		|| x > (long int)ft_strlen(mlx->map->map[y]))
-		return (1);
 	c = mlx->map->map[y][x];
 	if (c == '1')
 		return (0);
@@ -46,9 +42,6 @@ int	is_valid_move_y(t_mlx *mlx, double new_y)
 		new_y -= 0.1;
 	x = (int)floor(mlx->player->pos_x);
 	y = (int)floor(new_y);
-	if (x < 0 || y < 0 || y > ft_tablen(mlx->map->map)
-		|| x > (long int)ft_strlen(mlx->map->map[y]))
-		return (1);
 	c = mlx->map->map[y][x];
 	if (c == '1')
 		return (0);
@@ -63,9 +56,6 @@ int	is_valid_move(t_mlx *mlx, double new_x, double new_y)
 
 	x = floor(new_x);
 	y = floor(new_y);
-	if (x < 0 || y < 0 || y > ft_tablen(mlx->map->map)
-		|| x > (long int)ft_strlen(mlx->map->map[y]))
-		return (1);
 	c = mlx->map->map[y][x];
 	if (c == '1')
 		return (0);
