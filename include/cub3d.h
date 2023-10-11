@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/11 13:03:04 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/11 15:58:37 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include "../lib/mlx/mlx.h"
 # include "../lib/mlx/mlx_int.h"
 
-# define WIN_W 3000
-# define WIN_H 1500
+# define WIN_W 1500
+# define WIN_H 750
 # define FOV 80
 # define SPEED 0.05
 

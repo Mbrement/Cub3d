@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/11 12:59:43 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/11 16:01:55 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	init_game(t_mlx *mlx, t_map map)
 	mlx->map->y_lenth = ft_strlen(map.map[1]) - 1;
 	player->pos_x = locate_player_x(map.map) + 0.5;
 	player->pos_y = locate_player_y(map.map) + 0.5;
-	mlx_hook(mlx->mlx_win_ptr, 17, 1L << 1, ft_exit, NULL);
+	mlx_hook(mlx->mlx_win_ptr, 17, 1L << 1, (void *)end_of_prog_mlx, mlx);
 	mlx_do_key_autorepeatoff(mlx->mlx_init_ptr);
 	mlx_hook(mlx->mlx_win_ptr, 2, 1L << 0, key_pressed, mlx);
 	mlx_hook(mlx->mlx_win_ptr, 3, 1L << 1, key_released, mlx);
