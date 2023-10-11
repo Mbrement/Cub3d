@@ -42,7 +42,7 @@ deps:
 $(NAME): $(OBJS) $(DIR_LIBFT)/libft.a $(DIR_MLX)/libmlx.a
 	$(CC) $(CFLAGS) $^ -o $@  $(DIR_LIBFT)/libft.a $(DIR_MLX)/libmlx.a $(MLXFLAGS) -lX11 -lXext -lm -L${DIR_MLX}
 
-$(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c $(INCS) $(DIR_INCS)/$(LST_INCS)| $(DIR_OBJS)
+$(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c $(INCS) $(DIR_INCS)/$(LST_INCS) $(DIR_LIBFT)/libft.a $(DIR_MLX)/libmlx.a | $(DIR_OBJS)
 	$(CC) $(CFLAGS) -I $(DIR_INCS) -Imlx  -c $< -o $@
 
 $(DIR_OBJS):
