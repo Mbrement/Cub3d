@@ -95,3 +95,27 @@ void	ft_draw_vertical_east(t_mlx *mlx, int screen_x, int *drawn, int x)
 		y++;
 	}
 }
+
+void	ft_prep_floor(t_mlx *mlx)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (++y < WIN_H / 2)
+	{
+		x = -1;
+		while (++x < WIN_W)
+		{
+			my_mlx_pixel_put(mlx, x, y, mlx->map->celing_color);
+		}
+	}
+	while (++y < WIN_H)
+	{
+		x = -1;
+		while (++x < WIN_W)
+		{
+			my_mlx_pixel_put(mlx, x, y, mlx->map->floor_color);
+		}
+	}
+}
