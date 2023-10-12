@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42lyon.fr>              +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/10 08:15:50 by kali             ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 16:33:27 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,59 +68,7 @@ int	nbr_of_key(t_mlx *mlx)
 	return (i);
 }
 
-int	ft_move(t_mlx *mlx)
-{
-	double			new_x;
-	double			new_y;
-	static double	rad = (M_PI / 180);
-	double			speed;
 
-	new_x = mlx->player->pos_x;
-	new_y = mlx->player->pos_y;
-	if (mlx->player->boost == 1)
-		speed = SPEED * 2;
-	else
-		speed = SPEED;
-	if (nbr_of_key(mlx) > 1)
-		speed *= 0.75;
-	if (mlx->player->move_up == 1)
-	{
-		new_y += speed * sin(mlx->player->look * rad);
-		new_x += speed * cos(mlx->player->look * rad);
-	}
-	if (mlx->player->move_down == 1)
-	{
-		new_y -= speed * sin(mlx->player->look * rad);
-		new_x -= speed * cos(mlx->player->look * rad);
-	}
-	if (mlx->player->move_left == 1)
-	{
-		new_x += speed * sin(mlx->player->look * rad);
-		new_y -= speed * cos(mlx->player->look * rad);
-	}
-	if (mlx->player->move_right == 1)
-	{
-		new_x -= speed * sin(mlx->player->look * rad);
-		new_y += speed * cos(mlx->player->look * rad);
-	}
-	if (mlx->player->turn_left == 1 && nbr_of_key(mlx) == 0)
-		mlx->player->look -= 3;
-	else if (mlx->player->turn_left == 1)
-		mlx->player->look -= 2;
-	if (mlx->player->turn_right == 1 && nbr_of_key(mlx) == 0)
-		mlx->player->look += 3;
-	else if (mlx->player->turn_right == 1)
-		mlx->player->look += 2;
-	if (is_valid_move_y(mlx, new_y))
-		mlx->player->pos_y = new_y;
-	if (is_valid_move_x(mlx, new_x))
-		mlx->player->pos_x = new_x;
-	if (mlx->player->look < 0)
-		mlx->player->look += 360;
-	else if (mlx->player->look >= 360)
-		mlx->player->look -= 360;
-	return (0);
-}
 
 int	handle_mouse(int x, int y, t_mlx *mlx)
 {

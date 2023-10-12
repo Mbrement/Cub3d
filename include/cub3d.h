@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 11:17:04 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 16:34:03 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ void	end_of_prog(t_map map, char *err_msg);
 void	end_of_prog_mlx(t_mlx *mlx);
 int		ft_exit(int i, t_mlx *mlx);
 void	data_wall(t_wall *wall);
+int		nbr_of_key(t_mlx *mlx);
 
 ///TMP A DELETE///
 char	*get_next_line(int fd);
