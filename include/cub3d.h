@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 17:24:59 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 18:43:28 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void	road_to_wall(t_mlx *mlx, int y, int x, double angle);
 void	end_of_prog(t_map map, char *err_msg);
 void	end_of_prog_mlx(t_mlx *mlx);
 int		ft_exit(int i, t_mlx *mlx);
-void	data_wall(t_wall *wall);
+void	data_wall(t_wall *wall, t_mlx *mlx);
 int		nbr_of_key(t_mlx *mlx);
 
 ///TMP A DELETE///

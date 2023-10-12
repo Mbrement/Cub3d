@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 17:46:55 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/11 10:44:44 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 18:44:13 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,14 @@ static t_wall_data	get_data_wall(void *wall)
 	return (data);
 }
 
-void	data_wall(t_wall *wall)
+void	data_wall(t_wall *wall, t_mlx *mlx)
 {
 	wall->east_data = get_data_wall(wall->east);
 	wall->north_data = get_data_wall(wall->north);
 	wall->west_data = get_data_wall(wall->west);
 	wall->south_data = get_data_wall(wall->south);
+	if (wall->east_data || wall->east_data || wall->east_data || wall->east_data)
+	{
+		
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:00:10 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 18:36:54 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 18:43:11 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ t_wall	*put_img_in_wall(t_map map, t_mlx *mlx)
 		mlx->player = NULL;
 		end_of_prog_mlx(mlx);
 	}
-	data_wall(wall);
+	data_wall(wall, mlx);
 	return (wall);
 }
