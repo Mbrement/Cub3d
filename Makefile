@@ -6,9 +6,9 @@ DIR_INCS	:= include
 DIR_LIBFT	:= lib/libft
 DIR_MLX		:= lib/mlx
 
-CC			:= gcc
+CC			:= cc
 CSAN		:= -fsanitize=address -g3
-CFLAGS		:= -Wall -Wextra -g3 -Werror #-march=native -flto -O2
+CFLAGS		:= -Wall -Wextra -g3 -Werror -march=native -flto -O2
 RM			:= rm -rf
 
 LST_SRCS	:=	check_map.c \

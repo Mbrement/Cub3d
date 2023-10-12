@@ -6,14 +6,14 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 16:55:13 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 19:20:33 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 void	death_map(t_map *map);
-t_map	define_map(t_map map);
+t_map	define_map(t_map *map);
 
 int	main(int argc, char **argv)
 {
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return ((void)printf("Error\nWrong number of argument\n"), 1);
-	map = define_map(map);
+	map = define_map(&map);
 	map = check_file(argv[1], map);
 	death_map(&map);
 	mlx = malloc(sizeof(t_mlx));
@@ -30,33 +30,33 @@ int	main(int argc, char **argv)
 	end_of_prog_mlx(mlx);
 }
 
-t_map	define_map(t_map map)
+t_map	define_map(t_map *map)
 {
-	map.map = NULL;
-	map.north_file = NULL;
-	map.south_file = NULL;
-	map.east_file = NULL;
-	map.west_file = NULL;
-	map.north_found = 0;
-	map.south_found = 0;
-	map.east_found = 0;
-	map.west_found = 0;
-	map.north = -1;
-	map.east = -1;
-	map.south = -1;
-	map.west = -1;
-	map.error = 0;
-	map.floor[0] = -1;
-	map.floor[1] = -1;
-	map.floor[2] = -1;
-	map.celing[0] = -1;
-	map.celing[1] = -1;
-	map.celing[2] = -1;
-	map.celing_found = 0;
-	map.floor_found = 0;
-	map.floor_color = 0;
-	map.celing_color = 0;
-	return (map);
+	map->map = NULL;
+	map->north_file = NULL;
+	map->south_file = NULL;
+	map->east_file = NULL;
+	map->west_file = NULL;
+	map->north_found = 0;
+	map->south_found = 0;
+	map->east_found = 0;
+	map->west_found = 0;
+	map->north = -1;
+	map->east = -1;
+	map->south = -1;
+	map->west = -1;
+	map->error = 0;
+	map->floor[0] = -1;
+	map->floor[1] = -1;
+	map->floor[2] = -1;
+	map->celing[0] = -1;
+	map->celing[1] = -1;
+	map->celing[2] = -1;
+	map->celing_found = 0;
+	map->floor_found = 0;
+	map->floor_color = 0;
+	map->celing_color = 0;
+	return (*map);
 }
 
 void	death_map(t_map *map)
