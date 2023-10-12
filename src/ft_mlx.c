@@ -6,35 +6,40 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 11:27:28 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 18:21:37 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 void	ray(t_mlx mlx, t_player player, int rgb);
-t_wall	*put_img_in_wall(t_map map, t_mlx mlx);
 void	init_game(t_mlx *mlx, t_map map);
 
 void	ft_mlx(t_map *map, t_mlx *mlx)
 {
+	if (!mlx)
+		end_of_prog(*map, "Error\nMalloc error\n");
 	mlx->map = map;
 	mlx->data = malloc(sizeof(t_data));
 	if (!mlx->data)
-		end_of_prog_mlx(mlx);
+	{
+		nfree((void **)&mlx);
+		end_of_prog(*map, "Error\n");
+	}
 	mlx->mlx_init_ptr = mlx_init();
 	if (!mlx->mlx_init_ptr)
 	{
-		printf("Error\nMlx couldn't init\n");
-		end_of_prog_mlx(mlx);
+		nfree((void **)&mlx->data);
+		nfree((void **)&mlx);
+		end_of_prog(*map, "Error\nMLX couldn't initiate\n");
 	}
-	mlx->wall = put_img_in_wall(*map, *mlx);
 	mlx->mlx_win_ptr = mlx_new_window(mlx->mlx_init_ptr, WIN_W, WIN_H, "cub3d");
 	if (!mlx->mlx_win_ptr)
 	{
 		printf("Error\nMlx couldn't create the window\n");
 		end_of_prog_mlx(mlx);
 	}
+	mlx->wall = put_img_in_wall(*map, mlx);
 	init_game(mlx, *map);
 }
 

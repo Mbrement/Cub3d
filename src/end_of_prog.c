@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 19:38:25 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 13:06:48 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 18:34:10 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,37 @@ static void	free_wall_data(t_mlx *mlx)
 	nfree ((void **)&mlx->wall->south_data.size_line);
 }
 
+static void	free_wall(t_mlx *mlx)
+{
+	if (mlx->wall)
+	{
+		if (mlx->wall->north)
+			mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->north);
+		if (mlx->wall->east)
+			mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->east);
+		if (mlx->wall->west)
+			mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->west);
+		if (mlx->wall->south)
+			mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->south);
+		if (mlx->wall->north && mlx->wall->east \
+			&& mlx->wall->west && mlx->wall->south)
+			free_wall_data(mlx);
+	}
+}
+
 void	end_of_prog_mlx(t_mlx *mlx)
 {
-	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->north);
-	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->east);
-	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->west);
-	mlx_destroy_image(mlx->mlx_init_ptr, mlx->wall->south);
-	free_wall_data(mlx);
+	if (mlx->mlx_init_ptr)
+	{
+		free_wall(mlx);
+		nfree((void **)&mlx->player);
+		if (mlx->mlx_win_ptr)
+			mlx_destroy_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr);
+		mlx_destroy_display(mlx->mlx_init_ptr);
+	}
 	nfree((void **)&mlx->wall);
-	mlx_destroy_window(mlx->mlx_init_ptr, mlx->mlx_win_ptr);
-	mlx_destroy_display(mlx->mlx_init_ptr);
 	nfree((void **)&mlx->mlx_init_ptr);
 	nfree((void **)&mlx->data);
-	nfree((void **)&mlx->player);
 	end_of_prog_no_exit(*mlx->map);
 	nfree((void **)&mlx);
 	exit(0);
