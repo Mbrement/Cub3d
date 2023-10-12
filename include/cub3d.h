@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 16:34:03 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 17:01:21 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include "../lib/mlx/mlx.h"
 # include "../lib/mlx/mlx_int.h"
 
-# define WIN_W 3000
-# define WIN_H 1500
+# define WIN_W 1500
+# define WIN_H 750
 # define FOV 80
 # define SPEED 0.05
 
@@ -122,6 +122,7 @@ typedef struct s_mlx
 
 typedef struct s_ray
 {
+	int			i;
 	double		dirx;
 	double		diry;
 	double		planx;
@@ -167,6 +168,7 @@ void	ft_draw_vertical_north(t_mlx *mlx, int screen_x, int *drawn, int x);
 void	ft_draw_vertical_south(t_mlx *mlx, int screen_x, int *drawn, int x);
 void	ft_draw_vertical_west(t_mlx *mlx, int screen_x, int *drawn, int x);
 void	ft_draw_vertical_east(t_mlx *mlx, int screen_x, int *drawn, int x);
+void	ft_prep_floor(t_mlx *mlx);
 t_wall	*put_img_in_wall(t_map map, t_mlx mlx);
 
 //////MATH//////

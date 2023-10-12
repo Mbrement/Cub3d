@@ -42,12 +42,12 @@ void	ft_direction(t_mlx *mlx, double *new_x, double *new_y, double *speed)
 		*new_y -= *speed * sin(mlx->player->look * rad);
 		*new_x -= *speed * cos(mlx->player->look * rad);
 	}
-	if (mlx->player->move_left == 1)
+	if (mlx->player->move_right == 1)
 	{
 		*new_x += *speed * sin(mlx->player->look * rad);
 		*new_y -= *speed * cos(mlx->player->look * rad);
 	}
-	if (mlx->player->move_right == 1)
+	if (mlx->player->move_left == 1)
 	{
 		*new_x -= *speed * sin(mlx->player->look * rad);
 		*new_y += *speed * cos(mlx->player->look * rad);

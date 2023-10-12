@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 10:09:09 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/11 16:14:45 by mbrement         ###   ########lyon.fr   */
+/*   Created: 2023/10/12 17:05:55 by ngennaro          #+#    #+#             */
+/*   Updated: 2023/10/12 17:08:35 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,72 +26,48 @@ int	refresh_img(t_mlx *mlx)
 	return (0);
 }
 
-int	ft_tex_coo(t_ray ray, t_mlx mlx)
+int	ft_tex_coo(t_ray *ray, t_mlx mlx)
 {
 	double	wallx;
 	double	texx;
 
-	if (ray.side)
-		wallx = mlx.player->pos_y + ray.perpwalldist * ray.raydiry;
+	if (ray->side)
+		wallx = mlx.player->pos_y + ray->perpwalldist * ray->raydiry;
 	else
-		wallx = mlx.player->pos_x + ray.perpwalldist * ray.raydirx;
+		wallx = mlx.player->pos_x + ray->perpwalldist * ray->raydirx;
 	wallx = -floor(wallx);
 	texx = (wallx * mlx.wall->east_height);
-	if (ray.side && ray.raydirx > 0)
+	if (ray->side && ray->raydirx > 0)
 		texx = mlx.wall->east_height - texx - 1;
-	if (!ray.side && ray.diry < 0)
+	if (!ray->side && ray->diry < 0)
 		texx = mlx.wall->east_height - texx - 1;
 	return (texx);
 }
 
-void	ft_get_color(t_mlx *mlx, t_ray ray, int screen_x, double x, double y)
+void	ft_get_color(t_mlx *mlx, t_ray *ray, double x, double y)
 {
 	static double	half = (double)WIN_H / 2;
 	int				drawn[2];
 
-	drawn[0] = (double)-ray.lineheight / 2 + half;
-	drawn[1] = drawn[0] + ray.lineheight;
-	if (ray.side == 1)
+	drawn[0] = (double)-ray->lineheight / 2 + half;
+	drawn[1] = drawn[0] + ray->lineheight;
+	if (ray->side == 1)
 	{
-		if (ray.raydiry < 0)
-			ft_draw_vertical_north(mlx, screen_x, drawn,
+		if (ray->raydiry < 0)
+			ft_draw_vertical_north(mlx, ray->i, drawn,
 				(x - floor(x)) * mlx->wall->north_height);
 		else
-			ft_draw_vertical_south(mlx, screen_x, drawn,
+			ft_draw_vertical_south(mlx, ray->i, drawn,
 				(1. - x + floor(x)) * mlx->wall->south_height);
 	}
 	else
 	{
-		if (ray.raydirx < 0)
-			ft_draw_vertical_east(mlx, screen_x, drawn,
+		if (ray->raydirx < 0)
+			ft_draw_vertical_east(mlx, ray->i, drawn,
 				(1. - y + floor(y)) * mlx->wall->east_height);
 		else
-			ft_draw_vertical_west(mlx, screen_x, drawn,
+			ft_draw_vertical_west(mlx, ray->i, drawn,
 				(y - floor(y)) * mlx->wall->west_height);
-	}
-}
-
-void	ft_prep_floor(t_mlx *mlx)
-{
-	int	x;
-	int	y;
-
-	y = -1;
-	while (++y < WIN_H / 2)
-	{
-		x = -1;
-		while (++x < WIN_W)
-		{
-			my_mlx_pixel_put(mlx, x, y, mlx->map->celing_color);
-		}
-	}
-	while (++y < WIN_H)
-	{
-		x = -1;
-		while (++x < WIN_W)
-		{
-			my_mlx_pixel_put(mlx, x, y, mlx->map->floor_color);
-		}
 	}
 }
 
@@ -102,7 +78,6 @@ void	ft_ray(t_mlx *mlx)
 	int		i;
 	double	offset_x;
 	double	offset_y;
-	int		max_dist;
 
 	offset_x = mlx->player->pos_x - (int)mlx->player->pos_x;
 	offset_y = mlx->player->pos_y - (int)mlx->player->pos_y;
@@ -110,7 +85,7 @@ void	ft_ray(t_mlx *mlx)
 	angle_radiants = mlx->player->look * M_PI / 180.;
 	ray.dirx = cos(angle_radiants);
 	ray.diry = sin(angle_radiants);
-	ray.planx = -ray.diry;
+	ray.planx = ray.diry;
 	ray.plany = ray.dirx;
 	i = -1;
 	while (++i < WIN_W)
@@ -143,8 +118,7 @@ void	ft_ray(t_mlx *mlx)
 			ray.sidedisty = (1. - offset_y) * ray.deltadisty;
 			ray.stepy = 1;
 		}
-		max_dist = 100;
-		while (ray.hit == 0 && max_dist-- > 0)
+		while (ray.hit == 0)
 		{
 			if (ray.sidedistx < ray.sidedisty)
 			{
@@ -161,14 +135,13 @@ void	ft_ray(t_mlx *mlx)
 			if (!is_valid_move(mlx, ray.pos_x, ray.pos_y))
 				ray.hit = 1;
 		}
-		if (!ray.hit)
-			continue ;
 		if (ray.side == 0)
 			ray.perpwalldist = ray.sidedistx - ray.deltadistx;
 		else
 			ray.perpwalldist = ray.sidedisty - ray.deltadisty;
 		ray.lineheight = (int)(WIN_H / ray.perpwalldist);
-		ft_get_color(mlx, ray, i, ray.pos_x + ray.perpwalldist
+		ray.i = i;
+		ft_get_color(mlx, &ray, ray.pos_x + ray.perpwalldist
 			* ray.raydirx + mlx->player->pos_x, ray.pos_y
 			+ ray.perpwalldist * ray.raydiry + mlx->player->pos_y);
 	}
