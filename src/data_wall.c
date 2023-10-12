@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 17:46:55 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 18:44:13 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 19:08:16 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ void	data_wall(t_wall *wall, t_mlx *mlx)
 	wall->north_data = get_data_wall(wall->north);
 	wall->west_data = get_data_wall(wall->west);
 	wall->south_data = get_data_wall(wall->south);
-	if (wall->east_data || wall->east_data || wall->east_data || wall->east_data)
+	if (!wall->east_data.addr || !wall->east_data.addr || \
+		!wall->east_data.addr || !wall->east_data.addr)
 	{
-		
+		mlx->wall = wall;
+		mlx->player = NULL;
+		end_of_prog_mlx(mlx);
 	}
 }
