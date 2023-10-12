@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 16:33:27 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 16:44:39 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ int	nbr_of_key(t_mlx *mlx)
 		i++;
 	return (i);
 }
-
-
 
 int	handle_mouse(int x, int y, t_mlx *mlx)
 {
