@@ -6,11 +6,12 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 13:52:36 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 16:47:32 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <unistd.h>
 
 static void		check_format(char *map, int file_fd);
 static t_map	check_inside(int file_fd, t_map true_map);
@@ -321,19 +322,30 @@ static t_map	check_inside(int file_fd, t_map map)
 	{
 		buffer = get_next_line(file_fd);
 		if (!buffer)
+		{
+			close(file_fd);
 			end_of_prog(map, "Error\nNo map in map file\n");
+		}
 		else if (buffer[0] && buffer[0] != '\n')
 			break ;
 		nfree((void **)&buffer);
 	}
 	maps = malloc(sizeof(char *) * 2);
 	if (!maps)
+	{
+		nfree((void **)&buffer);
+		close(file_fd);
 		end_of_prog(map, "Error\nMalloc error\n");
-	maps[0] = ft_strnew(1);
+	}
+	maps[0] = NULL;
 	maps[1] = NULL;
 	maps = add_tab(maps, buffer);
 	if (!maps)
+	{
+		nfree((void **)&buffer);
 		end_of_prog(map, "Error\nMalloc error\n");
+	}
+	//end of fnc
 	while (1)
 	{
 		buffer = get_next_line(file_fd);
@@ -341,8 +353,13 @@ static t_map	check_inside(int file_fd, t_map map)
 			break ;
 		maps = add_tab(maps, buffer);
 		if (!maps)
+		{
+
+			close(file_fd);
 			end_of_prog(map, "Error\nMalloc error\n");
+		}
 	}
+	//end of fnc
 	maps = add_tab(maps, ft_strnew(1));
 	if (!maps)
 		end_of_prog(map,"Error\nMalloc error\n");

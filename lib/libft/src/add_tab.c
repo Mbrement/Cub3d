@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../libft.h"
-#include <stdio.h>
 
 char	**add_tab(char **tab, char *str)
 {
