@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 16:34:03 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 17:24:59 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void	ft_draw_vertical_north(t_mlx *mlx, int screen_x, int *drawn, int x);
 void	ft_draw_vertical_south(t_mlx *mlx, int screen_x, int *drawn, int x);
 void	ft_draw_vertical_west(t_mlx *mlx, int screen_x, int *drawn, int x);
 void	ft_draw_vertical_east(t_mlx *mlx, int screen_x, int *drawn, int x);
-t_wall	*put_img_in_wall(t_map map, t_mlx mlx);
+t_wall	*put_img_in_wall(t_map map, t_mlx *mlx);
 
 //////MATH//////
 void	bresenham_cub(t_mlx mlx, double dest_x, double dest_y, int color);

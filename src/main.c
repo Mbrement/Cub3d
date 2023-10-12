@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:33:59 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 16:18:21 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 16:55:13 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	main(int argc, char **argv)
 	map = check_file(argv[1], map);
 	death_map(&map);
 	mlx = malloc(sizeof(t_mlx));
-	if (!mlx)
-		end_of_prog(map, "Error\nMalloc error\n");
 	ft_mlx(&map, mlx);
 	end_of_prog_mlx(mlx);
 }
