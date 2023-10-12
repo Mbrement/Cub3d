@@ -143,20 +143,14 @@ int	check_walls(t_map *map)
 
 	tmp_map = dup_maps(map->map);
 	if (!tmp_map)
-	{
-		printf("Error\nMalloc error\n");
-		end_of_prog(*map);
-		exit(1);
-	}
+		end_of_prog(*map, "Error\nMalloc error\n");
 	x = locate_player_x(tmp_map);
 	y = locate_player_y(tmp_map);
 	tmp_map[y][x] = '*';
 	if (!complete_map(tmp_map))
 	{
 		free_tab(tmp_map);
-		printf("Error\nIncorrect map\n");
-		end_of_prog(*map);
-		exit(1);
+		end_of_prog(*map, "Error\nIncorrect map\n");
 	}
 	free_tab(tmp_map);
 	return (1);

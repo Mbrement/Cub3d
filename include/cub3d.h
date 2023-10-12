@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/11 16:09:03 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 11:17:04 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ typedef struct s_ray
 }					t_ray;
 
 //////PARSING//////
-t_map	check_file(char *map);
+t_map	check_file(char *map, t_map true_map);
 int		check_chr_map(char **maps);
 int		check_walls(t_map *map);
 int		locate_player_x(char **maps);
@@ -177,7 +177,7 @@ int		is_valid_move(t_mlx *mlx, double new_x, double new_y);
 void	road_to_wall(t_mlx *mlx, int y, int x, double angle);
 
 //////TOOLS//////
-void	end_of_prog(t_map map);
+void	end_of_prog(t_map map, char *err_msg);
 void	end_of_prog_mlx(t_mlx *mlx);
 int		ft_exit(int i, t_mlx *mlx);
 void	data_wall(t_wall *wall);

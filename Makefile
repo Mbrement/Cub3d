@@ -8,7 +8,7 @@ DIR_MLX		:= lib/mlx
 
 CC			:= gcc
 CSAN		:= -fsanitize=address -g3
-CFLAGS		:= -Wall -Wextra -g3 -Werror -march=native -flto -O2
+CFLAGS		:= -Wall -Wextra -g3 -Werror #-march=native -flto -O2
 RM			:= rm -rf
 
 LST_SRCS	:=	check_map.c \
@@ -24,7 +24,7 @@ LST_SRCS	:=	check_map.c \
 				data_wall.c \
 				ray.c \
 				draw.c \
-				put_imt_in_wall.c
+				put_img_in_wall.c
 
 LST_OBJS	:= $(LST_SRCS:.c=.o)
 LST_INCS	:= cub3d.h

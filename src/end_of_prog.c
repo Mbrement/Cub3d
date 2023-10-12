@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_of_prog.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 19:38:25 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/11 15:51:58 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 11:18:30 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	ft_exit(int i, t_mlx *mlx)
 	return (i);
 }
 
-void	end_of_prog(t_map map)
+void	end_of_prog(t_map map, char *err_msg)
 {
+	ft_putstr_fd(err_msg, 1);
 	if (map.north_found && map.north > 2)
 		close(map.north);
 	if (map.east_found && map.east > 2)

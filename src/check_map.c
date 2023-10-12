@@ -3,26 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/11 15:51:55 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 11:21:01 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 static void		check_format(char *map, int file_fd);
-static t_map	check_inside(int file_fd);
+static t_map	check_inside(int file_fd, t_map true_map);
 
-t_map	check_file(char *map)
+t_map	check_file(char *map, t_map true_map)
 {
 	int		file_fd;
-	t_map	true_map;
 
 	file_fd = open(map, R_OK);
 	check_format(map, file_fd);
-	true_map = check_inside(file_fd);
+	true_map = check_inside(file_fd, true_map);
 	close(file_fd);
 	return (true_map);
 }
@@ -31,19 +30,19 @@ static void	check_format(char *map, int file_fd)
 {
 	if (file_fd <= 0)
 	{
-		(void)printf("Unreadable map\n");
+		(void)printf("Error\nUnreadable map\n");
 		close(file_fd);
 		exit(1);
 	}
 	if (ft_strlen(map) < 5)
 	{
-		(void)printf("Incorrect format of map\n");
+		(void)printf("Error\nIncorrect format of map\n");
 		close(file_fd);
 		exit(1);
 	}
 	if (ft_strcmp(map + ft_strlen(map) - 4, ".cub") != 0)
 	{
-		(void)printf("Incorrect format of map\n");
+		(void)printf("Error\nIncorrect format of map\n");
 		close(file_fd);
 		exit(1);
 	}
@@ -278,33 +277,13 @@ static void	fill_map(int i_am, char *buffer, t_map *map)
 	nfree((void **)&tmp);
 }
 
-static t_map	check_inside(int file_fd)
+static t_map	check_inside(int file_fd, t_map map)
 {
 	char	**maps;
 	char	*buffer;
-	t_map	map;
 	int		i_am;
 	int		count;
 
-	map.north = -1;
-	map.east = -1;
-	map.south = -1;
-	map.west = -1;
-	map.error = 0;
-	map.floor[0] = -1;
-	map.floor[1] = -1;
-	map.floor[2] = -1;
-	map.celing[0] = -1;
-	map.celing[1] = -1;
-	map.celing[2] = -1;
-	map.north_found = 0;
-	map.west_found = 0;
-	map.east_found = 0;
-	map.south_found = 0;
-	map.celing_found = 0;
-	map.floor_found = 0;
-	map.floor_color = 0;
-	map.celing_color = 0;
 	count = 0;
 	while (1)
 	{
@@ -314,15 +293,13 @@ static t_map	check_inside(int file_fd)
 		i_am = what_is_it(buffer, &map);
 		if (i_am < 0)
 		{
-			(void)printf("Error\nIncorrect line in the map\n");
 			while (buffer)
 			{
 				nfree((void **)&buffer);
 				buffer = get_next_line(file_fd);
 			}
 			(void)close(file_fd);
-			end_of_prog(map);
-			exit(1);
+			end_of_prog(map, "Error\nIncorrect line in the map\n");
 		}
 		else if (i_am > 0)
 		{
@@ -337,31 +314,19 @@ static t_map	check_inside(int file_fd)
 	{
 		buffer = get_next_line(file_fd);
 		if (!buffer)
-		{
-			(void)printf("Error\nNo map in map file\n");
-			end_of_prog(map);
-			exit(1);
-		}
+			end_of_prog(map, "Error\nNo map in map file\n");
 		else if (buffer[0] && buffer[0] != '\n')
 			break ;
 		nfree((void **)&buffer);
 	}
 	maps = malloc(sizeof(char *) * 2);
 	if (!maps)
-	{
-		(void)printf("Error\nMalloc error\n");
-		end_of_prog(map);
-		exit(1);
-	}
+		end_of_prog(map, "Error\nMalloc error\n");
 	maps[0] = ft_strnew(1);
 	maps[1] = NULL;
 	maps = add_tab(maps, buffer);
 	if (!maps)
-	{
-		(void)printf("Error\nMalloc error\n");
-		end_of_prog(map);
-		exit(1);
-	}
+		end_of_prog(map, "Error\nMalloc error\n");
 	while (1)
 	{
 		buffer = get_next_line(file_fd);
@@ -369,34 +334,16 @@ static t_map	check_inside(int file_fd)
 			break ;
 		maps = add_tab(maps, buffer);
 		if (!maps)
-		{
-			(void)printf("Error\nMalloc error\n");
-			end_of_prog(map);
-			exit(1);
-		}
+			end_of_prog(map, "Error\nMalloc error\n");
 	}
 	maps = add_tab(maps, ft_strnew(1));
 	if (!maps)
-	{
-		(void)printf("Error\nMalloc error\n");
-		end_of_prog(map);
-		exit(1);
-	}
+		end_of_prog(map,"Error\nMalloc error\n");
 	if (!check_chr_map(maps))
-	{
-		(void)printf("Error\nIncorrect map\n");
-		end_of_prog(map);
-		exit(1);
-	}
+		end_of_prog(map,"Error\nIncorrect map\n");
 	map.map = maps;
 	if (!check_walls(&map))
-	{
-		(void)printf("Error\nIncorrect map\n");
-		end_of_prog(map);
-		exit(1);
-	}
+		end_of_prog(map,"Error\nIncorrect map\n");
 	(void)close(file_fd);
-	nfree((void **)&buffer);
-	nfree((void **)&buffer);
 	return (map);
 }

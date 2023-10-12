@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/11 16:16:13 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/12 11:27:28 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	init_game(t_mlx *mlx, t_map map);
 
 void	ft_mlx(t_map *map, t_mlx *mlx)
 {
-	if (!mlx)
-		end_of_prog(*map);
 	mlx->map = map;
 	mlx->data = malloc(sizeof(t_data));
 	if (!mlx->data)
@@ -81,10 +79,10 @@ void	init_game(t_mlx *mlx, t_map map)
 	t_player	*player;
 
 	player = malloc(sizeof(t_player));
+	mlx->player = player;
 	if (!player)
 		end_of_prog_mlx(mlx);
 	ft_fill_player(player);
-	mlx->player = player;
 	mlx->player->boost = 0;
 	player_get_look(mlx, map);
 	mlx->map->x_lenth = 0;
