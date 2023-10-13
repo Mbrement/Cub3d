@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/13 10:18:26 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 10:50:59 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,9 @@ int		check_chr_map(char **maps);
 int		check_walls(t_map *map);
 int		locate_player_x(char **maps);
 int		locate_player_y(char **maps);
+char	**dup_maps(char **maps);
+int		complete_map(char **temp_maps);
+
 
 //////EXEC//////
 
