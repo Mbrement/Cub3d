@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/13 10:30:52 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 10:46:36 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,11 +380,11 @@ static t_map	check_inside(int file_fd, t_map map)
 	}
 	maps = create_map(file_fd, map, buffer);
 	maps = line_on_map(maps, file_fd, map, buffer);
+	(void)close(file_fd);
+	map.map = maps;
 	if (!check_chr_map(maps))
 		end_of_prog(map, "Error\nIncorrect map\n");
-	map.map = maps;
 	if (!check_walls(&map))
 		end_of_prog(map, "Error\nIncorrect map\n");
-	(void)close(file_fd);
 	return (map);
 }
