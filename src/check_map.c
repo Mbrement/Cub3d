@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/13 10:07:29 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 10:30:52 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,6 +317,49 @@ void	read_params(char **buffer, t_map *map, int file_fd)
 	}
 }
 
+char	**create_map(int file_fd, t_map map, char *buffer)
+{
+	char	**maps;
+
+	maps = malloc(sizeof(char *) * 2);
+	if (!maps)
+	{
+		nfree((void **)&buffer);
+		close(file_fd);
+		end_of_prog(map, "Error\nMalloc error\n");
+	}
+	maps[0] = NULL;
+	maps[1] = NULL;
+	maps = add_tab(maps, buffer);
+	if (!maps)
+	{
+		nfree((void **)&buffer);
+		end_of_prog(map, "Error\nMalloc error\n");
+	}
+	return (maps);
+}
+
+char **line_on_map(char **maps, int file_fd, t_map map, char *buffer)
+{
+	while (1)
+	{
+		buffer = get_next_line(file_fd);
+		if (!buffer)
+			break ;
+		maps = add_tab(maps, buffer);
+		if (!maps)
+		{
+
+			close(file_fd);
+			end_of_prog(map, "Error\nMalloc error\n");
+		}
+	}
+	maps = add_tab(maps, ft_strnew(1));
+	if (!maps)
+		end_of_prog(map, "Error\nMalloc error\n");
+	return (maps);
+}
+
 static t_map	check_inside(int file_fd, t_map map)
 {
 	char	**maps;
@@ -335,39 +378,8 @@ static t_map	check_inside(int file_fd, t_map map)
 			break ;
 		nfree((void **)&buffer);
 	}
-	maps = malloc(sizeof(char *) * 2);
-	if (!maps)
-	{
-		nfree((void **)&buffer);
-		close(file_fd);
-		end_of_prog(map, "Error\nMalloc error\n");
-	}
-	maps[0] = NULL;
-	maps[1] = NULL;
-	maps = add_tab(maps, buffer);
-	if (!maps)
-	{
-		nfree((void **)&buffer);
-		end_of_prog(map, "Error\nMalloc error\n");
-	}
-	//end of fnc
-	while (1)
-	{
-		buffer = get_next_line(file_fd);
-		if (!buffer)
-			break ;
-		maps = add_tab(maps, buffer);
-		if (!maps)
-		{
-
-			close(file_fd);
-			end_of_prog(map, "Error\nMalloc error\n");
-		}
-	}
-	//end of fnc
-	maps = add_tab(maps, ft_strnew(1));
-	if (!maps)
-		end_of_prog(map, "Error\nMalloc error\n");
+	maps = create_map(file_fd, map, buffer);
+	maps = line_on_map(maps, file_fd, map, buffer);
 	if (!check_chr_map(maps))
 		end_of_prog(map, "Error\nIncorrect map\n");
 	map.map = maps;
