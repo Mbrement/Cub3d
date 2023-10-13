@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 18:45:23 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 10:18:26 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,9 @@ void	put_player(t_mlx mlx, t_player player, int color);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
 void	map_img(t_mlx *mlx, t_map map);
 void	ft_ray(t_mlx *mlx);
+double	init_ray(t_ray *ray, double *offset_x, double *offset_y, t_mlx *mlx);
+void	reset_ray(t_mlx *mlx, t_ray *ray, int i);
+void	set_dist(t_ray *ray, double offset_x, double offset_y);
 int		refresh_img(t_mlx *mlx);
 void	ft_draw_vertical_north(t_mlx *mlx, int screen_x, int *drawn, int x);
 void	ft_draw_vertical_south(t_mlx *mlx, int screen_x, int *drawn, int x);

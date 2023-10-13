@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/13 10:19:07 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 10:32:15 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,3 @@ void	init_game(t_mlx *mlx, t_map map)
 	mlx_loop_hook(mlx->mlx_init_ptr, refresh_img, mlx);
 	mlx_loop(mlx->mlx_init_ptr);
 }
-
