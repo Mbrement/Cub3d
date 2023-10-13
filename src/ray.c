@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:09:09 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/13 10:20:42 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 10:34:56 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,11 @@ void	ray_find_dst(t_ray *ray, t_mlx *mlx)
 void	ft_ray(t_mlx *mlx)
 {
 	t_ray	ray;
-	double	angle_radiants;
 	int		i;
 	double	offset_x;
 	double	offset_y;
 
-	angle_radiants = init_ray(&ray, &offset_x, &offset_y, mlx);
+	init_ray(&ray, &offset_x, &offset_y, mlx);
 	i = -1;
 	while (++i < WIN_W)
 	{
