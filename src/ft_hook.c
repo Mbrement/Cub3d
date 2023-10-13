@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 16:44:39 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 13:13:34 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	key_pressed(int key, t_mlx *mlx)
 		mlx->player->move_up = 1;
 	else if (key == 115 || key == 65364)
 		mlx->player->move_down = 1;
-	else if (key == 97 || key == 65361)
+	else if (key == 97)
 		mlx->player->move_left = 1;
-	else if (key == 100 || key == 65363)
+	else if (key == 100)
 		mlx->player->move_right = 1;
-	else if (key == 113)
+	else if (key == 113 || key == 65361)
 		mlx->player->turn_left = 1;
-	else if (key == 101)
+	else if (key == 101 || key == 65363)
 		mlx->player->turn_right = 1;
 	else if (key == 65505)
 		mlx->player->boost = 1;
@@ -39,13 +39,13 @@ int	key_released(int key, t_mlx *mlx)
 		mlx->player->move_up = 0;
 	else if (key == 115 || key == 65364)
 		mlx->player->move_down = 0;
-	else if (key == 97 || key == 65361)
+	else if (key == 97)
 		mlx->player->move_left = 0;
-	else if (key == 100 || key == 65363)
+	else if (key == 100)
 		mlx->player->move_right = 0;
-	else if (key == 113)
+	else if (key == 113 || key == 65361)
 		mlx->player->turn_left = 0;
-	else if (key == 101)
+	else if (key == 101 || key == 65363)
 		mlx->player->turn_right = 0;
 	else if (key == 65505)
 		mlx->player->boost = 0;
