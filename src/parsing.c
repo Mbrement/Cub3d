@@ -114,9 +114,9 @@ int	complete_map(char **temp_maps)
 	new = 1;
 	while (new != 0)
 	{
-		x = 0;
+		x = -1;
 		new = 0;
-		while (temp_maps[x] && temp_maps[x][0] != '\n')
+		while (temp_maps[++x] && temp_maps[x][0] != '\n')
 		{
 			y = 0;
 			while (temp_maps[x][y])
@@ -129,29 +129,7 @@ int	complete_map(char **temp_maps)
 				}
 				y++;
 			}
-			x++;
 		}
 	}
-	return (1);
-}
-
-int	check_walls(t_map *map)
-{
-	char	**tmp_map;
-	int		x;
-	int		y;
-
-	tmp_map = dup_maps(map->map);
-	if (!tmp_map)
-		end_of_prog(*map, "Error\nMalloc error\n");
-	x = locate_player_x(tmp_map);
-	y = locate_player_y(tmp_map);
-	tmp_map[y][x] = '*';
-	if (!complete_map(tmp_map))
-	{
-		free_tab(tmp_map);
-		end_of_prog(*map, "Error\nIncorrect map\n");
-	}
-	free_tab(tmp_map);
 	return (1);
 }

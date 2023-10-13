@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/13 10:56:47 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 10:59:56 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,11 @@ int		check_chr_map(char **maps);
 int		check_walls(t_map *map);
 int		locate_player_x(char **maps);
 int		locate_player_y(char **maps);
+char	**dup_maps(char **maps);
+int		complete_map(char **temp_maps);
 t_map	check_inside(int file_fd, t_map map);
 void	fill_map(int i_am, char *buffer, t_map *map, int file_fd);
 int		what_is_it(char *str, t_map *map);
-
 //////EXEC//////
 
 //////MLX//////

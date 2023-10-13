@@ -28,7 +28,11 @@ LST_SRCS	:=	check_map.c \
 				ft_move.c \
 				ray_utils.c \
 				ft_exit.c \
+<<<<<<< HEAD
 				read_file.c \
+=======
+				check_walls.c
+>>>>>>> eb353bd305eff9117c1b74ccdbc95d93062517e4
 
 LST_OBJS	:= $(LST_SRCS:.c=.o)
 LST_INCS	:= cub3d.h
