@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/12 16:47:32 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 10:07:29 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdlib.h>
 #include <unistd.h>
 
 static void		check_format(char *map, int file_fd);
@@ -135,26 +136,30 @@ static int	what_is_it(char *str, t_map *map)
 	}
 	return (result);
 }
+
 int	ft_atoi_rgb(char *str, int i)
 {
 	char	tmp[4];
 	int		rtn;
 
-	while (str && str[i] && str[i] == '0' && str[i+1] && str[i+1] != '\n')
+	while (str && str[i] && str[i] == '0' && str[i + 1] && str[i + 1] != '\n')
 		i++;
-	if ((int)ft_strlen(str) >= i + 1 && (str[i + 1] == ',' || str[i + 1]  == ' ' || str[i + 1] == '\n'))
+	if ((int)ft_strlen(str) >= i + 1 && (str[i + 1]
+			== ',' || str[i + 1] == ' ' || str[i + 1] == '\n'))
 	{
 		tmp[0] = '0';
 		tmp[1] = '0';
 		tmp[2] = str[i];
 	}
-	else if ((int)ft_strlen(str) >= i + 2 && (str[i + 2] == ',' || str[i + 2]  == ' ' || str[i + 2] == '\n'))
+	else if ((int)ft_strlen(str) >= i + 2 && (str[i + 2]
+			== ',' || str[i + 2] == ' ' || str[i + 2] == '\n'))
 	{
 		tmp[0] = '0';
 		tmp[1] = str[i];
 		tmp[2] = str[i + 1];
 	}
-	else if ((int)ft_strlen(str) >= i + 3 && (str[i + 3]  == ',' || str[i + 3]  == ' ' || str[i + 3] == '\n'))
+	else if ((int)ft_strlen(str) >= i + 3 && (str[i + 3]
+			== ',' || str[i + 3] == ' ' || str[i + 3] == '\n'))
 	{
 		tmp[0] = str[i];
 		tmp[1] = str[i + 1];
@@ -283,41 +288,41 @@ static void	fill_map(int i_am, char *buffer, t_map *map, int file_fd)
 	nfree((void **)&tmp);
 }
 
-static t_map	check_inside(int file_fd, t_map map)
+void	read_params(char **buffer, t_map *map, int file_fd)
 {
-	char	**maps;
-	char	*buffer;
-	int		i_am;
-	int		count;
+	int	i_am;
+	int	count;
 
 	count = 0;
-	//start of a fnc
 	while (1)
 	{
-		buffer = get_next_line(file_fd);
-		if (!buffer || buffer[0] == '\0')
+		*buffer = get_next_line(file_fd);
+		if (!*buffer || (*buffer)[0] == '\0')
 			break ;
-		i_am = what_is_it(buffer, &map);
+		i_am = what_is_it(*buffer, map);
 		if (i_am < 0)
 		{
-			while (buffer)
-			{
-				nfree((void **)&buffer);
-				buffer = get_next_line(file_fd);
-			}
+			free(*buffer);
 			(void)close(file_fd);
-			end_of_prog(map, "Error\nIncorrect line in the map\n");
+			end_of_prog(*map, "Error\nIncorrect line in the map\n");
 		}
 		else if (i_am > 0)
 		{
 			count++;
-			fill_map(i_am, buffer, &map, file_fd);
+			fill_map(i_am, *buffer, map, file_fd);
 		}
-		nfree((void **)&buffer);
+		nfree((void **)buffer);
 		if (count >= 6)
 			break ;
 	}
-	//end of a fnc
+}
+
+static t_map	check_inside(int file_fd, t_map map)
+{
+	char	**maps;
+	char	*buffer;
+
+	read_params(&buffer, &map, file_fd);
 	while (1)
 	{
 		buffer = get_next_line(file_fd);
@@ -362,12 +367,12 @@ static t_map	check_inside(int file_fd, t_map map)
 	//end of fnc
 	maps = add_tab(maps, ft_strnew(1));
 	if (!maps)
-		end_of_prog(map,"Error\nMalloc error\n");
+		end_of_prog(map, "Error\nMalloc error\n");
 	if (!check_chr_map(maps))
-		end_of_prog(map,"Error\nIncorrect map\n");
+		end_of_prog(map, "Error\nIncorrect map\n");
 	map.map = maps;
 	if (!check_walls(&map))
-		end_of_prog(map,"Error\nIncorrect map\n");
+		end_of_prog(map, "Error\nIncorrect map\n");
 	(void)close(file_fd);
 	return (map);
 }
