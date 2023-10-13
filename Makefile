@@ -32,6 +32,7 @@ LST_SRCS	:=	check_map.c \
 				check_walls.c \
 				detect_params.c \
 				fill_map.c \
+				rgb.c \
 
 LST_OBJS	:= $(LST_SRCS:.c=.o)
 LST_INCS	:= cub3d.h
