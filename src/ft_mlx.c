@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:59:36 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/13 10:18:50 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 10:22:30 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,3 @@ void	init_game(t_mlx *mlx, t_map map)
 	mlx_loop_hook(mlx->mlx_init_ptr, refresh_img, mlx);
 	mlx_loop(mlx->mlx_init_ptr);
 }
-

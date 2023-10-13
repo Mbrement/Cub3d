@@ -26,7 +26,8 @@ LST_SRCS	:=	check_map.c \
 				draw.c \
 				put_img_in_wall.c \
 				ft_move.c \
-				ray_utils.c
+				ray_utils.c \
+				ft_exit.c
 
 LST_OBJS	:= $(LST_SRCS:.c=.o)
 LST_INCS	:= cub3d.h
