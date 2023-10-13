@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:09:09 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/12 17:19:00 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 10:20:42 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,27 @@ void	ft_get_color(t_mlx *mlx, t_ray ray, double x, double y)
 	}
 }
 
+void	ray_find_dst(t_ray *ray, t_mlx *mlx)
+{
+	while (ray->hit == 0)
+	{
+		if (ray->sidedistx < ray->sidedisty)
+		{
+			ray->sidedistx += ray->deltadistx;
+			ray->pos_x += ray->stepx;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->sidedisty += ray->deltadisty;
+			ray->pos_y += ray->stepy;
+			ray->side = 1;
+		}
+		if (!is_valid_move(mlx, ray->pos_x, ray->pos_y))
+			ray->hit = 1;
+	}
+}
+
 void	ft_ray(t_mlx *mlx)
 {
 	t_ray	ray;
@@ -79,62 +100,13 @@ void	ft_ray(t_mlx *mlx)
 	double	offset_x;
 	double	offset_y;
 
-	offset_x = mlx->player->pos_x - (int)mlx->player->pos_x;
-	offset_y = mlx->player->pos_y - (int)mlx->player->pos_y;
-	ft_prep_floor(mlx);
-	angle_radiants = mlx->player->look * M_PI / 180.;
-	ray.dirx = cos(angle_radiants);
-	ray.diry = sin(angle_radiants);
-	ray.planx = -ray.diry;
-	ray.plany = ray.dirx;
+	angle_radiants = init_ray(&ray, &offset_x, &offset_y, mlx);
 	i = -1;
 	while (++i < WIN_W)
 	{
-		ray.pos_x = (int)mlx->player->pos_x;
-		ray.pos_y = (int)mlx->player->pos_y;
-		ray.camerax = 2 * i / (double)WIN_W - 1;
-		ray.raydirx = ray.dirx + (ray.planx * ray.camerax);
-		ray.raydiry = ray.diry + ray.plany * ray.camerax;
-		ray.deltadistx = fabs(1 / ray.raydirx);
-		ray.deltadisty = fabs(1 / ray.raydiry);
-		ray.hit = 0;
-		if (ray.raydirx < 0)
-		{
-			ray.sidedistx = offset_x * ray.deltadistx;
-			ray.stepx = -1;
-		}
-		else
-		{
-			ray.sidedistx = (1. - offset_x) * ray.deltadistx;
-			ray.stepx = 1;
-		}
-		if (ray.raydiry < 0)
-		{
-			ray.sidedisty = offset_y * ray.deltadisty;
-			ray.stepy = -1;
-		}
-		else
-		{
-			ray.sidedisty = (1. - offset_y) * ray.deltadisty;
-			ray.stepy = 1;
-		}
-		while (ray.hit == 0)
-		{
-			if (ray.sidedistx < ray.sidedisty)
-			{
-				ray.sidedistx += ray.deltadistx;
-				ray.pos_x += ray.stepx;
-				ray.side = 0;
-			}
-			else
-			{
-				ray.sidedisty += ray.deltadisty;
-				ray.pos_y += ray.stepy;
-				ray.side = 1;
-			}
-			if (!is_valid_move(mlx, ray.pos_x, ray.pos_y))
-				ray.hit = 1;
-		}
+		reset_ray(mlx, &ray, i);
+		set_dist(&ray, offset_x, offset_y);
+		ray_find_dst(&ray, mlx);
 		if (ray.side == 0)
 			ray.perpwalldist = ray.sidedistx - ray.deltadistx;
 		else
