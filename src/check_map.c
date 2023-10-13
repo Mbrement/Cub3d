@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:52:33 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/13 10:56:14 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 11:33:37 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,93 +47,6 @@ static void	check_format(char *map, int file_fd)
 		close(file_fd);
 		exit(1);
 	}
-}
-
-int	what_is_it(char *str, t_map *map)
-{
-	int	i;
-	int	result;
-
-	i = 0;
-	result = 0;
-	while (str && str[i])
-	{
-		if (str[i] == ' ' || str[i] == '\n')
-			;
-		else if (str[i] == 'N' && str[i + 1] && str[i + 1] == 'O')
-		{
-			result = 1;
-			map->north_found += 1;
-			if (map->north_found != 1)
-			{
-				printf("2 of the same parameter in map\n");
-				result = -1;
-			}
-			break ;
-		}
-		else if (str[i] == 'S' && str[i + 1] && str[i + 1] == 'O')
-		{
-			map->south_found += 1;
-			result = 2;
-			if (map->south_found != 1)
-			{
-				printf("2 of the same parameter in map\n");
-				result = -1;
-			}
-			break ;
-		}
-		else if (str[i] == 'W' && str[i + 1] && str[i + 1] == 'E')
-		{
-			map->west_found += 1;
-			result = 3;
-			if (map->west_found != 1)
-			{
-				printf("2 of the same parameter in map\n");
-				result = -1;
-			}
-			break ;
-		}
-		else if (str[i] == 'E' && str[i + 1] && str[i + 1] == 'A')
-		{
-			result = 4;
-			map->east_found += 1;
-			if (map->east_found != 1)
-			{
-				printf("2 of the same parameter in map\n");
-				result = -1;
-			}
-			break ;
-		}
-		else if (str[i] == 'C')
-		{
-			map->celing_found += 1;
-			result = 5;
-			if (map->celing_found != 1)
-			{
-				printf("2 of the same parameter in map\n");
-				result = -1;
-			}
-			break ;
-		}
-		else if (str[i] == 'F')
-		{
-			result = 6;
-			map->floor_found += 1;
-			if (map->floor_found != 1)
-			{
-				printf("2 of the same parameter in map\n");
-				result = -1;
-			}
-			break ;
-		}
-		else
-		{
-			result = -1;
-			break ;
-		}
-		i++;
-	}
-	return (result);
 }
 
 int	ft_atoi_rgb(char *str, int i)

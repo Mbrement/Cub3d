@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 10:49:54 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/13 10:56:56 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 11:04:30 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ char	**line_on_map(char **maps, int file_fd, t_map map, char *buffer)
 		maps = add_tab(maps, buffer);
 		if (!maps)
 		{
-
 			close(file_fd);
 			end_of_prog(map, "Error\nMalloc error\n");
 		}
