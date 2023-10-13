@@ -3,53 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:29:17 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/13 12:31:43 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 13:58:11 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-
-void	fill_map(int i_am, char *buffer, t_map *map, int file_fd)
+static	void	is_wall(t_map *map, int i_am, char *str)
 {
-	int		i;
-	char	*str;
-	char	*tmp;
-	Bool	error;
-
-	i = -1;
-	error = 0;
-	while (buffer[++i] == ' ')
-		;
-	i += 2;
-	while (buffer[++i] == ' ')
-		;
-	str = ft_strdup(buffer + i);
-	if (!str)
-	{
-		nfree((void **)&buffer);
-		end_of_prog(*map, "Error\nMalloc error\n");
-	}
-	if (str[ft_strlen(str) - 1] == '\n')
-		str[ft_strlen(str) - 1] = '\0';
-	tmp = ft_strjoin("./", str);
-	if (!tmp)
-	{
-		nfree((void **)&str);
-		nfree((void **)&buffer);
-		end_of_prog(*map, "Error\nMalloc error\n");
-	}
-	if (i_am == 5)
-		rgb(buffer + 1, map, 1);
-	else if (i_am == 6)
-		rgb(buffer + 1, map, 2);
-	else if (ft_strlen(str) < 4 || ft_strcmp(str + \
-			ft_strlen(str) - 4, ".xpm") != 0)
-		error = 1;
-	else if (i_am == 1 && map->north <= 0)
+	if (i_am == 1 && map->north <= 0)
 	{
 		map->north_file = ft_strdup(str);
 		if (map->north_file)
@@ -73,16 +38,67 @@ void	fill_map(int i_am, char *buffer, t_map *map, int file_fd)
 		if (map->east_file)
 			map->east = open(map->east_file, R_OK);
 	}
+}
+
+void	fill_map_err( char *buffer, t_map *map, char	*str, char	*tmp)
+{
+	nfree((void **)&buffer);
+	nfree((void **)&str);
+	nfree((void **)&tmp);
+	end_of_prog(*map, "Error\nWrong format file\n");
+}
+
+void	fill_i_am(int i_am, char *buffer, t_map *map, char	*str)
+{
+	if (i_am == 5 || i_am == 6)
+		rgb(buffer + 1, map, i_am - 4);
+	else if (ft_strlen(str) < 4 || ft_strcmp(str + \
+			ft_strlen(str) - 4, ".xpm") != 0)
+		map->error = 1;
+	else if (i_am >= 1 && i_am <= 4 && (map->north <= 0 || \
+		map->south <= 0 || map->west <= 0 || map->east <= 0))
+		is_wall(map, i_am, str);
 	else
 		map->error = 1;
-	if (error == 1 || (!map->north || !map->south || !map->west \
-			|| !map->east))
+}
+
+int	fill_map_start(char *buffer)
+{
+	int	i;
+
+	i = -1;
+	while (buffer[++i] == ' ')
+		;
+	i += 2;
+	while (buffer[++i] == ' ')
+		;
+	return (i);
+}
+
+void	fill_map(int i_am, char *buffer, t_map *map, int file_fd)
+{
+	int		i;
+	char	*str;
+	char	*tmp;
+
+	i = fill_map_start(buffer);
+	str = ft_strdup(buffer + i);
+	if (!str)
 	{
 		nfree((void **)&buffer);
-		nfree((void **)&str);
-		nfree((void **)&tmp);
+		end_of_prog(*map, "Error\nMalloc error\n");
+	}
+	if (str[ft_strlen(str) - 1] == '\n')
+		str[ft_strlen(str) - 1] = '\0';
+	tmp = ft_strjoin("./", str);
+	if (!tmp)
+		fill_map_err(buffer, map, str, tmp);
+	fill_i_am(i_am, buffer, map, str);
+	if (map->error == 1 || (!map->north || !map->south || \
+		!map->west || !map->east))
+	{
 		close(file_fd);
-		end_of_prog(*map, "Error\nWrong format file\n");
+		fill_map_err(buffer, map, str, tmp);
 	}
 	nfree((void **)&str);
 	nfree((void **)&tmp);

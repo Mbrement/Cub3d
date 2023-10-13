@@ -18,20 +18,14 @@ int	n_s_detection(char *str, int i, t_map *map)
 	{
 		map->north_found += 1;
 		if (map->north_found != 1)
-		{
-			printf("2 of the same parameter in map\n");
 			return (-1);
-		}
 		return (1);
 	}
 	else if (str[i] == 'S' && str[i + 1] && str[i + 1] == 'O')
 	{
 		map->south_found += 1;
 		if (map->south_found != 1)
-		{
-			printf("2 of the same parameter in map\n");
 			return (-1);
-		}
 		return (2);
 	}
 	return (-1);
@@ -43,20 +37,14 @@ int	w_e_detection(char *str, int i, t_map *map)
 	{
 		map->west_found += 1;
 		if (map->west_found != 1)
-		{
-			printf("2 of the same parameter in map\n");
 			return (-1);
-		}
 		return (3);
 	}
 	else if (str[i] == 'E' && str[i + 1] && str[i + 1] == 'A')
 	{
 		map->east_found += 1;
 		if (map->east_found != 1)
-		{
-			printf("2 of the same parameter in map\n");
 			return (-1);
-		}
 		return (4);
 	}
 	return (-1);
@@ -68,20 +56,14 @@ int	c_f_detection(char *str, int i, t_map *map)
 	{
 		map->celing_found += 1;
 		if (map->celing_found != 1)
-		{
-			printf("2 of the same parameter in map\n");
 			return (-1);
-		}
 		return (5);
 	}
 	else if (str[i] == 'F')
 	{
 		map->floor_found += 1;
 		if (map->floor_found != 1)
-		{
-			printf("2 of the same parameter in map\n");
 			return (-1);
-		}
 		return (6);
 	}
 	return (-1);
