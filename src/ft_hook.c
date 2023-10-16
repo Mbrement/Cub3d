@@ -6,7 +6,7 @@
 /*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 21:04:32 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/13 13:13:34 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/16 10:33:14 by ngennaro         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	handle_mouse(int x, int y, t_mlx *mlx)
 	static int	midle_win_w = WIN_W * 0.5;
 	static int	midle_win_h = WIN_H * 0.5;
 
-	move = (int)((x - (int)(midle_win_w)) * 0.005);
+	move = (int)((x - (int)(midle_win_w)) * 0.05);
 	if (move == 0)
 		return (0);
 	mlx->player->look += move;
