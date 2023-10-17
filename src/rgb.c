@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:49:18 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/17 11:01:19 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 11:52:25 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ static void	rgb_other_case(char *str, int i, char tmp[4])
 		tmp[2] = str[i + 1];
 	}
 	else
-	{
-		tmp[0] = '-';
-		tmp[1] = '1';
-		tmp[2] = '0';
-	}
+		ft_strlcpy(tmp, "-10", 3);
 }
 
 int	ft_atoi_rgb(char *str, int i)
