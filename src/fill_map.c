@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:29:17 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/13 13:58:11 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 10:06:20 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	fill_map(int i_am, char *buffer, t_map *map, int file_fd)
 	tmp = ft_strjoin("./", str);
 	if (!tmp)
 		fill_map_err(buffer, map, str, tmp);
+	nfree((void **)&tmp);
 	fill_i_am(i_am, buffer, map, str);
 	if (map->error == 1 || (!map->north || !map->south || \
 		!map->west || !map->east))
@@ -101,5 +102,4 @@ void	fill_map(int i_am, char *buffer, t_map *map, int file_fd)
 		fill_map_err(buffer, map, str, tmp);
 	}
 	nfree((void **)&str);
-	nfree((void **)&tmp);
 }

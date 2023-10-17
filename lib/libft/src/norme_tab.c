@@ -85,4 +85,3 @@ char	**norme_tab(char **tab)
 	}
 	return (tab);
 }
-

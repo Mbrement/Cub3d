@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 12:16:44 by mbrement          #+#    #+#             */
-/*   Updated: 2023/04/26 16:36:44 by ngennaro         ###   ########.fr       */
+/*   Updated: 2023/10/17 09:45:18 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*ft_exept_itoa(int n)
 }
 
 char	*ft_itoa(int n)
-{	
+{
 	int		i;
 	int		j;
 	char	*str;

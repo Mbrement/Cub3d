@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:11:58 by mbrement          #+#    #+#             */
-/*   Updated: 2023/10/13 12:32:13 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 10:03:15 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,6 @@ int		ft_move(t_mlx *mlx);
 int		handle_mouse(int x, int y, t_mlx *mlx);
 void	put_player(t_mlx mlx, t_player player, int color);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, unsigned int color);
-void	map_img(t_mlx *mlx, t_map map);
 void	ft_ray(t_mlx *mlx);
 double	init_ray(t_ray *ray, double *offset_x, double *offset_y, t_mlx *mlx);
 void	reset_ray(t_mlx *mlx, t_ray *ray, int i);
@@ -179,11 +178,9 @@ void	ft_prep_floor(t_mlx *mlx);
 t_wall	*put_img_in_wall(t_map map, t_mlx *mlx);
 
 //////MATH//////
-void	bresenham_cub(t_mlx mlx, double dest_x, double dest_y, int color);
 int		is_valid_move_y(t_mlx *mlx, double new_y);
 int		is_valid_move_x(t_mlx *mlx, double new_x);
 int		is_valid_move(t_mlx *mlx, double new_x, double new_y);
-void	road_to_wall(t_mlx *mlx, int y, int x, double angle);
 
 //////TOOLS//////
 void	end_of_prog(t_map map, char *err_msg);
@@ -191,8 +188,6 @@ void	end_of_prog_mlx(t_mlx *mlx);
 int		ft_exit(int i, t_mlx *mlx);
 void	data_wall(t_wall *wall, t_mlx *mlx);
 int		nbr_of_key(t_mlx *mlx);
-
-///TMP A DELETE///
 char	*get_next_line(int fd);
 
 #endif

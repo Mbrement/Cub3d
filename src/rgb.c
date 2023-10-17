@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:49:18 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/13 12:54:25 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 11:01:19 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ static void	rgb_other_case(char *str, int i, char tmp[4])
 		tmp[0] = str[i];
 		tmp[1] = str[i + 1];
 		tmp[2] = str[i + 2];
+	}
+	else if ((str[i] == ' ' || str[i] == ','))
+	{
+		tmp[0] = str[i - 1];
+		tmp[1] = str[i];
+		tmp[2] = str[i + 1];
 	}
 	else
 	{
@@ -59,7 +65,7 @@ int	ft_atoi_rgb(char *str, int i)
 	return (rtn);
 }
 
-void	format_rgb(char *str, int *i, int index, t_map *map)
+int	format_rgb(char *str, int *i, int index, t_map *map)
 {
 	int	tmp;
 	int	j;
@@ -70,10 +76,9 @@ void	format_rgb(char *str, int *i, int index, t_map *map)
 		tmp = -1;
 		while (str[*i] && (str[*i] == ' ' || str[*i] == ','))
 			*i = *i + 1;
-		if (ft_isdigit(str[*i]))
+		if (j++ < 2 && ft_isdigit(str[*i]))
 		{
 			tmp = ft_atoi_rgb(str, *i);
-			j++;
 			while (ft_isdigit(str[*i]))
 				*i = *i + 1;
 		}
@@ -86,6 +91,7 @@ void	format_rgb(char *str, int *i, int index, t_map *map)
 		while (str[*i] && (str[*i] != ' ' && str[*i] != ','))
 			*i = *i + 1;
 	}
+	return (j);
 }
 
 void	rgb(char *str, t_map *map, int index)
@@ -93,7 +99,8 @@ void	rgb(char *str, t_map *map, int index)
 	int	i;
 
 	i = 0;
-	format_rgb(str, &i, index, map);
+	if (format_rgb(str, &i, index, map) != 2)
+		map->error = 1;
 	while (str[i] && str[i] == ' ')
 		i++;
 	if (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\0')
