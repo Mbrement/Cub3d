@@ -6,7 +6,7 @@
 /*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:29:17 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/17 10:06:20 by mbrement         ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 11:37:45 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,15 @@ int	fill_map_start(char *buffer)
 	i = -1;
 	while (buffer[++i] == ' ')
 		;
-	i += 2;
-	while (buffer[++i] == ' ')
-		;
+	if (buffer[i] == 'F' || buffer[i] == 'C')
+		i++;
+	else if ((buffer[i] == 'W' && buffer[i + 1] == 'E' )
+		|| (buffer[i] == 'N' && buffer[i + 1] == 'O')
+		|| (buffer[i] == 'S' && buffer[i + 1] == 'O')
+		|| (buffer[i] == 'E' && buffer[i + 1] == 'A'))
+		i += 2;
+	while (buffer[i] == ' ')
+		i++;
 	return (i);
 }
 

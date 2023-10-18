@@ -3,7 +3,7 @@ SO ./img/bny_pool.xpm
 WE ./img/dungeon1.xpm
 EA ./img/dungeon2.xpm
 
-C 0, 0000255
+C 0,0,255
 F 0,128, 0
 
 1111111111111111111111111

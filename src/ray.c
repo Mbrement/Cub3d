@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ngennaro <ngennaro@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mbrement <mbrement@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:09:09 by ngennaro          #+#    #+#             */
-/*   Updated: 2023/10/13 10:34:56 by ngennaro         ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 11:17:31 by mbrement         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,16 @@ int	refresh_img(t_mlx *mlx)
 {
 	ft_move(mlx);
 	mlx->data->img = mlx_new_image(mlx->mlx_init_ptr, WIN_W, WIN_H);
+	if (!mlx->data->img)
+		end_of_prog_mlx(mlx);
 	mlx->data->addr = mlx_get_data_addr(mlx->data->img,
 			&mlx->data->bits_per_pixel, &mlx->data->line_length,
 			&mlx->data->endian);
+	if (!mlx->data->addr)
+	{
+		mlx_destroy_image(mlx->mlx_init_ptr, mlx->data->img);
+		end_of_prog_mlx(mlx);
+	}
 	ft_ray (mlx);
 	mlx_put_image_to_window(mlx->mlx_init_ptr,
 		mlx->mlx_win_ptr, mlx->data->img, 0, 0);
