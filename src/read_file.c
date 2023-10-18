@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 void	read_params(char **buffer, t_map *map, int file_fd)
 {
@@ -70,6 +72,13 @@ char	**line_on_map(char **maps, int file_fd, t_map map, char *buffer)
 		buffer = get_next_line(file_fd);
 		if (!buffer)
 			break ;
+		if (buffer[0] == '\n')
+		{
+			close(file_fd);
+			free(buffer);
+			free_tab(maps);
+			end_of_prog(map, "Error\nEmpty line in map\n");
+		}
 		maps = add_tab(maps, buffer);
 		if (!maps)
 		{
