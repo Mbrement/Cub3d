@@ -97,7 +97,6 @@ void	init_game(t_mlx *mlx, t_map map)
 	player->pos_x = locate_player_x(map.map) + 0.5;
 	player->pos_y = locate_player_y(map.map) + 0.5;
 	mlx_hook(mlx->mlx_win_ptr, 17, 1L << 1, (void *)end_of_prog_mlx, mlx);
-	mlx_do_key_autorepeatoff(mlx->mlx_init_ptr);
 	mlx_hook(mlx->mlx_win_ptr, 2, 1L << 0, key_pressed, mlx);
 	mlx_hook(mlx->mlx_win_ptr, 3, 1L << 1, key_released, mlx);
 	mlx_mouse_move(mlx->mlx_init_ptr, mlx->mlx_win_ptr, WIN_W / 2, WIN_H / 2);
